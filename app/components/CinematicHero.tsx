@@ -130,13 +130,12 @@ export default function CinematicHero() {
     <section
       className="relative mx-auto overflow-hidden"
       style={{
-        height: '80vh',
-        minHeight: '460px',
-        maxHeight: '720px',
-        width: '98%',
-        marginTop: '12px',
-        borderRadius: '24px',
-        boxShadow: '0 12px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)',
+        height: 'calc(100vh - 85px)',
+        minHeight: '600px',
+        width: '100%',
+        marginTop: '0',
+        borderRadius: '0',
+        boxShadow: '0 12px 48px rgba(0,0,0,0.18)',
       }}
     >
       {/* ── Scene layers ── */}
