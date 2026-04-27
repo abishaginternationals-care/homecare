@@ -96,6 +96,7 @@ export default function Blog() {
   }, []);
 
   const openPost = (post: any) => {
+    console.log("Opening post:", post.title);
     setSelectedPost(post);
     setIsModalVisible(true);
     document.body.style.overflow = 'hidden'; // Prevent scrolling
@@ -352,21 +353,39 @@ export default function Blog() {
                     <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.78rem', color: '#8C7B6E' }}>
                       {post.date} · {post.readTime}
                     </div>
-                    <span
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openPost(post);
+                      }}
                       style={{
+                        background: 'none',
+                        border: 'none',
                         fontFamily: "'Nunito', sans-serif",
                         fontWeight: 800,
                         fontSize: '0.8rem',
                         color: post.color,
                         letterSpacing: '0.04em',
-                        transition: 'letter-spacing 0.2s',
+                        transition: 'all 0.2s',
                         cursor: 'pointer',
+                        padding: '4px 8px',
+                        marginRight: '-8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.04em'; }}
+                      onMouseEnter={e => { 
+                        (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateX(4px)';
+                      }}
+                      onMouseLeave={e => { 
+                        (e.currentTarget as HTMLElement).style.letterSpacing = '0.04em';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateX(0)';
+                      }}
+                      aria-label={`Read more about ${post.title}`}
                     >
                       Read More →
-                    </span>
+                    </button>
                   </div>
                 </div>
               </div>
