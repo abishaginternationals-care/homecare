@@ -10,7 +10,6 @@ import Link from 'next/link';
 
 import Card3D from './components/Card3D';
 import MagneticButton from './components/MagneticButton';
-import StatsCounter from './components/StatsCounter';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function Home() {
@@ -300,8 +299,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── STATS COUNTER ── */}
-      <StatsCounter />
+
 
       {/* ── SERVICES PREVIEW ── */}
       <section className="py-24 md:py-32" style={{ background: '#F4F1ED' }}>
