@@ -1,10 +1,32 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import CinematicHero from './components/CinematicHero';
 import IntroAnimation from './components/IntroAnimation';
 import { getReviews, addReview, type Review } from './actions';
 import { UserCheck, ClipboardCheck, ShieldCheck, HeartHandshake } from 'lucide-react';
+
+// ── Scroll-reveal hook ──
+function useScrollReveal() {
+  const observer = useRef<IntersectionObserver | null>(null);
+  const init = useCallback(() => {
+    observer.current = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.current?.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+      .forEach(el => observer.current?.observe(el));
+  }, []);
+  useEffect(() => {
+    init();
+    return () => observer.current?.disconnect();
+  }, [init]);
+}
 
 export default function Home() {
   // ── Intro animation state ──
@@ -153,6 +175,9 @@ export default function Home() {
     },
   ];
 
+  // Init scroll reveal after intro done
+  useScrollReveal();
+
   return (
     <div style={{ background: '#F4F1ED' }}>
 
@@ -175,16 +200,30 @@ export default function Home() {
           }}
         >
           {/* Left Column: Image */}
-          <div style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(61,26,10,0.12)', height: '100%' }}>
+          <div className="reveal-left" style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(61,26,10,0.12)', height: '100%', position: 'relative' }}>
             <img 
               src="/images/welcome_caregiver_new.png" 
               alt="Compassionate elderly care" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: '400px', display: 'block' }} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: '400px', display: 'block', transition: 'transform 0.6s ease' }}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.03)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
             />
+            {/* Floating badge */}
+            <div className="float-anim" style={{
+              position: 'absolute', bottom: '28px', left: '28px',
+              background: 'rgba(255,255,255,0.95)',
+              borderRadius: '14px',
+              padding: '12px 20px',
+              boxShadow: '0 8px 24px rgba(61,26,10,0.15)',
+              display: 'flex', alignItems: 'center', gap: '10px',
+            }}>
+              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#6AB04C', boxShadow: '0 0 8px rgba(106,176,76,0.7)' }} />
+              <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.8rem', fontWeight: 700, color: '#3D1A0A' }}>Trusted Home Care</span>
+            </div>
           </div>
 
           {/* Right Column: Text & Buttons */}
-          <div className="flex flex-col justify-center text-left">
+          <div className="reveal-right flex flex-col justify-center text-left">
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -281,8 +320,8 @@ export default function Home() {
       {/* ── SERVICES PREVIEW ── */}
       <section className="py-16 md:py-20" style={{ background: '#F4F1ED' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-
+          <div className="reveal text-center mb-14">
+            <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '10px' }}>What We Offer</p>
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -300,6 +339,7 @@ export default function Home() {
               <a
                 key={svc.id}
                 href="/services"
+                className="reveal"
                 style={{
                   background: '#ffffff',
                   borderRadius: '18px',
@@ -307,19 +347,19 @@ export default function Home() {
                   borderTop: '5px solid #6AB04C',
                   boxShadow: '0 4px 22px rgba(61,26,10,0.07)',
                   cursor: 'pointer',
-                  transition: 'transform 0.35s ease, box-shadow 0.35s ease',
+                  transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease, opacity 0.75s ease, translateY 0.75s ease',
+                  transitionDelay: `${index * 0.07}s`,
                   display: 'block',
                   textDecoration: 'none',
-                  animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget;
-                  el.style.transform = 'translateY(-7px)';
-                  el.style.boxShadow = '0 18px 44px rgba(61,26,10,0.13)';
+                  el.style.transform = 'translateY(-9px) scale(1.01)';
+                  el.style.boxShadow = '0 24px 52px rgba(61,26,10,0.16)';
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget;
-                  el.style.transform = 'translateY(0)';
+                  el.style.transform = 'translateY(0) scale(1)';
                   el.style.boxShadow = '0 4px 22px rgba(61,26,10,0.07)';
                 }}
               >
@@ -406,8 +446,8 @@ export default function Home() {
       {/* ── FEATURES ── */}
       <section className="py-16 md:py-24" style={{ background: '#F4F1ED' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-
+          <div className="reveal text-center mb-14">
+            <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '10px' }}>Our Promise</p>
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -423,18 +463,19 @@ export default function Home() {
             {whyUs.map(({ title, desc, icon }, index) => (
               <div
                 key={index}
-                className="p-6 md:p-8"
+                className="reveal p-6 md:p-8"
                 style={{
                   background: '#ffffff', borderRadius: '16px',
                   borderTop: '5px solid #6AB04C',
                   boxShadow: '0 4px 18px rgba(61,26,10,0.06)',
                   display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, opacity 0.75s ease',
+                  transitionDelay: `${index * 0.09}s`,
                   cursor: 'pointer',
                   height: '100%',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(61,26,10,0.12)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 18px rgba(61,26,10,0.06)'; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px) scale(1.015)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(61,26,10,0.14)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = '0 4px 18px rgba(61,26,10,0.06)'; }}
               >
                 <div style={{ background: '#EAF5E0', padding: '14px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '4px' }}>
                   {icon}
@@ -669,9 +710,29 @@ export default function Home() {
           overflow: 'hidden',
         }}
       >
-        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.09 }}>
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+        {/* Floating animated orbs */}
+        <div className="absolute inset-0 pointer-events-none" style={{ overflow: 'hidden' }}>
+          <div className="float-anim" style={{
+            position: 'absolute', top: '-60px', left: '-60px',
+            width: '360px', height: '360px', borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+            animationDuration: '5s',
+          }} />
+          <div className="float-slow" style={{
+            position: 'absolute', bottom: '-80px', right: '-80px',
+            width: '420px', height: '420px', borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(106,176,76,0.12) 0%, transparent 70%)',
+            filter: 'blur(24px)',
+            animationDuration: '7s',
+          }} />
+          <div className="float-anim" style={{
+            position: 'absolute', top: '30%', right: '20%',
+            width: '200px', height: '200px', borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(74,190,214,0.08) 0%, transparent 70%)',
+            filter: 'blur(16px)',
+            animationDuration: '4s', animationDelay: '1s',
+          }} />
         </div>
         <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <h2

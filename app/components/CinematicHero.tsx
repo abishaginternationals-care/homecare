@@ -9,7 +9,6 @@ const SCENES = [
     title: 'Compassionate Home Care',
     subtitle: 'Helping our elders walk through life with dignity',
     kenBurns: 'zoom-in-right',
-    // square image — focus on center-top where subjects stand
     pos: 'center 20%',
   },
   {
@@ -49,16 +48,48 @@ const SCENES = [
   },
 ];
 
-const SCENE_DURATION = 4500;
-const TRANSITION_DURATION = 900;   // shorter cross-fade
-const CAPTION_FADE_MS    = 350;    // fast caption fade-in/out
+const SCENE_DURATION    = 4500;
+const TRANSITION_DURATION = 900;
+const CAPTION_FADE_MS   = 350;
 
 export default function CinematicHero() {
-  const [current, setCurrent] = useState(0);
-  const [next, setNext] = useState<number | null>(null);
-  // caption is visible from the very first render
+  const [current, setCurrent]           = useState(0);
+  const [next, setNext]                 = useState<number | null>(null);
   const [captionVisible, setCaptionVisible] = useState(true);
+  const [progress, setProgress]         = useState(0);
+  const [titleWords, setTitleWords]     = useState<string[]>([]);
+  const [wordVisible, setWordVisible]   = useState<boolean[]>([]);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Split title into words for staggered animation
+  useEffect(() => {
+    const words = SCENES[current].title.split(' ');
+    setTitleWords(words);
+    setWordVisible(Array(words.length).fill(false));
+    // Stagger each word in
+    words.forEach((_, i) => {
+      setTimeout(() => {
+        setWordVisible(prev => {
+          const next = [...prev];
+          next[i] = true;
+          return next;
+        });
+      }, i * 140 + 60);
+    });
+  }, [current]);
+
+  const startProgressBar = () => {
+    setProgress(0);
+    if (progressRef.current) clearInterval(progressRef.current);
+    const step = 100 / (SCENE_DURATION / 40);
+    progressRef.current = setInterval(() => {
+      setProgress(p => {
+        if (p >= 100) { if (progressRef.current) clearInterval(progressRef.current); return 100; }
+        return p + step;
+      });
+    }, 40);
+  };
 
   const startCycle = (from: number) => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -69,17 +100,17 @@ export default function CinematicHero() {
       // 1. Fade caption out quickly
       setCaptionVisible(false);
 
-      // 2. Start cross-fade to next image after caption is hidden
+      // 2. Start cross-fade to next image
       setTimeout(() => {
         setNext(nextIdx);
       }, CAPTION_FADE_MS + 50);
 
-      // 3. Swap current, clear next, show caption immediately
+      // 3. Swap current, clear next, show caption
       setTimeout(() => {
         setCurrent(nextIdx);
         setNext(null);
-        // small stagger so caption appears right as the new slide settles
         setTimeout(() => setCaptionVisible(true), 80);
+        startProgressBar();
         startCycle(nextIdx);
       }, TRANSITION_DURATION);
     }, SCENE_DURATION);
@@ -87,8 +118,10 @@ export default function CinematicHero() {
 
   useEffect(() => {
     startCycle(current);
+    startProgressBar();
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -103,7 +136,7 @@ export default function CinematicHero() {
         width: '98%',
         marginTop: '12px',
         borderRadius: '24px',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+        boxShadow: '0 12px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)',
       }}
     >
       {/* ── Scene layers ── */}
@@ -132,11 +165,6 @@ export default function CinematicHero() {
                 animationDuration: `${SCENE_DURATION + TRANSITION_DURATION}ms`,
               }}
             >
-              {/*
-               * objectFit:'cover' fills 100% width with NO side bars.
-               * objectPosition focuses on the upper-center of each square
-               * image where the subjects are, so minimal cropping of faces.
-               */}
               <Image
                 src={scene.src}
                 alt={scene.title}
@@ -153,82 +181,158 @@ export default function CinematicHero() {
         );
       })}
 
-      {/* ── Gradient overlays ── */}
+      {/* ── Rich gradient overlays ── */}
+      {/* Bottom vignette */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 25%, transparent 50%, rgba(0,0,0,0.78) 100%)',
+            'linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, transparent 30%, transparent 45%, rgba(0,0,0,0.82) 100%)',
         }}
       />
+      {/* Left vignette */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to right, rgba(0,0,0,0.38) 0%, transparent 55%)',
+            'linear-gradient(to right, rgba(0,0,0,0.42) 0%, transparent 60%)',
+        }}
+      />
+      {/* Green accent glow at bottom left */}
+      <div
+        className="absolute z-10 pointer-events-none"
+        style={{
+          bottom: 0,
+          left: 0,
+          width: '40%',
+          height: '35%',
+          background: 'radial-gradient(ellipse at bottom left, rgba(106,176,76,0.12) 0%, transparent 70%)',
         }}
       />
 
-      {/* ── Caption — shows immediately, fades fast ── */}
+      {/* ── Caption — word-by-word stagger ── */}
       <div
         className="absolute z-30 left-0 right-0 px-8 sm:px-16 lg:px-28"
         style={{
-          bottom: '14%',
-          transition: `opacity ${CAPTION_FADE_MS}ms ease-in-out, transform ${CAPTION_FADE_MS}ms ease-in-out`,
-          opacity:   captionVisible ? 1 : 0,
-          transform: captionVisible ? 'translateY(0)' : 'translateY(14px)',
-          /* Caption is visible from first render with no delay */
-          willChange: 'opacity, transform',
+          bottom: '16%',
+          transition: `opacity ${CAPTION_FADE_MS}ms ease-in-out`,
+          opacity: captionVisible ? 1 : 0,
+          willChange: 'opacity',
         }}
       >
-        <h2
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 'clamp(1.8rem, 4.2vw, 3.4rem)',
-            fontWeight: 700,
-            color: '#ffffff',
-            textShadow: '0 2px 28px rgba(0,0,0,0.72)',
-            lineHeight: 1.1,
-            marginBottom: '0.45rem',
-            letterSpacing: '0.01em',
-          }}
-        >
-          {SCENES[current].title}
-        </h2>
+        {/* Scene label */}
+        <div style={{
+          fontFamily: "'Nunito', sans-serif",
+          fontSize: '0.65rem',
+          fontWeight: 800,
+          letterSpacing: '0.32em',
+          textTransform: 'uppercase',
+          color: '#6AB04C',
+          marginBottom: '12px',
+          opacity: captionVisible ? 1 : 0,
+          transition: `opacity ${CAPTION_FADE_MS}ms ease-in-out 0.1s`,
+        }}>
+          Abishag Home Health Services
+        </div>
+
+        {/* Word-by-word title */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3em', marginBottom: '0.5rem', perspective: '800px' }}>
+          {titleWords.map((word, i) => (
+            <span
+              key={`${current}-${i}`}
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 'clamp(1.8rem, 4.2vw, 3.4rem)',
+                fontWeight: 700,
+                color: '#ffffff',
+                textShadow: '0 2px 28px rgba(0,0,0,0.72)',
+                lineHeight: 1.1,
+                letterSpacing: '0.01em',
+                display: 'inline-block',
+                opacity: wordVisible[i] ? 1 : 0,
+                transform: wordVisible[i] ? 'translateY(0) rotateX(0deg)' : 'translateY(24px) rotateX(40deg)',
+                transition: `opacity 0.5s ease ${i * 0.1}s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.1}s`,
+              }}
+            >
+              {word}
+            </span>
+          ))}
+        </div>
+
+        {/* Subtitle slide-up */}
         <p
           style={{
             fontFamily: "'Nunito', sans-serif",
             fontSize: 'clamp(0.9rem, 1.7vw, 1.15rem)',
-            color: 'rgba(255,255,255,0.9)',
+            color: 'rgba(255,255,255,0.88)',
             fontWeight: 400,
             textShadow: '0 1px 12px rgba(0,0,0,0.6)',
             letterSpacing: '0.02em',
+            opacity: captionVisible ? 1 : 0,
+            transform: captionVisible ? 'translateX(0)' : 'translateX(-16px)',
+            transition: `opacity ${CAPTION_FADE_MS + 100}ms ease-in-out 0.35s, transform ${CAPTION_FADE_MS + 100}ms ease ${0.35}s`,
           }}
         >
           {SCENES[current].subtitle}
         </p>
       </div>
 
+      {/* ── Animated progress bar ── */}
+      <div
+        className="absolute z-30"
+        style={{
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '3px',
+          background: 'rgba(255,255,255,0.12)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
+        <div style={{
+          height: '100%',
+          width: `${progress}%`,
+          background: 'linear-gradient(to right, #6AB04C, #4ABED6)',
+          borderRadius: '0 0 0 24px',
+          transition: 'width 0.04s linear',
+          boxShadow: '0 0 8px rgba(106,176,76,0.6)',
+        }} />
+      </div>
+
       {/* ── Dot indicators ── */}
       <div
         className="absolute z-30 flex items-center gap-2"
-        style={{ bottom: '5%', left: '50%', transform: 'translateX(-50%)' }}
+        style={{ bottom: '5.5%', right: '6%' }}
       >
         {SCENES.map((_, idx) => (
           <div
             key={idx}
             style={{
-              width:  idx === current ? '28px' : '7px',
+              width:  idx === current ? '28px' : '6px',
               height: '5px',
               borderRadius: '9999px',
-              background: idx === current ? '#6AB04C' : 'rgba(255,255,255,0.38)',
-              transition: 'all 0.4s ease',
+              background: idx === current ? '#6AB04C' : 'rgba(255,255,255,0.3)',
+              transition: 'all 0.45s cubic-bezier(0.34,1.56,0.64,1)',
+              boxShadow: idx === current ? '0 0 8px rgba(106,176,76,0.7)' : 'none',
             }}
           />
         ))}
       </div>
 
-
+      {/* ── Scene number ── */}
+      <div
+        className="absolute z-30"
+        style={{ bottom: '5.5%', left: '6%' }}
+      >
+        <span style={{
+          fontFamily: "'Nunito', sans-serif",
+          fontSize: '0.7rem',
+          color: 'rgba(255,255,255,0.45)',
+          letterSpacing: '0.1em',
+        }}>
+          {String(current + 1).padStart(2, '0')} / {String(SCENES.length).padStart(2, '0')}
+        </span>
+      </div>
     </section>
   );
 }
