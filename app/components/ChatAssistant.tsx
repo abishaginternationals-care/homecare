@@ -262,7 +262,7 @@ export default function ChatAssistant() {
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          background: '#25D366', // WhatsApp official green
+          background: 'linear-gradient(135deg, #6AB04C, #3D7A28)', // Matches AI Chat button
           color: '#ffffff',
           boxShadow: '0 6px 28px rgba(61,26,10,0.25)',
           display: 'flex',
