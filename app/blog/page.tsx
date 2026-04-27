@@ -163,7 +163,7 @@ export default function Blog() {
               transition: 'opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s',
             }}
           >
-            Our Blog
+            Our Blog <span style={{ fontSize: '0.8rem', opacity: 0.5, verticalAlign: 'middle' }}>v1.1</span>
           </h1>
           <p
             style={{
@@ -359,28 +359,29 @@ export default function Blog() {
                         openPost(post);
                       }}
                       style={{
-                        background: 'none',
+                        background: post.color,
                         border: 'none',
                         fontFamily: "'Nunito', sans-serif",
                         fontWeight: 800,
                         fontSize: '0.8rem',
-                        color: post.color,
+                        color: '#ffffff',
                         letterSpacing: '0.04em',
                         transition: 'all 0.2s',
                         cursor: 'pointer',
-                        padding: '4px 8px',
-                        marginRight: '-8px',
+                        padding: '8px 18px',
+                        borderRadius: '8px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '4px',
+                        gap: '6px',
+                        boxShadow: `0 4px 12px ${post.color}44`,
                       }}
                       onMouseEnter={e => { 
-                        (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em';
-                        (e.currentTarget as HTMLElement).style.transform = 'translateX(4px)';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = `0 6px 16px ${post.color}66`;
                       }}
                       onMouseLeave={e => { 
-                        (e.currentTarget as HTMLElement).style.letterSpacing = '0.04em';
-                        (e.currentTarget as HTMLElement).style.transform = 'translateX(0)';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 12px ${post.color}44`;
                       }}
                       aria-label={`Read more about ${post.title}`}
                     >
