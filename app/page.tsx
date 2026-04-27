@@ -674,7 +674,7 @@ export default function Home() {
         {/* ── Add Review Button (Bottom) ── */}
         {!showReviewForm && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: '40px' }}>
               <button
                 onClick={() => setShowReviewForm(true)}
                 style={{
