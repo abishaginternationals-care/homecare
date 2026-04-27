@@ -146,7 +146,7 @@ export default function Services() {
               <motion.div key={service.id} variants={itemVariants}>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group block h-full reveal-scale"
+                  className="group block h-full"
                   style={{ textDecoration: 'none' }}
                 >
                   <div

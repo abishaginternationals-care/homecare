@@ -10,7 +10,9 @@ interface CounterProps {
   delay?: number;
 }
 
-const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0 }: CounterProps) => {
+const FLOAT_DURATIONS = ['3.2s', '3.8s', '4.2s', '3.6s'];
+
+const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0, index = 0 }: CounterProps & { index?: number }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0 }: Counte
     <div 
       ref={ref} 
       className="bg-white rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-xl shadow-[#3D1A0A]/5 border-t-[6px] border-[#6AB04C]"
-      style={{ animation: `floatY ${3 + Math.random() * 2}s ease-in-out infinite` }}
+      style={{ animation: `floatY ${FLOAT_DURATIONS[index]} ease-in-out infinite` }}
     >
       <div className="text-4xl md:text-5xl font-bold text-[#3D1A0A] mb-2 font-serif">
         {count}{suffix}
@@ -72,10 +74,10 @@ export default function StatsCounter() {
     <section className="py-16 bg-[#F4F1ED]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          <CountUp end={2000} suffix="+" label="Families Served" delay={0} />
-          <CountUp end={15} suffix="+" label="Services" delay={150} />
-          <CountUp end={8} suffix="+" label="Years Experience" delay={300} />
-          <CountUp end={100} suffix="%" label="Trusted Care" delay={450} />
+          <CountUp end={2000} suffix="+" label="Families Served" delay={0} index={0} />
+          <CountUp end={15} suffix="+" label="Services" delay={150} index={1} />
+          <CountUp end={8} suffix="+" label="Years Experience" delay={300} index={2} />
+          <CountUp end={100} suffix="%" label="Trusted Care" delay={450} index={3} />
         </div>
       </div>
     </section>
