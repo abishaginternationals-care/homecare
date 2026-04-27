@@ -28,12 +28,12 @@ export default function Navigation() {
     >
       <div className="px-2 sm:px-4 lg:px-6">
         {/* Top bar */}
-        <div className="flex justify-between items-center" style={{ height: '58px' }}>
+        <div className="flex justify-between items-center" style={{ height: '84px' }}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group py-1" onClick={() => setMenuOpen(false)}>
+          <Link href="/" className="flex items-center gap-3 group py-1" onClick={() => setMenuOpen(false)}>
             <div
               className="transition-transform duration-300 group-hover:scale-105"
-              style={{ height: '42px', width: '42px', flexShrink: 0 }}
+              style={{ height: '62px', width: '62px', flexShrink: 0 }}
             >
               <img
                 src="/logo-transparent.png"
@@ -41,14 +41,14 @@ export default function Navigation() {
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '4px' }}>
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: '1.35rem',
+                  fontSize: '1.75rem',
                   fontWeight: 700,
                   color: '#3D1A0A',
-                  lineHeight: 1,
+                  lineHeight: 0.9,
                   letterSpacing: '-0.01em',
                 }}
               >
@@ -57,12 +57,12 @@ export default function Navigation() {
               <span
                 style={{
                   fontFamily: "'Nunito', sans-serif",
-                  fontSize: '0.5rem',
-                  fontWeight: 700,
+                  fontSize: '0.65rem',
+                  fontWeight: 800,
                   color: '#6AB04C',
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  marginTop: '2px',
+                  marginTop: '4px',
                 }}
               >
                 Home Health Services
