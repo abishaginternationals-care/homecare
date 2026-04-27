@@ -9,34 +9,37 @@ interface Card3DProps {
   glowColor?: string;
 }
 
-export default function Card3D({ children, className, style, glowColor = 'rgba(106,176,76,0.3)' }: Card3DProps) {
+export default function Card3D({ children, className, style, glowColor = 'rgba(106,176,76,0.4)' }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState('perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)');
+  const frameRef = useRef<number>(0);
+  const [tilt, setTilt] = useState({ rotX: 0, rotY: 0, scale: 1 });
   const [shimmerPos, setShimmerPos] = useState({ x: 50, y: 50 });
-  const [isHovered, setIsHovered] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const rotX = (-y * 12).toFixed(2);
-    const rotY = (x * 12).toFixed(2);
-    setTransform(`perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03) translateZ(12px)`);
-    setShimmerPos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      setTilt({ rotX: -y * 14, rotY: x * 14, scale: 1.04 });
+      setShimmerPos({
+        x: ((e.clientX - rect.left) / rect.width) * 100,
+        y: ((e.clientY - rect.top) / rect.height) * 100,
+      });
     });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setTransform('perspective(800px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px)');
-    setIsHovered(false);
+    cancelAnimationFrame(frameRef.current);
+    setTilt({ rotX: 0, rotY: 0, scale: 1 });
+    setHovered(false);
   }, []);
 
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
+  const handleMouseEnter = useCallback(() => setHovered(true), []);
+
+  const transform = `perspective(900px) rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) scale(${tilt.scale})`;
 
   return (
     <div
@@ -44,34 +47,38 @@ export default function Card3D({ children, className, style, glowColor = 'rgba(1
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
+      className={className}
       style={{
         transform,
         transformStyle: 'preserve-3d',
         willChange: 'transform',
+        transition: hovered
+          ? 'transform 0.05s linear, box-shadow 0.3s ease'
+          : 'transform 0.6s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease',
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: isHovered
-          ? `inset 0 0 0 1.5px ${glowColor}, 0 24px 52px rgba(61,26,10,0.18), 0 0 30px ${glowColor}`
+        borderRadius: 'inherit',
+        boxShadow: hovered
+          ? `0 30px 60px rgba(61,26,10,0.20), 0 0 0 2px ${glowColor}, 0 0 40px ${glowColor}`
           : '0 4px 20px rgba(61,26,10,0.08)',
-        transition: 'transform 0.15s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease',
-        ...style
+        ...style,
       }}
-      className={className}
     >
-      {/* Shimmer light reflection */}
-      {isHovered && (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: `radial-gradient(circle at ${shimmerPos.x}% ${shimmerPos.y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-            pointerEvents: 'none',
-            zIndex: 10,
-            borderRadius: 'inherit',
-          }}
-        />
-      )}
-      <div style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d', height: '100%' }}>
+      {/* Shimmer highlight that follows cursor */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(circle at ${shimmerPos.x}% ${shimmerPos.y}%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 40%, transparent 65%)`,
+          opacity: hovered ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: 'none',
+          zIndex: 10,
+          borderRadius: 'inherit',
+        }}
+      />
+      {/* Depth layer */}
+      <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d', height: '100%' }}>
         {children}
       </div>
     </div>

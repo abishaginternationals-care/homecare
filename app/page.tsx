@@ -201,7 +201,46 @@ export default function Home() {
       {/* ── CINEMATIC HERO ── */}
       <CinematicHero />
 
-      {/* ── INTRO STRIP ── */}
+      {/* ── BRAND TICKER STRIP ── */}
+      <div style={{
+        background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 60%, #4A8A30 100%)',
+        padding: '18px 0',
+        overflow: 'hidden',
+        position: 'relative',
+        zIndex: 5,
+        boxShadow: '0 4px 20px rgba(61,26,10,0.25)',
+      }}>
+        <div className="animate-marquee" style={{ display: 'flex', gap: 0, width: 'max-content' }}>
+          {[...Array(4)].map((_, rep) => (
+            <div key={rep} style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+              {[
+                '✦ Compassionate Home Care',
+                '✦ 2000+ Families Served',
+                '✦ 15+ Premium Services',
+                '✦ 8+ Years of Excellence',
+                '✦ Trusted by Families Across the Region',
+                '✦ Home ICU Specialists',
+                '✦ 24/7 Care Coordination',
+              ].map((item, i) => (
+                <span key={i} style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 800,
+                  fontSize: '0.82rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: i % 3 === 0 ? '#6AB04C' : i % 3 === 1 ? '#ffffff' : 'rgba(255,255,255,0.65)',
+                  padding: '0 36px',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+
       <section className="py-24 md:py-32" style={{ background: '#ffffff', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
@@ -314,7 +353,7 @@ export default function Home() {
 
 
       {/* ── SERVICES PREVIEW ── */}
-      <section className="py-24 md:py-32" style={{ background: '#F4F1ED' }}>
+      <section className="py-24 md:py-32" style={{ background: 'linear-gradient(180deg, #F4F1ED 0%, #ffffff 50%, #F4F1ED 100%)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -359,30 +398,26 @@ export default function Home() {
                   className="group block h-full"
                   style={{ textDecoration: 'none' }}
                 >
-                  <Card3D>
-                    <motion.div
-                      whileHover={{ y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                <Card3D style={{ borderRadius: '24px', height: '100%' }}>
+                    <div
                       style={{
                         background: '#ffffff',
                         borderRadius: '24px',
                         overflow: 'hidden',
                         borderTop: '6px solid #6AB04C',
-                        boxShadow: '0 10px 35px rgba(61,26,10,0.05)',
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column'
                       }}
                     >
                       <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                        <motion.img
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
+                        <img
                           src={svc.image}
                           alt={svc.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
+                          onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
+                          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                         />
-                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       <div className="p-8 flex-grow">
                         <h3
@@ -392,8 +427,8 @@ export default function Home() {
                             fontWeight: 700,
                             color: '#3D1A0A',
                             marginBottom: '12px',
+                            transition: 'color 0.3s',
                           }}
-                          className="group-hover:text-[#6AB04C] transition-colors duration-300"
                         >
                           {svc.title}
                         </h3>
@@ -401,7 +436,7 @@ export default function Home() {
                           {svc.desc}
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   </Card3D>
                 </Link>
               </motion.div>
@@ -467,14 +502,13 @@ export default function Home() {
                   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
                 }}
               >
-                <Card3D className="h-full">
+                <Card3D className="h-full" style={{ borderRadius: '24px', height: '100%' }}>
                   <div
                     style={{
                       background: '#F9F7F4',
                       borderRadius: '24px',
                       padding: '40px 32px',
                       borderTop: '6px solid #6AB04C',
-                      boxShadow: '0 10px 30px rgba(61,26,10,0.04)',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '24px',
@@ -482,14 +516,15 @@ export default function Home() {
                     }}
                   >
                     <div style={{ 
-                      background: '#EAF5E0', 
-                      width: '64px', 
-                      height: '64px', 
-                      borderRadius: '18px', 
+                      background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', 
+                      width: '68px', 
+                      height: '68px', 
+                      borderRadius: '20px', 
                       display: 'flex', 
                       alignItems: 'center', 
                       justifyContent: 'center',
-                      color: '#6AB04C'
+                      color: '#4A8A30',
+                      boxShadow: '0 8px 20px rgba(106,176,76,0.2)',
                     }}>
                       {feature.icon}
                     </div>
