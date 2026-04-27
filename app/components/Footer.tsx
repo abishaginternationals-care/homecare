@@ -1,5 +1,7 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 const InstagramIcon = ({ size = 20 }: { size?: number }) => (
   <svg 
     width={size} 
@@ -31,35 +33,48 @@ const XIcon = ({ size = 20 }: { size?: number }) => (
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#200D05', color: '#EDE8E2' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer style={{ background: '#200D05', color: '#EDE8E2', overflow: 'hidden' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
           {/* Brand Column */}
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div style={{ width: '54px', height: '54px', borderRadius: '13px', overflow: 'hidden', background: '#ffffff', flexShrink: 0, boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                <img src="/logo-transparent.png" alt="Abishag" style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '4px' }} />
-              </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <motion.div 
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                style={{ width: '60px', height: '60px', borderRadius: '16px', overflow: 'hidden', background: '#ffffff', flexShrink: 0, boxShadow: '0 8px 20px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <img src="/logo-transparent.png" alt="Abishag" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
+              </motion.div>
               <div>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem', fontWeight: 700, color: '#ffffff' }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 700, color: '#ffffff' }}>
                   Abishag
                 </div>
-                <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.58rem', fontWeight: 700, color: '#6AB04C', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.6rem', fontWeight: 800, color: '#6AB04C', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
                   Home Health Services
                 </div>
               </div>
             </div>
-            <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.88rem', lineHeight: 1.75 }}>
-              Compassionate home health services for your loved ones.
+            <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.5)', fontSize: '0.9rem', lineHeight: 1.8, maxWidth: '280px' }}>
+              Redefining home health with compassionate care, professional excellence, and the "Abundance of Life" philosophy.
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
-              Quick Links
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+              Explore
             </h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
                 { href: '/', label: 'Home' },
                 { href: '/services', label: 'Services' },
@@ -67,110 +82,94 @@ export default function Footer() {
                 { href: '/about', label: 'About Us' },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <a
+                  <motion.a
                     href={href}
+                    whileHover={{ x: 5, color: '#6AB04C' }}
                     style={{
                       fontFamily: "'Nunito', sans-serif",
-                      color: 'rgba(237,232,226,0.62)',
-                      fontSize: '0.9rem',
+                      color: 'rgba(237,232,226,0.6)',
+                      fontSize: '0.95rem',
                       textDecoration: 'none',
                       transition: 'color 0.2s',
+                      display: 'inline-block'
                     }}
-                    onMouseEnter={e => (e.target as HTMLElement).style.color = '#6AB04C'}
-                    onMouseLeave={e => (e.target as HTMLElement).style.color = 'rgba(237,232,226,0.62)'}
                   >
                     {label}
-                  </a>
+                  </motion.a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact */}
-          <div>
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
-              Contact
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+              Connect
             </h3>
-            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.62)', fontSize: '0.9rem', lineHeight: 2 }}>
-              <p>Email: contact@abishag.com</p>
-              <p>Phone: Coming Soon</p>
+            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.95rem', lineHeight: 2.2 }}>
+              <p>Email: <a href="mailto:contact@abishag.com" style={{ color: 'inherit', textDecoration: 'none' }} className="hover:text-[#6AB04C] transition-colors">contact@abishag.com</a></p>
+              <p>Phone: <span className="italic opacity-60">Coming Soon</span></p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Social Media */}
-          <div>
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
-              Follow Us
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+              Follow
             </h3>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: 'rgba(237,232,226,0.62)',
-                  transition: 'all 0.3s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: 'rgba(237,232,226,0.05)',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.color = '#6AB04C';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(106, 176, 76, 0.1)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(237,232,226,0.62)';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(237,232,226,0.05)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                }}
-              >
-                <InstagramIcon size={20} />
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: 'rgba(237,232,226,0.62)',
-                  transition: 'all 0.3s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: 'rgba(237,232,226,0.05)',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.color = '#6AB04C';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(106, 176, 76, 0.1)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(237,232,226,0.62)';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(237,232,226,0.05)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                }}
-              >
-                <XIcon size={18} />
-              </a>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              {[
+                { icon: <InstagramIcon size={22} />, href: 'https://instagram.com' },
+                { icon: <XIcon size={20} />, href: 'https://x.com' }
+              ].map((social, idx) => (
+                <motion.a
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -5, background: 'rgba(106, 176, 76, 0.2)', color: '#6AB04C' }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    color: 'rgba(237,232,226,0.7)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    background: 'rgba(255,255,255,0.05)',
+                    textDecoration: 'none'
+                  }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Copyright */}
-        <div style={{ borderTop: '1px solid rgba(237,232,226,0.1)', marginTop: '44px', paddingTop: '28px', textAlign: 'center' }}>
-          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.38)', fontSize: '0.8rem' }}>
-            © 2026 Abishag — Home Health Services. All rights reserved.
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '60px', paddingTop: '32px', textAlign: 'center' }}
+        >
+          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.3)', fontSize: '0.85rem' }}>
+            © 2026 Abishag — Home Health Services. Carefully crafted for comfort.
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

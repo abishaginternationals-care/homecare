@@ -51,6 +51,7 @@ export default function Navigation() {
                   lineHeight: 0.9,
                   letterSpacing: '-0.01em',
                 }}
+                className="text-raise"
               >
                 Abishag
               </span>
