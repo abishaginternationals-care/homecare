@@ -494,15 +494,40 @@ export default function Home() {
       <section className="py-16 md:py-24" style={{ background: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Heading */}
-          <div className="text-center" style={{ marginBottom: '60px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '60px', flexWrap: 'wrap', gap: '20px' }}>
+            <div style={{ textAlign: 'left' }}>
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.9rem, 4vw, 3rem)', fontWeight: 700, color: '#3D1A0A' }}>
+                Reviews &amp; Testimonials
+              </h2>
+              {dbStatus === 'disconnected' && (
+                <div style={{ marginTop: '12px', padding: '10px', background: '#FFF5F5', border: '1px solid #FED7D7', borderRadius: '8px', color: '#C53030', fontSize: '0.85rem' }}>
+                  Note: Database not yet connected. Reviews are currently in demonstration mode.
+                </div>
+              )}
+            </div>
 
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.9rem, 4vw, 3rem)', fontWeight: 700, color: '#3D1A0A' }}>
-              Reviews &amp; Testimonials
-            </h2>
-            {dbStatus === 'disconnected' && (
-              <div style={{ marginTop: '24px', padding: '10px', background: '#FFF5F5', border: '1px solid #FED7D7', borderRadius: '8px', color: '#C53030', fontSize: '0.85rem' }}>
-                Note: Database not yet connected. Reviews are currently in demonstration mode.
-              </div>
+            {!showReviewForm && (
+              <button
+                onClick={() => setShowReviewForm(true)}
+                style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 800,
+                  fontSize: '0.93rem',
+                  color: '#ffffff',
+                  background: '#6AB04C',
+                  padding: '13px 32px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.25s, transform 0.2s',
+                  letterSpacing: '0.04em',
+                  boxShadow: '0 4px 18px rgba(106,176,76,0.35)',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = '#3D7A28')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = '#6AB04C')}
+              >
+                + Add Review
+              </button>
             )}
           </div>
 
@@ -671,34 +696,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* ── Add Review Button (Bottom) ── */}
-        {!showReviewForm && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: '40px' }}>
-              <button
-                onClick={() => setShowReviewForm(true)}
-                style={{
-                  fontFamily: "'Nunito', sans-serif",
-                  fontWeight: 800,
-                  fontSize: '0.93rem',
-                  color: '#ffffff',
-                  background: '#6AB04C',
-                  padding: '13px 32px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'background 0.25s, transform 0.2s',
-                  letterSpacing: '0.04em',
-                  boxShadow: '0 4px 18px rgba(106,176,76,0.35)',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = '#3D7A28')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = '#6AB04C')}
-              >
-                + Add Review
-              </button>
-            </div>
-          </div>
-        )}
+
       </section>
 
       {/* ── CTA ── */}
