@@ -87,10 +87,27 @@ export default function Blog() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
 
+  const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   useEffect(() => {
     const t = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
+
+  const openPost = (post: any) => {
+    setSelectedPost(post);
+    setIsModalVisible(true);
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  };
+
+  const closePost = () => {
+    setIsModalVisible(false);
+    setTimeout(() => {
+      setSelectedPost(null);
+      document.body.style.overflow = 'auto';
+    }, 300);
+  };
 
   const categories = ['All', 'Caregiver Tips', 'Home Health', 'Wellness', 'Mental Health', 'Palliative Care'];
 
@@ -213,6 +230,7 @@ export default function Blog() {
           {filtered.map((post, index) => (
             <article
               key={post.id}
+              onClick={() => openPost(post)}
               style={{
                 background: '#ffffff',
                 borderRadius: '18px',
@@ -344,6 +362,8 @@ export default function Blog() {
                         transition: 'letter-spacing 0.2s',
                         cursor: 'pointer',
                       }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.04em'; }}
                     >
                       Read More →
                     </span>
@@ -354,6 +374,191 @@ export default function Blog() {
           ))}
         </div>
       </section>
+
+      {/* ── Blog Modal ── */}
+      {selectedPost && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            background: 'rgba(61, 26, 10, 0.4)',
+            backdropFilter: 'blur(8px)',
+            opacity: isModalVisible ? 1 : 0,
+            transition: 'opacity 0.3s ease',
+          }}
+          onClick={closePost}
+        >
+          <div
+            style={{
+              background: '#ffffff',
+              width: '100%',
+              maxWidth: '800px',
+              maxHeight: '90vh',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              transform: isModalVisible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(20px)',
+              transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{ height: '6px', background: selectedPost.color }} />
+            <div style={{ padding: '30px 40px', position: 'relative' }}>
+              <button
+                onClick={closePost}
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  background: '#F4F1ED',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '36px',
+                  height: '36px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#3D1A0A',
+                  fontSize: '18px',
+                  transition: 'background 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#EAE5DF')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#F4F1ED')}
+              >
+                ✕
+              </button>
+
+              <div className="flex items-center gap-3" style={{ marginBottom: '16px' }}>
+                <span
+                  style={{
+                    fontFamily: "'Nunito', sans-serif",
+                    fontWeight: 700,
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.22em',
+                    textTransform: 'uppercase',
+                    color: selectedPost.color,
+                  }}
+                >
+                  {selectedPost.category}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Nunito', sans-serif",
+                    fontSize: '0.78rem',
+                    fontWeight: 600,
+                    background: '#F4F1ED',
+                    color: '#5C3D2A',
+                    padding: '3px 12px',
+                    borderRadius: '20px',
+                  }}
+                >
+                  {selectedPost.tag}
+                </span>
+              </div>
+
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: '2.4rem',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  lineHeight: 1.1,
+                  marginBottom: '20px',
+                }}
+              >
+                {selectedPost.title}
+              </h2>
+
+              <div className="flex items-center gap-4" style={{ marginBottom: '30px' }}>
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    background: `linear-gradient(135deg, ${selectedPost.color}, #3D1A0A)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <span style={{ color: '#fff', fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem' }}>
+                    {selectedPost.author.charAt(selectedPost.author.indexOf(' ') + 1)}
+                  </span>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#3D1A0A' }}>
+                    {selectedPost.author}
+                  </div>
+                  <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.85rem', color: '#8C7B6E' }}>
+                    {selectedPost.authorRole} · {selectedPost.date}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div style={{ padding: '0 40px 40px', overflowY: 'auto', flex: 1 }}>
+              <div
+                style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontSize: '1.1rem',
+                  color: '#5C3D2A',
+                  lineHeight: 1.8,
+                  whiteSpace: 'pre-line',
+                }}
+              >
+                {selectedPost.excerpt}
+                {"\n\n"}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                {"\n\n"}
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {"\n\n"}
+                At Abishag Home Health Services, we believe that personalized care is the foundation of wellness. Our team of specialists works tirelessly to ensure that every patient receives the highest quality of care in the comfort of their own home.
+                {"\n\n"}
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div style={{ padding: '20px 40px', background: '#F9F7F4', borderTop: '1px solid #EAE5DF', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.9rem', color: '#8C7B6E' }}>
+                Estimated reading time: {selectedPost.readTime}
+              </span>
+              <button
+                onClick={() => {
+                  window.location.href = '/contact';
+                  closePost();
+                }}
+                style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 800,
+                  fontSize: '0.9rem',
+                  color: '#ffffff',
+                  background: '#6AB04C',
+                  padding: '10px 24px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#3D7A28')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#6AB04C')}
+              >
+                Get More Information
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Newsletter CTA ── */}
       <section
