@@ -10,8 +10,11 @@ import Link from 'next/link';
 
 import Card3D from './components/Card3D';
 import MagneticButton from './components/MagneticButton';
+import StatsCounter from './components/StatsCounter';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function Home() {
+  useScrollReveal();
   // ... (rest of the component state remains same)
   // ── Intro animation state ──
   const [introDone, setIntroDone] = useState(false);
@@ -155,7 +158,29 @@ export default function Home() {
   });
 
   return (
-    <div ref={containerRef} style={{ background: '#F4F1ED', overflow: 'hidden' }}>
+    <div ref={containerRef} style={{ background: '#F4F1ED', overflow: 'hidden', position: 'relative' }}>
+
+      {/* ── Background Floating Orbs ── */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+        <div style={{
+          position: 'absolute', top: '10%', left: '5%', width: '400px', height: '400px',
+          background: 'rgba(106,176,76,0.3)', borderRadius: '50%',
+          filter: 'blur(60px)', opacity: 0.12,
+          animation: 'floatY 6s ease-in-out infinite'
+        }} />
+        <div style={{
+          position: 'absolute', top: '40%', right: '5%', width: '350px', height: '350px',
+          background: 'rgba(61,26,10,0.3)', borderRadius: '50%',
+          filter: 'blur(60px)', opacity: 0.12,
+          animation: 'floatY 9s ease-in-out infinite', animationDelay: '2s'
+        }} />
+        <div style={{
+          position: 'absolute', top: '70%', left: '10%', width: '450px', height: '450px',
+          background: 'rgba(244,167,32,0.3)', borderRadius: '50%',
+          filter: 'blur(60px)', opacity: 0.12,
+          animation: 'floatY 12s ease-in-out infinite', animationDelay: '4s'
+        }} />
+      </div>
 
       {/* ── INTRO ANIMATION ── */}
       {isMounted && !introDone && (
@@ -275,6 +300,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── STATS COUNTER ── */}
+      <StatsCounter />
+
       {/* ── SERVICES PREVIEW ── */}
       <section className="py-24 md:py-32" style={{ background: '#F4F1ED' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -282,7 +310,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-20 reveal"
           >
             <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}>What We Offer</p>
             <h2

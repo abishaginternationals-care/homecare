@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -13,27 +13,46 @@ const navLinks = [
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const navStyle: React.CSSProperties = {
+    background: scrolled ? 'rgba(255,255,255,0.92)' : '#ffffff',
+    backdropFilter: scrolled ? 'blur(20px)' : 'none',
+    WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+    borderBottom: '1.5px solid #DDD5CC',
+    boxShadow: scrolled
+      ? '0 2px 24px rgba(61,26,10,0.12)'
+      : '0 2px 14px rgba(61,26,10,0.08)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
+    transition: 'all 0.35s ease',
+  };
+
+  const logoSize = scrolled ? '52px' : '62px';
+  const navHeight = scrolled ? '68px' : '84px';
+
   return (
-    <nav
-      style={{
-        background: '#ffffff',
-        borderBottom: '1.5px solid #DDD5CC',
-        boxShadow: '0 2px 14px rgba(61,26,10,0.08)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-      }}
-    >
+    <nav style={navStyle}>
       <div className="px-2 sm:px-4 lg:px-6">
         {/* Top bar */}
-        <div className="flex justify-between items-center" style={{ height: '84px' }}>
+        <div
+          className="flex justify-between items-center"
+          style={{ height: navHeight, transition: 'height 0.35s ease' }}
+        >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group py-1" onClick={() => setMenuOpen(false)}>
             <div
-              className="transition-transform duration-300 group-hover:scale-105"
-              style={{ height: '62px', width: '62px', flexShrink: 0 }}
+              className="transition-all duration-300 group-hover:scale-105"
+              style={{ height: logoSize, width: logoSize, flexShrink: 0, transition: 'all 0.35s ease' }}
             >
               <img
                 src="/logo-transparent.png"
@@ -45,11 +64,12 @@ export default function Navigation() {
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: '1.75rem',
+                  fontSize: scrolled ? '1.5rem' : '1.75rem',
                   fontWeight: 700,
                   color: '#3D1A0A',
                   lineHeight: 0.9,
                   letterSpacing: '-0.01em',
+                  transition: 'font-size 0.35s ease',
                 }}
                 className="text-raise"
               >
@@ -64,6 +84,8 @@ export default function Navigation() {
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
                   marginTop: '4px',
+                  opacity: scrolled ? 0 : 1,
+                  transition: 'opacity 0.35s ease',
                 }}
               >
                 Home Health Services
@@ -79,6 +101,7 @@ export default function Navigation() {
                 <Link
                   key={href}
                   href={href}
+                  className="nav-link-underline"
                   style={{
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: 600,
@@ -87,6 +110,7 @@ export default function Navigation() {
                     letterSpacing: '0.02em',
                     textDecoration: 'none',
                     padding: '5px 0',
+                    position: 'relative',
                     borderBottom: isActive ? '2px solid #6AB04C' : '2px solid transparent',
                     transition: 'color 0.2s, border-color 0.2s',
                     whiteSpace: 'nowrap',
@@ -111,21 +135,24 @@ export default function Navigation() {
                 fontWeight: 800,
                 fontSize: '0.85rem',
                 color: '#ffffff',
-                background: '#6AB04C',
+                background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
                 letterSpacing: '0.04em',
                 textDecoration: 'none',
                 padding: '8px 18px',
                 borderRadius: '8px',
-                transition: 'background 0.2s, transform 0.2s',
+                transition: 'transform 0.2s, box-shadow 0.2s',
                 whiteSpace: 'nowrap',
+                boxShadow: '0 4px 14px rgba(106,176,76,0.3)',
               }}
               onMouseEnter={e => {
-                (e.target as HTMLElement).style.background = '#3D1A0A';
-                (e.target as HTMLElement).style.transform = 'scale(1.05)';
+                const el = e.target as HTMLElement;
+                el.style.transform = 'scale(1.05) translateY(-1px)';
+                el.style.boxShadow = '0 8px 20px rgba(106,176,76,0.4)';
               }}
               onMouseLeave={e => {
-                (e.target as HTMLElement).style.background = '#6AB04C';
-                (e.target as HTMLElement).style.transform = 'scale(1)';
+                const el = e.target as HTMLElement;
+                el.style.transform = 'scale(1)';
+                el.style.boxShadow = '0 4px 14px rgba(106,176,76,0.3)';
               }}
             >
               Contact Us
@@ -191,14 +218,10 @@ export default function Navigation() {
                   transition: 'background 0.2s, color 0.2s',
                 }}
                 onMouseEnter={e => {
-                  if (!isActive) {
-                    (e.target as HTMLElement).style.background = '#F9F7F4';
-                  }
+                  if (!isActive) (e.target as HTMLElement).style.background = '#F9F7F4';
                 }}
                 onMouseLeave={e => {
-                  if (!isActive) {
-                    (e.target as HTMLElement).style.background = 'transparent';
-                  }
+                  if (!isActive) (e.target as HTMLElement).style.background = 'transparent';
                 }}
               >
                 {label}
@@ -213,7 +236,7 @@ export default function Navigation() {
               fontWeight: 800,
               fontSize: '0.95rem',
               color: '#ffffff',
-              background: '#6AB04C',
+              background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
               textDecoration: 'none',
               padding: '13px 16px',
               borderRadius: '10px',

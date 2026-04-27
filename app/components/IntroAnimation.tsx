@@ -120,17 +120,36 @@ export default function IntroAnimation({ onComplete }: Props) {
     'M 0,30 L 35,30 L 48,10 L 58,52 L 72,30 L 108,30 L 118,18 L 128,44 L 138,30 L 180,30 L 190,14 L 200,46 L 210,30 L 300,30';
 
   return (
-    <div
-      onClick={dismiss}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'radial-gradient(ellipse at 50% 58%, #1A0803 0%, #050101 100%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        cursor: 'pointer', userSelect: 'none', overflow: 'hidden',
-        opacity: leaving ? 0 : 1,
-        transition: leaving ? 'opacity 0.9s ease' : 'none',
-      }}
-    >
+    <>
+      {/* ── Background Curtains ── */}
+      <div 
+        style={{
+          position: 'fixed', inset: '0 50% 0 0', zIndex: 9998,
+          background: 'radial-gradient(ellipse at 100% 58%, #1A0803 0%, #050101 100%)',
+          animation: leaving ? 'curtainLeft 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards' : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+      <div 
+        style={{
+          position: 'fixed', inset: '0 0 0 50%', zIndex: 9998,
+          background: 'radial-gradient(ellipse at 0% 58%, #1A0803 0%, #050101 100%)',
+          animation: leaving ? 'curtainRight 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards' : 'none',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── Main Content Container ── */}
+      <div
+        onClick={dismiss}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer', userSelect: 'none', overflow: 'hidden',
+          opacity: leaving ? 0 : 1,
+          transition: leaving ? 'opacity 0.3s ease' : 'none',
+        }}
+      >
       {/* ── Canvas particle field ── */}
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.9 }} />
 
@@ -399,6 +418,7 @@ export default function IntroAnimation({ onComplete }: Props) {
       }}>
         Click to skip
       </div>
-    </div>
+      </div>
+    </>
   );
 }

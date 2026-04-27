@@ -146,84 +146,93 @@ export default function Services() {
               <motion.div key={service.id} variants={itemVariants}>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group block h-full"
+                  className="group block h-full reveal-scale"
                   style={{ textDecoration: 'none' }}
                 >
-                  <Card3D>
-                    <motion.div
-                      whileHover={{ y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      style={{
-                        background: '#ffffff',
-                        borderRadius: '24px',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        border: '1px solid rgba(221, 213, 204, 0.5)',
-                        boxShadow: '0 10px 40px rgba(61,26,10,0.05)',
-                        overflow: 'hidden',
-                        position: 'relative',
-                      }}
-                    >
-                      {/* Accent Line */}
-                      <div style={{ height: '6px', width: '100%', background: '#6AB04C' }} />
+                  <div
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = (e.clientX - rect.left) / rect.width - 0.5;
+                      const y = (e.clientY - rect.top) / rect.height - 0.5;
+                      e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
+                      e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+                      e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
+                    }}
+                    style={{
+                      background: '#ffffff',
+                      borderRadius: '24px',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      border: '1px solid rgba(221, 213, 204, 0.5)',
+                      boxShadow: '0 10px 40px rgba(61,26,10,0.05)',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      transition: 'transform 0.1s ease, box-shadow 0.3s ease',
+                      willChange: 'transform',
+                    }}
+                  >
+                    {/* Accent Line */}
+                    <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
 
-                      {/* Service Image */}
-                      <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
-                        <motion.img
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
-                          src={service.image}
-                          alt={service.title}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                          }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
+                    {/* Service Image */}
+                    <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s ease',
+                        }}
+                        className="group-hover:[transform:scale(1.06)]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
 
-                      {/* Content */}
-                      <div className="p-8 flex-grow flex flex-col">
-                        <h3
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: '1.5rem',
-                            fontWeight: 700,
-                            color: '#3D1A0A',
-                            marginBottom: '14px',
-                            transition: 'color 0.3s ease',
-                          }}
-                          className="group-hover:text-[#6AB04C]"
-                        >
-                          {service.title}
-                        </h3>
-                        <p
-                          style={{
-                            fontFamily: "'Nunito', sans-serif",
-                            color: '#5C3D2A',
-                            fontSize: '1rem',
-                            lineHeight: 1.7,
-                            marginBottom: '24px',
-                          }}
-                        >
-                          {service.description}
-                        </p>
-                        
-                        {/* More Details Button */}
-                        <div style={{ marginTop: 'auto' }}>
-                          <span className="inline-flex items-center gap-2 font-bold text-[#6AB04C] transition-all duration-300 group-hover:gap-3">
-                            <span style={{ fontSize: '0.95rem' }}>View Details</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                              <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                          </span>
-                        </div>
+                    {/* Content */}
+                    <div className="p-8 flex-grow flex flex-col">
+                      <h3
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: '1.5rem',
+                          fontWeight: 700,
+                          color: '#3D1A0A',
+                          marginBottom: '14px',
+                          transition: 'color 0.3s ease',
+                        }}
+                        className="group-hover:text-[#6AB04C]"
+                      >
+                        {service.title}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: "'Nunito', sans-serif",
+                          color: '#5C3D2A',
+                          fontSize: '1rem',
+                          lineHeight: 1.7,
+                          marginBottom: '24px',
+                        }}
+                      >
+                        {service.description}
+                      </p>
+
+                      {/* More Details Button */}
+                      <div style={{ marginTop: 'auto' }}>
+                        <span className="inline-flex items-center gap-2 font-bold text-[#6AB04C] transition-all duration-300 group-hover:gap-3">
+                          <span style={{ fontSize: '0.95rem' }}>View Details</span>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                          </svg>
+                        </span>
                       </div>
-                    </motion.div>
-                  </Card3D>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
