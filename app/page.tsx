@@ -157,29 +157,41 @@ export default function Home() {
   });
 
   return (
-    <div ref={containerRef} style={{ background: '#F4F1ED', overflow: 'hidden', position: 'relative' }}>
+    <div ref={containerRef} className="mesh-bg" style={{ overflow: 'hidden', position: 'relative', minHeight: '100vh' }}>
 
-      {/* ── Background Floating Orbs ── */}
+      {/* ── Living Animated Background System ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+        {/* Gradient mesh orbs */}
+        <div className="orb orb-green" style={{ position: 'absolute', top: '8%',  left: '4%',   width: '520px', height: '520px' }} />
+        <div className="orb orb-brown" style={{ position: 'absolute', top: '35%', right: '3%',  width: '400px', height: '400px' }} />
+        <div className="orb orb-amber" style={{ position: 'absolute', top: '65%', left: '8%',   width: '480px', height: '480px' }} />
+        <div className="orb orb-sky"   style={{ position: 'absolute', top: '15%', right: '25%', width: '300px', height: '300px' }} />
+        <div className="orb orb-green" style={{ position: 'absolute', top: '80%', right: '15%', width: '360px', height: '360px', animationDelay: '-8s' }} />
+
+        {/* Noise texture overlay */}
         <div style={{
-          position: 'absolute', top: '10%', left: '5%', width: '400px', height: '400px',
-          background: 'rgba(106,176,76,0.3)', borderRadius: '50%',
-          filter: 'blur(60px)', opacity: 0.12,
-          animation: 'floatY 6s ease-in-out infinite'
+          position: 'absolute', inset: 0,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          opacity: 0.4,
+          mixBlendMode: 'multiply',
         }} />
-        <div style={{
-          position: 'absolute', top: '40%', right: '5%', width: '350px', height: '350px',
-          background: 'rgba(61,26,10,0.3)', borderRadius: '50%',
-          filter: 'blur(60px)', opacity: 0.12,
-          animation: 'floatY 9s ease-in-out infinite', animationDelay: '2s'
-        }} />
-        <div style={{
-          position: 'absolute', top: '70%', left: '10%', width: '450px', height: '450px',
-          background: 'rgba(244,167,32,0.3)', borderRadius: '50%',
-          filter: 'blur(60px)', opacity: 0.12,
-          animation: 'floatY 12s ease-in-out infinite', animationDelay: '4s'
-        }} />
+
+        {/* Floating light particles */}
+        {[...Array(12)].map((_, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            width: `${Math.random() * 4 + 2}px`,
+            height: `${Math.random() * 4 + 2}px`,
+            borderRadius: '50%',
+            background: i % 3 === 0 ? '#6AB04C' : i % 3 === 1 ? '#4ABED6' : '#F4A720',
+            left: `${10 + i * 7.5}%`,
+            top: `${20 + (i % 4) * 20}%`,
+            opacity: 0,
+            animation: `particleDrift ${12 + i * 2}s ease-in-out infinite ${i * 1.5}s`,
+          }} />
+        ))}
       </div>
+
 
       {/* ── INTRO ANIMATION ── */}
       {isMounted && !introDone && (
