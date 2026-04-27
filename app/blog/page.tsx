@@ -163,7 +163,7 @@ export default function Blog() {
               transition: 'opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s',
             }}
           >
-            Our Blog <span style={{ fontSize: '0.8rem', opacity: 0.5, verticalAlign: 'middle' }}>v1.1</span>
+            Our Blog
           </h1>
           <p
             style={{
