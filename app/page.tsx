@@ -201,45 +201,6 @@ export default function Home() {
       {/* ── CINEMATIC HERO ── */}
       <CinematicHero />
 
-      {/* ── BRAND TICKER STRIP ── */}
-      <div style={{
-        background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 60%, #4A8A30 100%)',
-        padding: '18px 0',
-        overflow: 'hidden',
-        position: 'relative',
-        zIndex: 5,
-        boxShadow: '0 4px 20px rgba(61,26,10,0.25)',
-      }}>
-        <div className="animate-marquee" style={{ display: 'flex', gap: 0, width: 'max-content' }}>
-          {[...Array(4)].map((_, rep) => (
-            <div key={rep} style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-              {[
-                '✦ Compassionate Home Care',
-                '✦ 2000+ Families Served',
-                '✦ 15+ Premium Services',
-                '✦ 8+ Years of Excellence',
-                '✦ Trusted by Families Across the Region',
-                '✦ Home ICU Specialists',
-                '✦ 24/7 Care Coordination',
-              ].map((item, i) => (
-                <span key={i} style={{
-                  fontFamily: "'Nunito', sans-serif",
-                  fontWeight: 800,
-                  fontSize: '0.82rem',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: i % 3 === 0 ? '#6AB04C' : i % 3 === 1 ? '#ffffff' : 'rgba(255,255,255,0.65)',
-                  padding: '0 36px',
-                  whiteSpace: 'nowrap',
-                }}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
 
       <section className="py-24 md:py-32" style={{ background: '#ffffff', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
