@@ -42,8 +42,10 @@ const itemVariants = {
 
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Services() {
+  useScrollReveal();
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -58,7 +60,20 @@ export default function Services() {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ background: '#F4F1ED', minHeight: '100vh', overflow: 'hidden' }}>
+    <div ref={containerRef} className="mesh-bg" style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative' }}>
+      {/* ── Living Animated Background System ── */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+        <div className="orb orb-green" style={{ position: 'absolute', top: '10%',  left: '5%',   width: '500px', height: '500px' }} />
+        <div className="orb orb-brown" style={{ position: 'absolute', top: '40%',  right: '2%',  width: '420px', height: '420px' }} />
+        <div className="orb orb-sky"   style={{ position: 'absolute', bottom: '15%', left: '8%',   width: '480px', height: '480px' }} />
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
+          opacity: 0.4, mixBlendMode: 'multiply',
+        }} />
+      </div>
+
+      <div className="relative z-10">
 
       {/* ── Page Header ── */}
       <section
@@ -383,6 +398,7 @@ export default function Services() {
           </motion.div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
