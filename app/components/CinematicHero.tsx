@@ -319,20 +319,7 @@ export default function CinematicHero() {
         ))}
       </div>
 
-      {/* ── Scene number ── */}
-      <div
-        className="absolute z-30"
-        style={{ bottom: '5.5%', left: '6%' }}
-      >
-        <span style={{
-          fontFamily: "'Nunito', sans-serif",
-          fontSize: '0.7rem',
-          color: 'rgba(255,255,255,0.45)',
-          letterSpacing: '0.1em',
-        }}>
-          {String(current + 1).padStart(2, '0')} / {String(SCENES.length).padStart(2, '0')}
-        </span>
-      </div>
+
     </section>
   );
 }
