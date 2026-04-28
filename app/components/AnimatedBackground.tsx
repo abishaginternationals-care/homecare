@@ -10,95 +10,102 @@ export default function AnimatedBackground() {
           z-index: -1;
           overflow: hidden;
           pointer-events: none;
-          background: linear-gradient(135deg, #EFF7E8 0%, #EAE5DC 40%, #F0EDE8 70%, #E8F3E0 100%);
+          background: linear-gradient(135deg, #EBF5E0 0%, #E8E3DA 40%, #EDF0E6 70%, #E6F2DC 100%);
         }
 
         .ab-orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(80px);
+          filter: blur(60px);
         }
 
+        /* Large bold green orb — top left */
         .ab-orb-1 {
-          width: 700px; height: 700px;
-          background: radial-gradient(circle, rgba(106,176,76,0.40) 0%, rgba(106,176,76,0.15) 50%, transparent 100%);
-          top: -200px; left: -200px;
-          animation: ab-drift1 18s ease-in-out infinite;
+          width: 750px; height: 750px;
+          background: radial-gradient(circle, rgba(106,176,76,0.55) 0%, rgba(106,176,76,0.25) 40%, transparent 70%);
+          top: -150px; left: -150px;
+          animation: ab-drift1 16s ease-in-out infinite;
         }
+        /* Large bold green orb — bottom right */
         .ab-orb-2 {
-          width: 600px; height: 600px;
-          background: radial-gradient(circle, rgba(74,138,48,0.35) 0%, rgba(74,138,48,0.10) 50%, transparent 100%);
-          bottom: -150px; right: -150px;
-          animation: ab-drift2 22s ease-in-out infinite;
+          width: 650px; height: 650px;
+          background: radial-gradient(circle, rgba(74,138,48,0.50) 0%, rgba(74,138,48,0.20) 40%, transparent 70%);
+          bottom: -100px; right: -100px;
+          animation: ab-drift2 20s ease-in-out infinite;
         }
+        /* Brown warm orb — center */
         .ab-orb-3 {
           width: 500px; height: 500px;
-          background: radial-gradient(circle, rgba(61,26,10,0.16) 0%, rgba(61,26,10,0.05) 50%, transparent 100%);
-          top: 30%; left: 60%;
-          animation: ab-drift3 26s ease-in-out infinite;
+          background: radial-gradient(circle, rgba(61,26,10,0.22) 0%, rgba(61,26,10,0.08) 40%, transparent 70%);
+          top: 35%; left: 55%;
+          animation: ab-drift3 24s ease-in-out infinite;
         }
+        /* Mid-left green */
         .ab-orb-4 {
-          width: 450px; height: 450px;
-          background: radial-gradient(circle, rgba(106,176,76,0.30) 0%, rgba(106,176,76,0.08) 50%, transparent 100%);
-          top: 55%; left: 5%;
-          animation: ab-drift4 20s ease-in-out infinite;
+          width: 480px; height: 480px;
+          background: radial-gradient(circle, rgba(106,176,76,0.45) 0%, rgba(106,176,76,0.15) 40%, transparent 70%);
+          top: 50%; left: 0%;
+          animation: ab-drift4 18s ease-in-out infinite;
         }
+        /* Top-right amber */
         .ab-orb-5 {
-          width: 380px; height: 380px;
-          background: radial-gradient(circle, rgba(217,160,102,0.22) 0%, rgba(217,160,102,0.06) 50%, transparent 100%);
-          top: 10%; right: 10%;
-          animation: ab-drift5 24s ease-in-out infinite;
+          width: 400px; height: 400px;
+          background: radial-gradient(circle, rgba(200,140,60,0.30) 0%, rgba(200,140,60,0.10) 40%, transparent 70%);
+          top: 5%; right: 5%;
+          animation: ab-drift5 22s ease-in-out infinite;
         }
 
         @keyframes ab-drift1 {
-          0%, 100% { transform: translate(0px, 0px)    scale(1.0); }
-          25%       { transform: translate(120px, 80px)  scale(1.1); }
-          50%       { transform: translate(80px, 160px)  scale(0.9); }
-          75%       { transform: translate(-60px, 100px) scale(1.05); }
+          0%, 100% { transform: translate(0px, 0px) scale(1.0); }
+          25%       { transform: translate(140px, 100px) scale(1.12); }
+          50%       { transform: translate(90px, 180px) scale(0.92); }
+          75%       { transform: translate(-70px, 120px) scale(1.06); }
         }
         @keyframes ab-drift2 {
-          0%, 100% { transform: translate(0px, 0px)     scale(1.0); }
-          25%       { transform: translate(-100px, -80px) scale(1.1); }
-          50%       { transform: translate(-60px, -140px) scale(0.95); }
-          75%       { transform: translate(80px, -80px)   scale(1.05); }
+          0%, 100% { transform: translate(0px, 0px) scale(1.0); }
+          25%       { transform: translate(-120px, -90px) scale(1.12); }
+          50%       { transform: translate(-80px, -160px) scale(0.90); }
+          75%       { transform: translate(90px, -90px) scale(1.08); }
         }
         @keyframes ab-drift3 {
-          0%, 100% { transform: translate(0px, 0px);   }
-          33%       { transform: translate(-80px, 60px); }
-          66%       { transform: translate(100px, -50px);}
+          0%, 100% { transform: translate(0px, 0px); }
+          33%       { transform: translate(-90px, 70px); }
+          66%       { transform: translate(110px, -60px); }
         }
         @keyframes ab-drift4 {
-          0%, 100% { transform: translate(0px, 0px);  }
-          40%       { transform: translate(90px, -70px); }
-          80%       { transform: translate(-50px, 90px); }
+          0%, 100% { transform: translate(0px, 0px); }
+          40%       { transform: translate(100px, -80px); }
+          80%       { transform: translate(-60px, 100px); }
         }
         @keyframes ab-drift5 {
-          0%, 100% { transform: translate(0px, 0px);     }
-          50%       { transform: translate(-120px, 100px); }
+          0%, 100% { transform: translate(0px, 0px); }
+          50%       { transform: translate(-140px, 120px); }
         }
 
+        /* Subtle green grid overlay */
         .ab-grid {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(106,176,76,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(106,176,76,0.06) 1px, transparent 1px);
+            linear-gradient(rgba(106,176,76,0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(106,176,76,0.07) 1px, transparent 1px);
           background-size: 80px 80px;
         }
 
+        /* Pulsing vertical beams */
         .ab-beam {
           position: absolute;
-          width: 200px;
+          width: 250px;
           height: 100%;
           top: 0;
           background: linear-gradient(to bottom,
             transparent 0%,
-            rgba(106,176,76,0.08) 30%,
-            rgba(106,176,76,0.12) 50%,
-            rgba(106,176,76,0.08) 70%,
+            rgba(106,176,76,0.12) 30%,
+            rgba(106,176,76,0.18) 50%,
+            rgba(106,176,76,0.12) 70%,
             transparent 100%
           );
-          filter: blur(20px);
+          filter: blur(25px);
           animation: ab-beam-pulse 8s ease-in-out infinite;
         }
         .ab-beam-1 { left: 15%; animation-delay: 0s; }
@@ -106,8 +113,8 @@ export default function AnimatedBackground() {
         .ab-beam-3 { right: 10%; animation-delay: 6s; }
 
         @keyframes ab-beam-pulse {
-          0%, 100% { opacity: 0.3; transform: scaleX(0.7); }
-          50%       { opacity: 1.0; transform: scaleX(1.3); }
+          0%, 100% { opacity: 0.4; transform: scaleX(0.7); }
+          50%       { opacity: 1.0; transform: scaleX(1.4); }
         }
       `}</style>
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
@@ -16,12 +16,12 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 export default function Home() {
   useScrollReveal();
   // ... (rest of the component state remains same)
-  // ── Intro animation state ──
+  // â”€â”€ Intro animation state â”€â”€
   const [introDone, setIntroDone] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  // ── Review state ──
+  // â”€â”€ Review state â”€â”€
   const [reviews, setReviews] = useState<Review[]>([]);
   const [formName, setFormName] = useState('');
   const [formRating, setFormRating] = useState(0);
@@ -160,17 +160,17 @@ export default function Home() {
   return (
     <>
 
-      {/* ── INTRO ANIMATION ── */}
+      {/* â”€â”€ INTRO ANIMATION â”€â”€ */}
       {isMounted && !introDone && (
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
 
-      {/* ── PREMIUM HERO ── */}
+      {/* â”€â”€ PREMIUM HERO â”€â”€ */}
       <CinematicHero />
 
-      {/* ── EXISTING SECTIONS BELOW ── */}
+      {/* â”€â”€ EXISTING SECTIONS BELOW â”€â”€ */}
       <div ref={containerRef} style={{ position: 'relative' }}>
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)', position: 'relative' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Image with float effect */}
@@ -281,8 +281,8 @@ export default function Home() {
 
 
 
-      {/* ── SERVICES PREVIEW ── */}
-      <section className="py-24 md:py-32" style={{ background: 'linear-gradient(180deg, rgba(244,241,237,0.1) 0%, rgba(255,255,255,0.1) 100%)', backdropFilter: 'blur(4px)', position: 'relative', overflow: 'hidden' }}>
+      {/* â”€â”€ SERVICES PREVIEW â”€â”€ */}
+      <section className="py-24 md:py-32" style={{ background: 'transparent', backdropFilter: 'blur(4px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -390,8 +390,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(8px)' }}>
+      {/* â”€â”€ FEATURES â”€â”€ */}
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -469,8 +469,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── REVIEWS SECTION ── */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.5)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
+      {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
+      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.3)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <motion.div
@@ -610,7 +610,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
+      {/* â”€â”€ CTA â”€â”€ */}
       <section className="py-32 md:py-48 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#3D1A0A] via-[#6B3020] to-[#4A8A30]" />
         
@@ -688,3 +688,4 @@ export default function Home() {
     </>
   );
 }
+
