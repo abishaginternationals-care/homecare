@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { servicesData } from '../data/services';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import PremiumEmoji from '../components/PremiumEmoji';
 
 export default function Contact() {
   useScrollReveal();
@@ -67,9 +68,7 @@ _Please reply to this message to start the conversation._`;
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               {/* Address */}
               <div className="flex gap-6 items-center">
-                <div style={{ width: '64px', height: '64px', borderRadius: '18px', background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#4A8A30', boxShadow: '0 8px 20px rgba(106,176,76,0.2)' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                </div>
+                <PremiumEmoji name="location" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
                 <div>
                   <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Our Location</h4>
                   <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>123 Healing Avenue, Wellness Block, Chennai</p>
@@ -78,9 +77,7 @@ _Please reply to this message to start the conversation._`;
 
               {/* Phone */}
               <div className="flex gap-6 items-center">
-                <div style={{ width: '64px', height: '64px', borderRadius: '18px', background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#4A8A30', boxShadow: '0 8px 20px rgba(106,176,76,0.2)' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </div>
+                <PremiumEmoji name="phone" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
                 <div>
                   <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Call Us</h4>
                   <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>+91 9345989699</p>
@@ -89,9 +86,7 @@ _Please reply to this message to start the conversation._`;
 
               {/* Email */}
               <div className="flex gap-6 items-center">
-                <div style={{ width: '64px', height: '64px', borderRadius: '18px', background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#4A8A30', boxShadow: '0 8px 20px rgba(106,176,76,0.2)' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                </div>
+                <PremiumEmoji name="mail" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
                 <div>
                   <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Email Us</h4>
                   <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>info@abishag.com</p>
