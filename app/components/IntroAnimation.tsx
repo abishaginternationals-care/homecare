@@ -7,37 +7,50 @@ interface Props {
   onComplete: () => void;
 }
 
-// SVG Variants — Path-Trace style from reference
-
-
 function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
   return (
     <motion.div
       onClick={onDismiss}
       exit={{
-        scale: 1.08,
+        scale: 1.06,
         opacity: 0,
-        filter: 'blur(20px)',
+        filter: 'blur(16px)',
         transition: { duration: 0.85, ease: 'easeInOut' },
       }}
       className="relative flex flex-col items-center justify-center cursor-pointer select-none"
       style={{ minHeight: '100vh', width: '100%' }}
     >
-      {/* Ambient glow background */}
-      <div className="absolute inset-0 -z-20 pointer-events-none">
-        <div
+      {/* Warm ambient glow — green orb */}
+      <div className="absolute inset-0 -z-20 pointer-events-none overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2, ease: 'easeOut' }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
-            width: '70vw',
-            height: '70vw',
+            width: '60vw',
+            height: '60vw',
             background:
-              'radial-gradient(circle, rgba(106,176,76,0.08) 0%, rgba(61,26,10,0.14) 45%, transparent 70%)',
+              'radial-gradient(circle, rgba(106,176,76,0.15) 0%, rgba(106,176,76,0.06) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
+        {/* Subtle brown warm glow */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 2.5, delay: 0.5 }}
+          className="absolute bottom-0 right-0 rounded-full"
+          style={{
+            width: '40vw',
+            height: '40vw',
+            background: 'radial-gradient(circle, rgba(61,26,10,0.08) 0%, transparent 70%)',
             filter: 'blur(60px)',
           }}
         />
       </div>
 
-      {/* Decorative concentric rings */}
+      {/* Decorative concentric rings — brand green, very soft */}
       {[600, 420, 260].map((r, i) => (
         <motion.div
           key={r}
@@ -49,7 +62,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             width: `${r}px`,
             height: `${r}px`,
             borderRadius: '50%',
-            border: `1px solid rgba(106,176,76,${0.06 + i * 0.04})`,
+            border: `1px solid rgba(106,176,76,${0.08 + i * 0.05})`,
           }}
         />
       ))}
@@ -61,14 +74,14 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
         <svg
           viewBox="0 0 100 100"
           className="absolute inset-0 w-full h-full"
-          style={{ filter: 'drop-shadow(0 0 14px rgba(106,176,76,0.45))' }}
+          style={{ filter: 'drop-shadow(0 0 12px rgba(106,176,76,0.3))' }}
           fill="none"
         >
           {/* Outer circle trace */}
           <motion.circle
             cx="50" cy="50" r="46"
             stroke="#6AB04C"
-            strokeWidth="1"
+            strokeWidth="1.2"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{ pathLength: { duration: 1.8, ease: 'easeInOut' }, opacity: { duration: 0.4 } }}
@@ -76,7 +89,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
           {/* Inner dashed ring */}
           <motion.circle
             cx="50" cy="50" r="38"
-            stroke="rgba(106,176,76,0.35)"
+            stroke="rgba(61,26,10,0.2)"
             strokeWidth="0.6"
             strokeDasharray="4 6"
             initial={{ pathLength: 0, opacity: 0 }}
@@ -86,9 +99,10 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
           {/* Cross-hair accents */}
           <motion.path
             d="M50 4 L50 14 M50 86 L50 96 M4 50 L14 50 M86 50 L96 50"
-            stroke="#6AB04C"
-            strokeWidth="1.5"
+            stroke="#3D1A0A"
+            strokeWidth="1.2"
             strokeLinecap="round"
+            strokeOpacity={0.25}
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{ pathLength: { duration: 1.0, ease: 'easeInOut', delay: 1.1 }, opacity: { duration: 0.3, delay: 1.1 } }}
@@ -106,7 +120,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
               position: 'absolute',
               inset: `${-n * 14}px`,
               borderRadius: '50%',
-              border: `1px solid rgba(106,176,76,${0.18 - n * 0.04})`,
+              border: `1px solid rgba(106,176,76,${0.15 - n * 0.03})`,
               animation: `ripplePing ${2.2 + n * 0.7}s cubic-bezier(0,0,0.2,1) infinite ${n * 0.5}s`,
             }}
           />
@@ -123,7 +137,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             borderRadius: '50%',
             background: '#ffffff',
             padding: '10px',
-            boxShadow: '0 0 60px rgba(106,176,76,0.25), 0 8px 40px rgba(0,0,0,0.3)',
+            boxShadow: '0 0 50px rgba(106,176,76,0.2), 0 8px 32px rgba(61,26,10,0.1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -145,7 +159,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             position: 'absolute',
             inset: '18px',
             borderRadius: '50%',
-            background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent)',
+            background: 'linear-gradient(to right, transparent, rgba(106,176,76,0.25), transparent)',
             zIndex: 10,
             pointerEvents: 'none',
             overflow: 'hidden',
@@ -166,11 +180,10 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-              fontWeight: 300,
+              fontWeight: 400,
               letterSpacing: '0.4em',
               textTransform: 'uppercase',
-              color: '#ffffff',
-              textShadow: '0 0 40px rgba(106,176,76,0.5)',
+              color: '#3D1A0A',
               marginBottom: '8px',
             }}
           >
@@ -183,8 +196,8 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             animate={{ width: '100%' }}
             transition={{ delay: 2.2, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              height: '1px',
-              background: 'linear-gradient(to right, transparent, rgba(106,176,76,0.7), transparent)',
+              height: '1.5px',
+              background: 'linear-gradient(to right, transparent, #6AB04C, transparent)',
               marginBottom: '16px',
             }}
           />
@@ -196,11 +209,10 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             transition={{ delay: 2.4, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             style={{
               fontFamily: "'Nunito', sans-serif",
-              fontSize: '0.65rem',
+              fontSize: '0.7rem',
               fontWeight: 800,
               textTransform: 'uppercase',
               color: '#6AB04C',
-              textShadow: '0 0 20px rgba(106,176,76,0.5)',
             }}
           >
             Home Health Services
@@ -219,7 +231,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
           right: '36px',
           fontFamily: "'Nunito', sans-serif",
           fontSize: '0.68rem',
-          color: 'rgba(255,255,255,0.2)',
+          color: 'rgba(61,26,10,0.25)',
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
           pointerEvents: 'none',
@@ -253,7 +265,7 @@ export default function IntroAnimation({ onComplete }: Props) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: '#030303',
+        background: 'linear-gradient(160deg, #F4F1ED 0%, #EAE5DC 40%, #F6F2EE 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -263,8 +275,8 @@ export default function IntroAnimation({ onComplete }: Props) {
       {/* Curtain exit split */}
       {done && (
         <>
-          <div style={{ position: 'absolute', inset: '0 50% 0 0', zIndex: 10000, background: '#030303', animation: 'curtainLeft 0.85s cubic-bezier(0.85,0,0.15,1) forwards' }} />
-          <div style={{ position: 'absolute', inset: '0 0 0 50%', zIndex: 10000, background: '#030303', animation: 'curtainRight 0.85s cubic-bezier(0.85,0,0.15,1) forwards' }} />
+          <div style={{ position: 'absolute', inset: '0 50% 0 0', zIndex: 10000, background: '#F4F1ED', animation: 'curtainLeft 0.85s cubic-bezier(0.85,0,0.15,1) forwards' }} />
+          <div style={{ position: 'absolute', inset: '0 0 0 50%', zIndex: 10000, background: '#F4F1ED', animation: 'curtainRight 0.85s cubic-bezier(0.85,0,0.15,1) forwards' }} />
         </>
       )}
 
