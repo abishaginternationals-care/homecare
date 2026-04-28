@@ -1,106 +1,133 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-
 export default function AnimatedBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d')!;
-    let animId: number;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const orbs = [
-      { x: 0.2, y: 0.3, r: 0.45, vx: 0.00015, vy: 0.0001,  color: '106,176,76',  alpha: 0.22 },
-      { x: 0.8, y: 0.7, r: 0.40, vx: -0.0001, vy: -0.00015, color: '61,26,10',    alpha: 0.12 },
-      { x: 0.5, y: 0.1, r: 0.35, vx: 0.00012, vy: 0.00018,  color: '74,138,48',   alpha: 0.18 },
-      { x: 0.9, y: 0.2, r: 0.30, vx: -0.00018, vy: 0.0001,  color: '106,176,76',  alpha: 0.15 },
-      { x: 0.1, y: 0.8, r: 0.38, vx: 0.00010, vy: -0.00012, color: '217,160,102', alpha: 0.10 },
-    ];
-
-    let tick = 0;
-
-    const draw = () => {
-      const W = canvas.width;
-      const H = canvas.height;
-
-      // Base cream gradient
-      const base = ctx.createLinearGradient(0, 0, W, H);
-      base.addColorStop(0,   '#F0EDE8');
-      base.addColorStop(0.5, '#EDEAE3');
-      base.addColorStop(1,   '#F4F1ED');
-      ctx.fillStyle = base;
-      ctx.fillRect(0, 0, W, H);
-
-      // Moving orbs
-      for (const o of orbs) {
-        o.x += o.vx;
-        o.y += o.vy;
-        // Bounce at edges
-        if (o.x < 0 || o.x > 1) o.vx *= -1;
-        if (o.y < 0 || o.y > 1) o.vy *= -1;
-
-        const cx = o.x * W;
-        const cy = o.y * H;
-        const r  = o.r * Math.min(W, H);
-        const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        g.addColorStop(0,   `rgba(${o.color},${o.alpha})`);
-        g.addColorStop(0.5, `rgba(${o.color},${o.alpha * 0.4})`);
-        g.addColorStop(1,   `rgba(${o.color},0)`);
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-      }
-
-      // Pulsing diagonal beam — top-left to bottom-right
-      const pulse = Math.sin(tick * 0.012) * 0.5 + 0.5;
-      const beam  = ctx.createLinearGradient(0, 0, W, H);
-      beam.addColorStop(0,    `rgba(106,176,76,0)`);
-      beam.addColorStop(0.35, `rgba(106,176,76,${0.07 * pulse})`);
-      beam.addColorStop(0.5,  `rgba(255,255,255,${0.05 * pulse})`);
-      beam.addColorStop(0.65, `rgba(106,176,76,${0.07 * pulse})`);
-      beam.addColorStop(1,    `rgba(106,176,76,0)`);
-      ctx.fillStyle = beam;
-      ctx.fillRect(0, 0, W, H);
-
-      // Second beam — top-right pulse
-      const pulse2 = Math.sin(tick * 0.008 + 2) * 0.5 + 0.5;
-      const beam2  = ctx.createLinearGradient(W, 0, 0, H);
-      beam2.addColorStop(0,   `rgba(74,138,48,0)`);
-      beam2.addColorStop(0.4, `rgba(74,138,48,${0.05 * pulse2})`);
-      beam2.addColorStop(1,   `rgba(74,138,48,0)`);
-      ctx.fillStyle = beam2;
-      ctx.fillRect(0, 0, W, H);
-
-      tick++;
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: -1,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-      }}
-    />
+    <>
+      <style>{`
+        .ab-root {
+          position: fixed;
+          inset: 0;
+          z-index: -1;
+          overflow: hidden;
+          pointer-events: none;
+          background: linear-gradient(135deg, #EFF7E8 0%, #EAE5DC 40%, #F0EDE8 70%, #E8F3E0 100%);
+        }
+        /* Animated orbs */
+        .ab-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0;
+          animation: ab-float linear infinite;
+        }
+        .ab-orb-1 {
+          width: 700px; height: 700px;
+          background: radial-gradient(circle, rgba(106,176,76,0.38) 0%, rgba(106,176,76,0.10) 60%, transparent 100%);
+          top: -200px; left: -200px;
+          animation-duration: 18s;
+          animation-name: ab-drift1;
+        }
+        .ab-orb-2 {
+          width: 600px; height: 600px;
+          background: radial-gradient(circle, rgba(74,138,48,0.32) 0%, rgba(74,138,48,0.08) 60%, transparent 100%);
+          bottom: -150px; right: -150px;
+          animation-duration: 22s;
+          animation-name: ab-drift2;
+        }
+        .ab-orb-3 {
+          width: 500px; height: 500px;
+          background: radial-gradient(circle, rgba(61,26,10,0.14) 0%, rgba(61,26,10,0.04) 60%, transparent 100%);
+          top: 30%; left: 60%;
+          animation-duration: 26s;
+          animation-name: ab-drift3;
+        }
+        .ab-orb-4 {
+          width: 450px; height: 450px;
+          background: radial-gradient(circle, rgba(106,176,76,0.28) 0%, rgba(106,176,76,0.06) 60%, transparent 100%);
+          top: 55%; left: 10%;
+          animation-duration: 20s;
+          animation-name: ab-drift4;
+        }
+        .ab-orb-5 {
+          width: 350px; height: 350px;
+          background: radial-gradient(circle, rgba(217,160,102,0.18) 0%, rgba(217,160,102,0.05) 60%, transparent 100%);
+          top: 15%; right: 15%;
+          animation-duration: 24s;
+          animation-name: ab-drift5;
+        }
+
+        @keyframes ab-drift1 {
+          0%   { opacity:1; transform: translate(0px, 0px)   scale(1.0); }
+          25%  { transform: translate(120px, 80px)  scale(1.1); }
+          50%  { transform: translate(80px, 160px)  scale(0.9); }
+          75%  { transform: translate(-60px, 100px) scale(1.05); }
+          100% { opacity:1; transform: translate(0px, 0px)   scale(1.0); }
+        }
+        @keyframes ab-drift2 {
+          0%   { opacity:1; transform: translate(0px, 0px)    scale(1.0); }
+          25%  { transform: translate(-100px, -80px) scale(1.1); }
+          50%  { transform: translate(-60px, -140px) scale(0.95); }
+          75%  { transform: translate(80px, -80px)   scale(1.05); }
+          100% { opacity:1; transform: translate(0px, 0px)    scale(1.0); }
+        }
+        @keyframes ab-drift3 {
+          0%   { opacity:1; transform: translate(0px, 0px)   scale(1.0); }
+          33%  { transform: translate(-80px, 60px)  scale(1.08); }
+          66%  { transform: translate(100px, -50px) scale(0.92); }
+          100% { opacity:1; transform: translate(0px, 0px)   scale(1.0); }
+        }
+        @keyframes ab-drift4 {
+          0%   { opacity:1; transform: translate(0px, 0px)  scale(1.0); }
+          40%  { transform: translate(90px, -70px) scale(1.1); }
+          80%  { transform: translate(-50px, 90px) scale(0.9); }
+          100% { opacity:1; transform: translate(0px, 0px)  scale(1.0); }
+        }
+        @keyframes ab-drift5 {
+          0%   { opacity:1; transform: translate(0px, 0px)    scale(1.0); }
+          50%  { transform: translate(-120px, 100px) scale(1.15); }
+          100% { opacity:1; transform: translate(0px, 0px)    scale(1.0); }
+        }
+
+        /* Subtle grid lines */
+        .ab-grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(106,176,76,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(106,176,76,0.05) 1px, transparent 1px);
+          background-size: 80px 80px;
+        }
+
+        /* Diagonal shimmer beam */
+        .ab-beam {
+          position: absolute;
+          width: 2px;
+          height: 100%;
+          top: 0;
+          background: linear-gradient(to bottom, transparent, rgba(106,176,76,0.12), transparent);
+          filter: blur(1px);
+          animation: ab-beam-pulse 6s ease-in-out infinite;
+        }
+        .ab-beam-1 { left: 20%; animation-delay: 0s; }
+        .ab-beam-2 { left: 50%; animation-delay: 2s; }
+        .ab-beam-3 { left: 80%; animation-delay: 4s; }
+        @keyframes ab-beam-pulse {
+          0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+          50%      { opacity: 1.0; transform: scaleY(1.0); }
+        }
+      `}</style>
+
+      <div className="ab-root">
+        <div className="ab-orb ab-orb-1" />
+        <div className="ab-orb ab-orb-2" />
+        <div className="ab-orb ab-orb-3" />
+        <div className="ab-orb ab-orb-4" />
+        <div className="ab-orb ab-orb-5" />
+        <div className="ab-grid" />
+        <div className="ab-beam ab-beam-1" />
+        <div className="ab-beam ab-beam-2" />
+        <div className="ab-beam ab-beam-3" />
+      </div>
+    </>
   );
 }
