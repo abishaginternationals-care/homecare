@@ -26,8 +26,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Global Animated Background */}
+        <div className="animated-bg">
+          <div className="orb green"></div>
+          <div className="orb brown"></div>
+          <div className="orb amber"></div>
+        </div>
+
         <Navigation />
-        <main className="flex-grow">
+        <main className="flex-grow relative z-10">
           {children}
         </main>
         <Footer />
