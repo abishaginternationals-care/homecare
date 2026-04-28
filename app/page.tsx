@@ -172,7 +172,7 @@ export default function Home() {
 
       {/* ── EXISTING SECTIONS BELOW ── */}
       <div ref={containerRef} style={{ position: 'relative' }}>
-      <section className="py-24 md:py-32" style={{ background: '#ffffff', position: 'relative' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Image with float effect */}
@@ -284,7 +284,7 @@ export default function Home() {
 
 
       {/* ── SERVICES PREVIEW ── */}
-      <section className="py-24 md:py-32" style={{ background: 'linear-gradient(180deg, #F4F1ED 0%, #ffffff 50%, #F4F1ED 100%)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'linear-gradient(180deg, rgba(244,241,237,0.1) 0%, rgba(255,255,255,0.1) 100%)', backdropFilter: 'blur(4px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -393,7 +393,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-24 md:py-32" style={{ background: '#ffffff' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(8px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -472,7 +472,7 @@ export default function Home() {
       </section>
 
       {/* ── REVIEWS SECTION ── */}
-      <section className="py-24 md:py-32" style={{ background: '#F4F1ED', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.5)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <motion.div
