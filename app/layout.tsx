@@ -3,6 +3,7 @@ import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ChatAssistant from "./components/ChatAssistant";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 export const metadata: Metadata = {
   title: "Abhishag - Home Health Services",
@@ -27,11 +28,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         {/* Global Animated Background */}
-        <div className="animated-bg">
-          <div className="orb green"></div>
-          <div className="orb brown"></div>
-          <div className="orb amber"></div>
-        </div>
+        <AnimatedBackground />
 
         <Navigation />
         <main className="flex-grow relative z-10">
