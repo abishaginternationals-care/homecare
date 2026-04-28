@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import CinematicHero from './components/CinematicHero';
 import IntroAnimation from './components/IntroAnimation';
+import AnimatedBackground from './components/AnimatedBackground';
 import { getReviews, addReview, type Review } from './actions';
 import { UserCheck, ClipboardCheck, ShieldCheck, HeartHandshake, ArrowRight, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -157,17 +158,20 @@ export default function Home() {
   });
 
   return (
-    <div ref={containerRef} style={{ overflow: 'hidden', position: 'relative', minHeight: '100vh', background: 'transparent' }}>
+    <>
+      {/* ── GLOBAL ANIMATED BACKGROUND ── */}
+      <AnimatedBackground />
 
       {/* ── INTRO ANIMATION ── */}
       {isMounted && !introDone && (
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
 
-      {/* ── CINEMATIC HERO ── */}
+      {/* ── PREMIUM HERO ── */}
       <CinematicHero />
 
-
+      {/* ── EXISTING SECTIONS BELOW ── */}
+      <div ref={containerRef} style={{ position: 'relative' }}>
       <section className="py-24 md:py-32" style={{ background: '#ffffff', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
@@ -682,6 +686,7 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
