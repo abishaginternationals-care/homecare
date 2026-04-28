@@ -85,7 +85,7 @@ export default function CinematicHero() {
       {/* 🧡 Content */}
       <div key={index} className="relative z-10 text-center text-white px-6 max-w-4xl">
         {/* Title */}
-        <h1 className="text-4xl md:text-6xl mb-6 leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+        <h1 className="text-4xl md:text-6xl mb-6 leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", perspective: '600px', perspectiveOrigin: 'center' }}>
           {slide.title.split(" ").map((word, i) => (
             <span
               key={i}
