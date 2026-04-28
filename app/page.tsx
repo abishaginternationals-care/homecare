@@ -189,25 +189,6 @@ export default function Home() {
                 alt="Compassionate elderly care" 
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
-              
-              {/* Floating badge */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                  position: 'absolute', bottom: '32px', left: '32px',
-                  background: 'rgba(255,255,255,0.95)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: '16px',
-                  padding: '16px 24px',
-                  boxShadow: '0 10px 30px rgba(61,26,10,0.2)',
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  zIndex: 20
-                }}
-              >
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#6AB04C', boxShadow: '0 0 12px rgba(106,176,76,0.6)' }} />
-                <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.9rem', fontWeight: 800, color: '#3D1A0A' }}>Trusted Home Care</span>
-              </motion.div>
             </div>
           </motion.div>
 
@@ -263,12 +244,30 @@ export default function Home() {
               <MagneticButton>
                 <Link
                   href="/about"
-                  className="px-10 py-5 rounded-xl font-bold transition-all duration-300 hover:bg-[#3D1A0A] hover:text-white"
                   style={{
+                    fontFamily: "'Nunito', sans-serif",
+                    fontWeight: 700,
+                    display: 'block',
+                    padding: '20px 40px',
+                    borderRadius: '12px',
                     border: '2px solid #3D1A0A',
                     color: '#3D1A0A',
+                    background: 'transparent',
                     textDecoration: 'none',
-                    display: 'block'
+                    fontSize: '1rem',
+                    transition: 'background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = '#3D1A0A';
+                    el.style.color = '#ffffff';
+                    el.style.boxShadow = '0 10px 25px rgba(61,26,10,0.25)';
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = 'transparent';
+                    el.style.color = '#3D1A0A';
+                    el.style.boxShadow = 'none';
                   }}
                 >
                   About Us
@@ -475,37 +474,36 @@ export default function Home() {
       {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
       <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.3)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Centered heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-6"
-          >
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px' }} className="text-raise">
-              What Our Families Say
-            </h2>
-            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto 12px' }} />
-            <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.05rem', color: '#5C3D2A', fontWeight: 400 }}>
-              Trusted by hundreds of families across Tamil Nadu
-            </p>
-            {dbStatus === 'disconnected' && (
-              <div className="inline-block mt-3 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
-                Demo Mode: Connection pending
-              </div>
-            )}
-          </motion.div>
+          {/* Heading row: centered title + top-right button */}
+          <div className="relative flex items-start justify-center mb-14">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px' }} className="text-raise">
+                What Our Families Say
+              </h2>
+              <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
+              {dbStatus === 'disconnected' && (
+                <div className="inline-block mt-3 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
+                  Demo Mode: Connection pending
+                </div>
+              )}
+            </motion.div>
 
-          <div className="flex justify-center mb-12">
+            {/* Share button — absolute top right */}
             {!showReviewForm && (
               <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 onClick={() => setShowReviewForm(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-[#6AB04C] text-white font-bold rounded-xl shadow-lg shadow-[#6AB04C]/30 transition-all"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+                className="px-6 py-3 bg-[#6AB04C] text-white font-bold rounded-xl shadow-lg shadow-[#6AB04C]/30 transition-all text-sm"
               >
                 + Share Your Story
               </motion.button>
