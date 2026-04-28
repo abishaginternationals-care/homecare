@@ -31,7 +31,7 @@ export default function RootLayout({
         <AnimatedBackground />
 
         <Navigation />
-        <main className="flex-grow relative z-10">
+        <main className="flex-grow relative">
           {children}
         </main>
         <Footer />

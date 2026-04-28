@@ -159,8 +159,6 @@ export default function Home() {
 
   return (
     <>
-      {/* ── GLOBAL ANIMATED BACKGROUND ── */}
-      <AnimatedBackground />
 
       {/* ── INTRO ANIMATION ── */}
       {isMounted && !introDone && (
