@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import MagneticButton from "./MagneticButton";
 
 const slides = [
   {
@@ -103,22 +104,23 @@ export default function CinematicHero() {
         </p>
 
         {/* CTA */}
-        <button
-          onClick={() => router.push('/contact')}
-          onMouseMove={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
-            const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
-            e.currentTarget.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translate(0,0)";
-          }}
-          className="mt-10 px-8 py-3 bg-gradient-to-r from-[#6AB04C] to-[#3D7A28] rounded-full shadow-xl transition-all duration-300 hover:shadow-2xl"
-          style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.1rem' }}
-        >
-          Contact Us
-        </button>
+        <MagneticButton>
+          <button
+            onClick={() => router.push('/contact')}
+            className="mt-10 px-8 py-4 bg-gradient-to-r from-[#6AB04C] to-[#3D7A28] rounded-full shadow-xl hover:shadow-2xl"
+            style={{
+              fontFamily: "'Nunito', sans-serif",
+              fontWeight: 800,
+              fontSize: '1.1rem',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'box-shadow 0.3s ease',
+            }}
+          >
+            Contact Us
+          </button>
+        </MagneticButton>
       </div>
 
       {/* 📊 Progress Bar */}
