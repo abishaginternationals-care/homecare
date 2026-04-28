@@ -83,15 +83,15 @@ export default function CinematicHero() {
       {/* 🌞 Soft Warm Glow */}
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/20 blur-[120px]" />
 
-      {/* 🧡 Content */}
-      <div key={index} className="relative z-10 text-center px-6 max-w-5xl">
+      {/* 🧡 Content (Bottom Left) */}
+      <div key={`content-${index}`} className="absolute bottom-12 left-12 z-20 max-w-3xl text-left pl-6" style={{ borderLeft: '4px solid #6AB04C' }}>
         {/* Title */}
-        <h1 className="text-4xl md:text-6xl md:text-[5rem] mb-6 leading-tight" style={{ 
+        <h1 className="text-4xl md:text-5xl md:text-[4rem] mb-4 leading-tight" style={{ 
           fontFamily: "'Cormorant Garamond', serif", 
           color: '#ffffff',
           textShadow: '0 4px 24px rgba(0,0,0,0.5)', 
           perspective: '600px', 
-          perspectiveOrigin: 'center' 
+          perspectiveOrigin: 'left center' 
         }}>
           {slide.title.split(" ").map((word, i) => (
             <span
@@ -103,18 +103,14 @@ export default function CinematicHero() {
             </span>
           ))}
         </h1>
-      </div>
 
-      {/* Subtitle at bottom right corner */}
-      <div key={`subtitle-${index}`} className="absolute bottom-12 right-12 z-20 max-w-md text-right">
+        {/* Subtitle */}
         <p 
-          className="text-lg md:text-2xl font-light opacity-0 animate-[fadeInUp_0.8s_forwards] text-white" 
+          className="text-lg md:text-xl font-light opacity-0 animate-[fadeInUp_0.8s_forwards] text-white" 
           style={{ 
             fontFamily: "'Nunito', sans-serif", 
             animationDelay: '0.7s',
-            textShadow: '0 2px 12px rgba(0,0,0,0.6)',
-            borderRight: '3px solid #6AB04C',
-            paddingRight: '16px'
+            textShadow: '0 2px 12px rgba(0,0,0,0.6)'
           }}
         >
           {slide.subtitle}
