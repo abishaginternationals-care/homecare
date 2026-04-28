@@ -8,29 +8,7 @@ interface Props {
 }
 
 // SVG Variants — Path-Trace style from reference
-const pathVariants = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: {
-    pathLength: 1,
-    opacity: 1,
-    transition: {
-      pathLength: { duration: 1.8, ease: 'easeInOut' },
-      opacity: { duration: 0.4 },
-    },
-  },
-};
 
-const secondPathVariants = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: {
-    pathLength: 1,
-    opacity: 1,
-    transition: {
-      pathLength: { duration: 1.4, ease: 'easeInOut', delay: 0.9 },
-      opacity: { duration: 0.4, delay: 0.9 },
-    },
-  },
-};
 
 function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
   return (
@@ -91,19 +69,19 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             cx="50" cy="50" r="46"
             stroke="#6AB04C"
             strokeWidth="1"
-            variants={pathVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 1.8, ease: 'easeInOut' }, opacity: { duration: 0.4 } }}
           />
-          {/* Inner decorative arc */}
+          {/* Inner dashed ring */}
           <motion.circle
             cx="50" cy="50" r="38"
             stroke="rgba(106,176,76,0.35)"
             strokeWidth="0.6"
             strokeDasharray="4 6"
-            variants={secondPathVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 1.4, ease: 'easeInOut', delay: 0.9 }, opacity: { duration: 0.4, delay: 0.9 } }}
           />
           {/* Cross-hair accents */}
           <motion.path
@@ -111,9 +89,9 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             stroke="#6AB04C"
             strokeWidth="1.5"
             strokeLinecap="round"
-            variants={secondPathVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 1.0, ease: 'easeInOut', delay: 1.1 }, opacity: { duration: 0.3, delay: 1.1 } }}
           />
         </svg>
 
