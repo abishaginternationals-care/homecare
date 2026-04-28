@@ -14,7 +14,7 @@ const pathVariants = {
     pathLength: 1,
     opacity: 1,
     transition: {
-      pathLength: { duration: 1.8, ease: [0.76, 0, 0.24, 1] },
+      pathLength: { duration: 1.8, ease: 'easeInOut' },
       opacity: { duration: 0.4 },
     },
   },
@@ -26,7 +26,7 @@ const secondPathVariants = {
     pathLength: 1,
     opacity: 1,
     transition: {
-      pathLength: { duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: 0.9 },
+      pathLength: { duration: 1.4, ease: 'easeInOut', delay: 0.9 },
       opacity: { duration: 0.4, delay: 0.9 },
     },
   },
