@@ -17,9 +17,21 @@ export default function Navigation() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
     window.addEventListener('scroll', onScroll, { passive: true });
+    // Initial check
     onScroll();
+    
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
