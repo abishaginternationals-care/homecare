@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 
 interface Card3DProps {
   children: React.ReactNode;
@@ -9,12 +9,9 @@ interface Card3DProps {
   glowColor?: string;
 }
 
-export default function Card3D({ children, className, style, glowColor = 'rgba(106,176,76,0.4)' }: Card3DProps) {
+export default function Card3D({ children, className, style, glowColor = 'rgba(106,176,76,0.3)' }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
-  const [tilt, setTilt] = useState({ rotX: 0, rotY: 0, scale: 1 });
-  const [shimmerPos, setShimmerPos] = useState({ x: 50, y: 50 });
-  const [hovered, setHovered] = useState(false);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     cancelAnimationFrame(frameRef.current);
@@ -23,62 +20,66 @@ export default function Card3D({ children, className, style, glowColor = 'rgba(1
       const rect = ref.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      setTilt({ rotX: -y * 14, rotY: x * 14, scale: 1.04 });
-      setShimmerPos({
-        x: ((e.clientX - rect.left) / rect.width) * 100,
-        y: ((e.clientY - rect.top) / rect.height) * 100,
-      });
+
+      // Shimmer position
+      const shimmerX = ((e.clientX - rect.left) / rect.width) * 100;
+      const shimmerY = ((e.clientY - rect.top) / rect.height) * 100;
+
+      ref.current.style.transform = `perspective(800px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) scale(1.03)`;
+      ref.current.style.boxShadow = `0 30px 60px rgba(61,26,10,0.18), 0 0 0 1.5px ${glowColor}, 0 0 40px ${glowColor}`;
+
+      // Update shimmer
+      const shimmer = ref.current.querySelector<HTMLElement>('[data-shimmer]');
+      if (shimmer) {
+        shimmer.style.background = `radial-gradient(circle at ${shimmerX}% ${shimmerY}%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 40%, transparent 65%)`;
+        shimmer.style.opacity = '1';
+      }
     });
-  }, []);
+  }, [glowColor]);
 
   const handleMouseLeave = useCallback(() => {
     cancelAnimationFrame(frameRef.current);
-    setTilt({ rotX: 0, rotY: 0, scale: 1 });
-    setHovered(false);
+    if (!ref.current) return;
+    ref.current.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+    ref.current.style.boxShadow = '0 4px 20px rgba(61,26,10,0.08)';
+    const shimmer = ref.current.querySelector<HTMLElement>('[data-shimmer]');
+    if (shimmer) shimmer.style.opacity = '0';
   }, []);
-
-  const handleMouseEnter = useCallback(() => setHovered(true), []);
-
-  const transform = `perspective(900px) rotateX(${tilt.rotX}deg) rotateY(${tilt.rotY}deg) scale(${tilt.scale})`;
 
   return (
     <div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
       className={className}
       style={{
-        transform,
+        transform: 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)',
         transformStyle: 'preserve-3d',
         willChange: 'transform',
-        transition: hovered
-          ? 'transform 0.05s linear, box-shadow 0.3s ease'
-          : 'transform 0.6s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         position: 'relative',
         overflow: 'hidden',
         borderRadius: 'inherit',
-        boxShadow: hovered
-          ? `0 30px 60px rgba(61,26,10,0.20), 0 0 0 2px ${glowColor}, 0 0 40px ${glowColor}`
-          : '0 4px 20px rgba(61,26,10,0.08)',
+        boxShadow: '0 4px 20px rgba(61,26,10,0.08)',
         ...style,
       }}
     >
       {/* Shimmer highlight that follows cursor */}
       <div
+        data-shimmer
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(circle at ${shimmerPos.x}% ${shimmerPos.y}%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 40%, transparent 65%)`,
-          opacity: hovered ? 1 : 0,
+          background: 'transparent',
+          opacity: 0,
           transition: 'opacity 0.3s ease',
           pointerEvents: 'none',
           zIndex: 10,
           borderRadius: 'inherit',
         }}
       />
-      {/* Depth layer */}
-      <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d', height: '100%' }}>
+      {/* Content */}
+      <div style={{ transformStyle: 'preserve-3d', height: '100%' }}>
         {children}
       </div>
     </div>
