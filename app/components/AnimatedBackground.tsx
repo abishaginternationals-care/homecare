@@ -96,7 +96,7 @@ export default function AnimatedBackground() {
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 0,
+        zIndex: -1,
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
