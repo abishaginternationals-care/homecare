@@ -86,9 +86,9 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  useScrollReveal();
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
+  useScrollReveal([activeCategory]);
 
   const [selectedPost, setSelectedPost] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);

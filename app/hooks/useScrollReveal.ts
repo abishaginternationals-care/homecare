@@ -2,14 +2,13 @@
 
 import { useEffect } from 'react';
 
-export function useScrollReveal() {
+export function useScrollReveal(dependencies: any[] = []) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Optional: observer.unobserve(entry.target) if we only want it to reveal once
           }
         });
       },
@@ -19,13 +18,17 @@ export function useScrollReveal() {
       }
     );
 
-    const elements = document.querySelectorAll(
-      '.reveal, .reveal-left, .reveal-right, .reveal-scale'
-    );
-    elements.forEach((el) => observer.observe(el));
+    // Small delay to allow React to render new DOM elements before observing
+    const timeoutId = setTimeout(() => {
+      const elements = document.querySelectorAll(
+        '.reveal, .reveal-left, .reveal-right, .reveal-scale'
+      );
+      elements.forEach((el) => observer.observe(el));
+    }, 50);
 
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
+      clearTimeout(timeoutId);
+      observer.disconnect();
     };
-  }, []);
+  }, dependencies);
 }
