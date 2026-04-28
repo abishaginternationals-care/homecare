@@ -84,9 +84,15 @@ export default function CinematicHero() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/20 blur-[120px]" />
 
       {/* 🧡 Content */}
-      <div key={index} className="relative z-10 text-center text-white px-6 max-w-4xl">
+      <div key={index} className="relative z-10 text-center px-6 max-w-5xl">
         {/* Title */}
-        <h1 className="text-4xl md:text-6xl mb-6 leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", perspective: '600px', perspectiveOrigin: 'center' }}>
+        <h1 className="text-4xl md:text-6xl md:text-[5rem] mb-6 leading-tight" style={{ 
+          fontFamily: "'Cormorant Garamond', serif", 
+          color: '#ffffff',
+          textShadow: '0 4px 24px rgba(0,0,0,0.5)', 
+          perspective: '600px', 
+          perspectiveOrigin: 'center' 
+        }}>
           {slide.title.split(" ").map((word, i) => (
             <span
               key={i}
@@ -97,30 +103,22 @@ export default function CinematicHero() {
             </span>
           ))}
         </h1>
+      </div>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl opacity-0 animate-[fadeInUp_0.8s_forwards] text-[#F4F1ED]" style={{ fontFamily: "'Nunito', sans-serif", animationDelay: '0.7s' }}>
+      {/* Subtitle at bottom right corner */}
+      <div key={`subtitle-${index}`} className="absolute bottom-12 right-12 z-20 max-w-md text-right">
+        <p 
+          className="text-lg md:text-2xl font-light opacity-0 animate-[fadeInUp_0.8s_forwards] text-white" 
+          style={{ 
+            fontFamily: "'Nunito', sans-serif", 
+            animationDelay: '0.7s',
+            textShadow: '0 2px 12px rgba(0,0,0,0.6)',
+            borderRight: '3px solid #6AB04C',
+            paddingRight: '16px'
+          }}
+        >
           {slide.subtitle}
         </p>
-
-        {/* CTA */}
-        <MagneticButton>
-          <button
-            onClick={() => router.push('/contact')}
-            className="mt-10 px-8 py-4 bg-gradient-to-r from-[#6AB04C] to-[#3D7A28] rounded-full shadow-xl hover:shadow-2xl"
-            style={{
-              fontFamily: "'Nunito', sans-serif",
-              fontWeight: 800,
-              fontSize: '1.1rem',
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'box-shadow 0.3s ease',
-            }}
-          >
-            Contact Us
-          </button>
-        </MagneticButton>
       </div>
 
       {/* 📊 Progress Bar */}
