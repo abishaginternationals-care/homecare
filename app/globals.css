@@ -140,6 +140,15 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+@keyframes curtainLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes curtainRight {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
 /* Moving gradient layer */
 .animated-bg::before {
   content: "";

@@ -92,10 +92,10 @@ export default function Home() {
 
   useEffect(() => {
     setIsMounted(true);
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-    if (hasSeenIntro) {
-      setIntroDone(true);
-    }
+    // const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    // if (hasSeenIntro) {
+    //   setIntroDone(true);
+    // }
     const t = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(t);
   }, []);
