@@ -95,33 +95,42 @@ export default function Navigation() {
 
           {/* Desktop nav links */}
           <div className="hidden md:flex gap-6 lg:gap-8 items-center">
-            {navLinks.map(({ href, label }) => {
+          {navLinks.map(({ href, label }) => {
               const isActive = pathname === href;
               return (
                 <Link
                   key={href}
                   href={href}
-                  className="nav-link-underline"
                   style={{
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: 600,
                     fontSize: '0.93rem',
-                    color: isActive ? '#3D1A0A' : '#5C3D2A',
+                    color: isActive ? '#ffffff' : '#5C3D2A',
                     letterSpacing: '0.02em',
                     textDecoration: 'none',
-                    padding: '5px 0',
-                    position: 'relative',
-                    borderBottom: isActive ? '2px solid #6AB04C' : '2px solid transparent',
-                    transition: 'color 0.2s, border-color 0.2s',
+                    padding: '7px 18px',
+                    borderRadius: '100px',
+                    background: isActive
+                      ? 'linear-gradient(135deg, #6AB04C, #4A8A30)'
+                      : 'transparent',
+                    boxShadow: isActive ? '0 4px 14px rgba(106,176,76,0.35)' : 'none',
+                    transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
                     whiteSpace: 'nowrap',
+                    display: 'inline-block',
                   }}
                   onMouseEnter={e => {
-                    (e.target as HTMLElement).style.color = '#3D1A0A';
-                    (e.target as HTMLElement).style.borderBottomColor = '#6AB04C';
+                    if (!isActive) {
+                      (e.currentTarget as HTMLElement).style.background = 'rgba(106,176,76,0.12)';
+                      (e.currentTarget as HTMLElement).style.color = '#3D1A0A';
+                      (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px) scale(1.04)';
+                    }
                   }}
                   onMouseLeave={e => {
-                    (e.target as HTMLElement).style.color = isActive ? '#3D1A0A' : '#5C3D2A';
-                    (e.target as HTMLElement).style.borderBottomColor = isActive ? '#6AB04C' : 'transparent';
+                    if (!isActive) {
+                      (e.currentTarget as HTMLElement).style.background = 'transparent';
+                      (e.currentTarget as HTMLElement).style.color = '#5C3D2A';
+                      (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(1)';
+                    }
                   }}
                 >
                   {label}

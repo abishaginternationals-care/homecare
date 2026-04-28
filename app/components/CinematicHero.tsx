@@ -116,55 +116,10 @@ export default function CinematicHero() {
           {slide.subtitle}
         </p>
 
-        {/* Magnetic CTAs */}
-        <div className="flex gap-4 flex-wrap opacity-0 animate-[fadeInUp_0.8s_forwards]" style={{ animationDelay: '1s' }}>
-          <MagneticButton>
-            <button
-              onClick={() => router.push('/services')}
-              style={{
-                fontFamily: "'Nunito', sans-serif",
-                fontWeight: 700,
-                fontSize: '0.95rem',
-                color: '#fff',
-                background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
-                border: 'none',
-                borderRadius: '100px',
-                padding: '14px 32px',
-                cursor: 'pointer',
-                boxShadow: '0 8px 24px rgba(106,176,76,0.4)',
-                letterSpacing: '0.02em',
-                transition: 'box-shadow 0.3s ease',
-              }}
-            >
-              View Services →
-            </button>
-          </MagneticButton>
-
-          <MagneticButton>
-            <button
-              onClick={() => router.push('/contact')}
-              style={{
-                fontFamily: "'Nunito', sans-serif",
-                fontWeight: 700,
-                fontSize: '0.95rem',
-                color: '#fff',
-                background: 'rgba(255,255,255,0.12)',
-                border: '1.5px solid rgba(255,255,255,0.45)',
-                borderRadius: '100px',
-                padding: '13px 28px',
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-                letterSpacing: '0.02em',
-              }}
-            >
-              Contact Us
-            </button>
-          </MagneticButton>
-        </div>
       </div>
 
-      {/* 📊 Progress Bar */}
-      <div key={`progress-${index}`} className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#6AB04C] to-[#4ABED6] animate-progress w-full z-20"></div>
+      {/* Progress Bar — hidden */}
+      <div key={`progress-${index}`} className="absolute bottom-0 left-0 h-[3px] w-full z-20" style={{ opacity: 0, pointerEvents: 'none' }}></div>
     </section>
   );
 }

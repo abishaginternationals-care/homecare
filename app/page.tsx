@@ -290,7 +290,6 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20 reveal"
           >
-            <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}>What We Offer</p>
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -303,6 +302,7 @@ export default function Home() {
             >
               Our Specialized Care
             </h2>
+            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
           </motion.div>
 
           <motion.div 
@@ -402,7 +402,6 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}>Our Promise</p>
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -415,6 +414,7 @@ export default function Home() {
             >
               Why Choose Abishag?
             </h2>
+            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
           </motion.div>
 
           <motion.div 
@@ -475,26 +475,32 @@ export default function Home() {
       {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
       <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.3)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '16px' }} className="text-raise">
-                Kind Words from Families
-              </h2>
-              {dbStatus === 'disconnected' && (
-                <div className="inline-block px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
-                  Demo Mode: Connection pending
-                </div>
-              )}
-            </motion.div>
+          {/* Centered heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-6"
+          >
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px' }} className="text-raise">
+              What Our Families Say
+            </h2>
+            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto 12px' }} />
+            <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.05rem', color: '#5C3D2A', fontWeight: 400 }}>
+              Trusted by hundreds of families across Tamil Nadu
+            </p>
+            {dbStatus === 'disconnected' && (
+              <div className="inline-block mt-3 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
+                Demo Mode: Connection pending
+              </div>
+            )}
+          </motion.div>
 
+          <div className="flex justify-center mb-12">
             {!showReviewForm && (
               <motion.button
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 onClick={() => setShowReviewForm(true)}
                 whileHover={{ scale: 1.05 }}
