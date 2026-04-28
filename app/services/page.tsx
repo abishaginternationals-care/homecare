@@ -245,7 +245,7 @@ export default function Services() {
       </section>
 
       {/* ── Service Highlights ── */}
-      <section style={{ background: '#ffffff', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
         {/* Subtle background decoration */}
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#3D1A0A 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         

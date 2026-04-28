@@ -149,7 +149,7 @@ export default function Blog() {
         </section>
 
         {/* Category Filter */}
-        <section className="py-8 md:py-10" style={{ background: '#ffffff', borderBottom: '1px solid #DDD5CC' }}>
+        <section className="py-8 md:py-10" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(221,213,204,0.5)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-3 justify-center">
               {categories.map((cat) => (
