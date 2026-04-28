@@ -190,14 +190,17 @@ export default function Blog() {
               >
                 <article
                   style={{
-                    background: '#ffffff',
+                    background: 'rgba(255,255,255,0.75)',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
                     borderRadius: '24px',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
                     height: '100%',
                     borderTop: `6px solid ${post.color}`,
-                    boxShadow: '0 15px 45px rgba(61, 26, 10, 0.04)',
+                    border: '1px solid rgba(255,255,255,0.60)',
+                    boxShadow: '0 15px 45px rgba(61, 26, 10, 0.07)',
                   }}
                 >
                   <div style={{ padding: '40px' }}>

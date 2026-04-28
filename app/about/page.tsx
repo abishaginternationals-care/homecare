@@ -276,12 +276,15 @@ export default function About() {
               <Card3D>
                 <div
                   style={{
-                    background: '#ffffff',
+                    background: 'rgba(255,255,255,0.75)',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
                     borderRadius: '24px', 
                     padding: '40px 32px',
                     textAlign: 'center',
                     borderTop: `6px solid ${value.color}`,
-                    boxShadow: '0 15px 40px rgba(61,26,10,0.06)',
+                    boxShadow: '0 15px 40px rgba(61,26,10,0.07)',
+                    border: '1px solid rgba(255,255,255,0.60)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -340,11 +343,14 @@ export default function About() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               style={{
-                background: '#ffffff', 
+                background: 'rgba(255,255,255,0.75)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
                 borderRadius: '24px',
                 padding: '40px 32px',
                 borderTop: '6px solid #6AB04C',
-                boxShadow: '0 10px 30px rgba(61,26,10,0.05)',
+                border: '1px solid rgba(255,255,255,0.60)',
+                boxShadow: '0 10px 30px rgba(61,26,10,0.07)',
                 display: 'flex', 
                 flexDirection: 'column', 
                 gap: '24px',

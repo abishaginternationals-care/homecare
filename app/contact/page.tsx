@@ -99,11 +99,13 @@ _Please reply to this message to start the conversation._`;
           <div className="reveal reveal-delay-2">
             <Card3D style={{ borderRadius: '32px' }}>
               <div style={{
-                background: '#ffffff',
+                background: 'rgba(255,255,255,0.78)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 padding: '48px',
                 borderRadius: '32px',
-                boxShadow: '0 25px 70px rgba(61,26,10,0.08)',
-                border: '1px solid rgba(61,26,10,0.05)',
+                boxShadow: '0 25px 70px rgba(61,26,10,0.09)',
+                border: '1px solid rgba(255,255,255,0.65)',
               }}>
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2.2rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '32px' }}>
                   Send us a Message

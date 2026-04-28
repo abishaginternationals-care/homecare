@@ -167,13 +167,15 @@ export default function Services() {
                       e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
                     }}
                     style={{
-                      background: '#ffffff',
+                      background: 'rgba(255,255,255,0.72)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
                       borderRadius: '24px',
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
-                      border: '1px solid rgba(221, 213, 204, 0.5)',
-                      boxShadow: '0 10px 40px rgba(61,26,10,0.05)',
+                      border: '1px solid rgba(255,255,255,0.60)',
+                      boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
                       overflow: 'hidden',
                       position: 'relative',
                       transition: 'transform 0.1s ease, box-shadow 0.3s ease',

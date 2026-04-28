@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
@@ -330,10 +330,13 @@ export default function Home() {
                 <Card3D style={{ borderRadius: '24px', height: '100%' }}>
                     <div
                       style={{
-                        background: '#ffffff',
+                        background: 'rgba(255,255,255,0.75)',
+                        backdropFilter: 'blur(14px)',
+                        WebkitBackdropFilter: 'blur(14px)',
                         borderRadius: '24px',
                         overflow: 'hidden',
                         borderTop: '6px solid #6AB04C',
+                        border: '1px solid rgba(255,255,255,0.60)',
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column'
@@ -511,7 +514,13 @@ export default function Home() {
                 exit={{ opacity: 0, height: 0 }}
                 className="mb-20 overflow-hidden"
               >
-                <div className="bg-white p-10 rounded-3xl shadow-2xl border border-[#EAE5DF] max-w-2xl mx-auto relative">
+                <div style={{
+                  background: 'rgba(255,255,255,0.82)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255,255,255,0.65)',
+                  boxShadow: '0 25px 60px rgba(61,26,10,0.12)',
+                }} className="p-10 rounded-3xl max-w-2xl mx-auto relative">
                   <button 
                     onClick={() => setShowReviewForm(false)}
                     className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -583,7 +592,14 @@ export default function Home() {
               {[...reviews, ...reviews].map((rev, i) => (
                 <Card3D key={i}>
                   <div
-                    className="w-[400px] p-10 bg-white rounded-3xl shadow-xl shadow-[#611A0A]/5 border border-[#EAE5DF] flex flex-col h-full"
+                    style={{
+                      background: 'rgba(255,255,255,0.78)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
+                      border: '1px solid rgba(255,255,255,0.60)',
+                      boxShadow: '0 20px 50px rgba(97,26,10,0.08)',
+                    }}
+                    className="w-[400px] p-10 rounded-3xl flex flex-col h-full"
                   >
                     <div className="flex gap-1 mb-6">
                       {[1, 2, 3, 4, 5].map((s) => (

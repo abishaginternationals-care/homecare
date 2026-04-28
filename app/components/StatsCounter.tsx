@@ -56,8 +56,16 @@ const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0, index = 
   return (
     <div 
       ref={ref} 
-      className="bg-white rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-xl shadow-[#3D1A0A]/5 border-t-[6px] border-[#6AB04C]"
-      style={{ animation: `floatY ${FLOAT_DURATIONS[index]} ease-in-out infinite` }}
+      className="rounded-2xl p-8 flex flex-col items-center justify-center text-center border-t-[6px] border-[#6AB04C]"
+      style={{ 
+        animation: `floatY ${FLOAT_DURATIONS[index]} ease-in-out infinite`,
+        background: 'rgba(255,255,255,0.72)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        border: '1px solid rgba(255,255,255,0.60)',
+        borderTop: '6px solid #6AB04C',
+        boxShadow: '0 20px 50px rgba(61,26,10,0.09)',
+      }}
     >
       <div className="text-4xl md:text-5xl font-bold text-[#3D1A0A] mb-2 font-serif">
         {count}{suffix}
@@ -71,7 +79,7 @@ const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0, index = 
 
 export default function StatsCounter() {
   return (
-    <section className="py-16 bg-[#F4F1ED]">
+    <section className="py-16" style={{ background: 'transparent' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           <CountUp end={2000} suffix="+" label="Families Served" delay={0} index={0} />

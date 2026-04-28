@@ -17,7 +17,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
   }
 
   return (
-    <div style={{ background: '#F4F1ED', minHeight: '100vh' }}>
+    <div style={{ background: 'transparent', minHeight: '100vh' }}>
       {/* ── Page Header ── */}
       <section
         className="py-16 md:py-20"
@@ -69,7 +69,15 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
 
       {/* ── Service Details ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100" style={{ border: '1px solid #EAE5DF', boxShadow: '0 12px 48px rgba(61,26,10,0.06)' }}>
+        <div style={{
+          background: 'rgba(255,255,255,0.78)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          border: '1px solid rgba(255,255,255,0.60)',
+          borderRadius: '24px',
+          padding: '32px 48px',
+          boxShadow: '0 12px 48px rgba(61,26,10,0.08)',
+        }}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             
             {/* Image */}
