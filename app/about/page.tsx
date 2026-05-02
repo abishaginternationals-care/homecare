@@ -21,6 +21,8 @@ const whyUs = [
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import ServiceRowReveal from '../components/ServiceRowReveal';
+import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 export default function About() {
   useScrollReveal();
@@ -31,6 +33,26 @@ export default function About() {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  // Medical Heart + cross icon for the About ECG widget
+  const medicalHeartIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="46"
+      height="46"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#6AB04C"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ filter: 'drop-shadow(0 0 8px rgba(106,176,76,0.7))' }}
+    >
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      <line x1="12" y1="7" x2="12" y2="13" />
+      <line x1="9" y1="10" x2="15" y2="10" />
+    </svg>
+  );
 
   return (
     <div ref={containerRef} style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative', background: 'transparent' }}>
@@ -49,7 +71,7 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.15 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 2, delay: 0.4 }}
           className="absolute inset-0 pointer-events-none"
         >
           <motion.div 
@@ -73,43 +95,58 @@ export default function About() {
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.p 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{
-              fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem',
-              letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C',
-              marginBottom: '16px',
-            }}
-          >
-            Abundance of Life
-          </motion.p>
-          <motion.h1 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700,
-              color: '#ffffff', lineHeight: 1.1, marginBottom: '24px',
-            }}
-            className="text-raise"
-          >
-            About Abishag
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            style={{
-              fontFamily: "'Nunito', sans-serif", fontSize: '1.2rem',
-              color: 'rgba(255,255,255,0.85)', fontWeight: 300, maxWidth: '600px',
-              lineHeight: 1.6
-            }}
-          >
-            Our journey, values, and unwavering commitment to providing the highest quality of home health services.
-          </motion.p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: existing text */}
+            <div>
+              <motion.p 
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                style={{
+                  fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem',
+                  letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C',
+                  marginBottom: '16px',
+                }}
+              >
+                Abundance of Life
+              </motion.p>
+              <motion.h1 
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700,
+                  color: '#ffffff', lineHeight: 1.1, marginBottom: '24px',
+                }}
+                className="text-raise"
+              >
+                About Abishag
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                style={{
+                  fontFamily: "'Nunito', sans-serif", fontSize: '1.2rem',
+                  color: 'rgba(255,255,255,0.85)', fontWeight: 300, maxWidth: '600px',
+                  lineHeight: 1.6
+                }}
+              >
+                Our journey, values, and unwavering commitment to providing the highest quality of home health services.
+              </motion.p>
+            </div>
+
+            {/* Right: ECG Widget */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              style={{ height: '220px' }}
+            >
+              <EcgHeartbeatWidget icon={medicalHeartIcon} label="Health · Dignity · Life" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -203,45 +240,30 @@ export default function About() {
       {/* ── Mission & Vision ── */}
       <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <ServiceRowReveal rowIndex={0} cols={2}>
             {[
               { title: "Our Mission", text: "To provide exceptional, compassionate daycare services that enhance the quality of life for elderly individuals through professional care, engaging activities, and a supportive community.", accent: '#6AB04C' },
               { title: "Our Vision", text: "To be the most trusted and respected elderly daycare center in the community, known for our commitment to excellence, innovation in care delivery, and genuine love for our residents.", accent: '#2D2873' },
-            ].map(({ title, text, accent }, idx) => (
-              <motion.div
+            ].map(({ title, text, accent }) => (
+              <div
                 key={title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
                 style={{
-                  background: '#F4F1ED', 
+                  background: '#F4F1ED',
                   borderRadius: '24px',
                   padding: '48px',
                   borderTop: `8px solid ${accent}`,
                   boxShadow: '0 10px 30px rgba(61,26,10,0.04)',
                 }}
               >
-                <h3 style={{ 
-                  fontFamily: "'Cormorant Garamond', serif", 
-                  fontSize: '2rem', 
-                  fontWeight: 700, 
-                  color: '#3D1A0A', 
-                  marginBottom: '20px' 
-                }}>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '20px' }}>
                   {title}
                 </h3>
-                <p style={{ 
-                  fontFamily: "'Nunito', sans-serif", 
-                  fontSize: '1.1rem', 
-                  color: '#5C3D2A', 
-                  lineHeight: 1.8 
-                }}>
+                <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: '#5C3D2A', lineHeight: 1.8 }}>
                   {text}
                 </p>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </ServiceRowReveal>
         </div>
       </section>
 
@@ -264,55 +286,37 @@ export default function About() {
           <div className="w-24 h-1 bg-[#6AB04C] mx-auto mt-4 rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {coreValues.map((value, index) => (
-            <motion.div
-              key={value.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card3D>
-                <div
-                  style={{
-                    background: 'rgba(255,255,255,0.75)',
-                    backdropFilter: 'blur(14px)',
-                    WebkitBackdropFilter: 'blur(14px)',
-                    borderRadius: '24px', 
-                    padding: '40px 32px',
-                    textAlign: 'center',
-                    borderTop: `6px solid ${value.color}`,
-                    boxShadow: '0 15px 40px rgba(61,26,10,0.07)',
-                    border: '1px solid rgba(255,255,255,0.60)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    height: '100%',
-                  }}
-                >
-                  <div style={{ 
-                    marginBottom: '24px', 
-                    background: `${value.color}10`,
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: value.color
-                  }}>
-                    {value.icon}
-                  </div>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '14px' }}>{value.title}</h3>
-                  <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem', color: '#5C3D2A', lineHeight: 1.7 }}>
-                    {value.description}
-                  </p>
+        <ServiceRowReveal rowIndex={0} cols={4}>
+          {coreValues.map((value) => (
+            <Card3D key={value.id}>
+              <div
+                style={{
+                  background: 'rgba(255,255,255,0.75)',
+                  backdropFilter: 'blur(14px)',
+                  WebkitBackdropFilter: 'blur(14px)',
+                  borderRadius: '24px',
+                  padding: '40px 32px',
+                  textAlign: 'center',
+                  borderTop: `6px solid ${value.color}`,
+                  boxShadow: '0 15px 40px rgba(61,26,10,0.07)',
+                  border: '1px solid rgba(255,255,255,0.60)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  height: '100%',
+                }}
+              >
+                <div style={{ marginBottom: '24px', background: `${value.color}10`, width: '80px', height: '80px', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: value.color }}>
+                  {value.icon}
                 </div>
-              </Card3D>
-            </motion.div>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '14px' }}>{value.title}</h3>
+                <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem', color: '#5C3D2A', lineHeight: 1.7 }}>
+                  {value.description}
+                </p>
+              </div>
+            </Card3D>
           ))}
-        </div>
+        </ServiceRowReveal>
       </section>
 
       {/* ── Why Choose Us ── */}
@@ -333,15 +337,10 @@ export default function About() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <ServiceRowReveal rowIndex={1} cols={4}>
           {whyUs.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
               style={{
                 background: 'rgba(255,255,255,0.75)',
                 backdropFilter: 'blur(14px)',
@@ -351,31 +350,22 @@ export default function About() {
                 borderTop: '6px solid #6AB04C',
                 border: '1px solid rgba(255,255,255,0.60)',
                 boxShadow: '0 10px 30px rgba(61,26,10,0.07)',
-                display: 'flex', 
-                flexDirection: 'column', 
+                display: 'flex',
+                flexDirection: 'column',
                 gap: '24px',
                 height: '100%',
               }}
             >
-              <div style={{ 
-                background: '#EAF5E0', 
-                width: '60px', 
-                height: '60px', 
-                borderRadius: '16px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                color: '#6AB04C'
-              }}>
+              <div style={{ background: '#EAF5E0', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6AB04C' }}>
                 {feature.icon}
               </div>
               <div>
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px' }}>{feature.title}</h3>
                 <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem', color: '#5C3D2A', lineHeight: 1.7 }}>{feature.desc}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </ServiceRowReveal>
       </section>
 
       {/* ── Contact CTA ── */}

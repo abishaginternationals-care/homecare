@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { servicesData } from '../data/services';
-
 const highlights = [
   {
     title: "Flexible Scheduling",
@@ -19,23 +18,36 @@ const highlights = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 50, scale: 0.96 },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as any,
+      duration: 1.2,
+      ease: [0.16, 1, 0.3, 1] as any,
+    },
+  },
+};
+
+const imageRevealVariants = {
+  hidden: { scale: 1.4, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 1.6,
+      ease: [0.16, 1, 0.3, 1] as any,
     },
   },
 };
@@ -43,6 +55,8 @@ const itemVariants = {
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
+import ServiceRowReveal from '../components/ServiceRowReveal';
 
 export default function Services() {
   useScrollReveal();
@@ -78,7 +92,7 @@ export default function Services() {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 2, delay: 0.4 }}
           className="absolute inset-0 pointer-events-none"
         >
           <motion.div 
@@ -104,147 +118,164 @@ export default function Services() {
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-              fontWeight: 700,
-              color: '#ffffff',
-              lineHeight: 1.1,
-              marginBottom: '20px',
-            }}
-            className="text-raise"
-          >
-            Our Services
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            style={{
-              fontFamily: "'Nunito', sans-serif",
-              fontSize: '1.15rem',
-              color: 'rgba(255,255,255,0.85)',
-              fontWeight: 300,
-              maxWidth: '600px',
-              lineHeight: 1.6,
-            }}
-          >
-            Comprehensive care services designed to enhance the quality of life for our elderly residents with compassion and excellence.
-          </motion.p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: existing title + subtitle — untouched */}
+            <div>
+              <div style={{ overflow: 'hidden', paddingBottom: '10px' }}>
+                <motion.h1
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 'clamp(3rem, 7vw, 4.5rem)',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    lineHeight: 1.1,
+                    marginBottom: '20px',
+                  }}
+                  className="text-raise"
+                >
+                  Our Services
+                </motion.h1>
+              </div>
+              <div style={{ overflow: 'hidden' }}>
+                <motion.p
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    fontFamily: "'Nunito', sans-serif",
+                    fontSize: '1.15rem',
+                    color: 'rgba(255,255,255,0.85)',
+                    fontWeight: 300,
+                    maxWidth: '600px',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Comprehensive care services designed to enhance the quality of life for our elderly residents with compassion and excellence.
+                </motion.p>
+              </div>
+            </div>
+
+            {/* Right: live ECG heartbeat + HandShake icon */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              style={{ height: '220px' }}
+            >
+              <EcgHeartbeatWidget />
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── Services Grid ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
-        >
-            {servicesData.map((service, index) => (
-              <motion.div key={service.id} variants={itemVariants}>
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="group block h-full"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const x = (e.clientX - rect.left) / rect.width - 0.5;
-                      const y = (e.clientY - rect.top) / rect.height - 0.5;
-                      e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
-                      e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
-                      e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
-                    }}
-                    style={{
-                      background: 'rgba(255,255,255,0.72)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
-                      borderRadius: '24px',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      border: '1px solid rgba(255,255,255,0.60)',
-                      boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      transition: 'transform 0.1s ease, box-shadow 0.3s ease',
-                      willChange: 'transform',
-                    }}
+      <div className="relative w-full" style={{ overflow: 'hidden' }}>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+          {/* Chunk services into rows of 3, each row gets its own ECG animation */}
+          {(() => {
+            const rows: (typeof servicesData)[] = [];
+            for (let i = 0; i < servicesData.length; i += 3) {
+              rows.push(servicesData.slice(i, i + 3));
+            }
+            return rows.map((row, rowIdx) => (
+              <ServiceRowReveal key={rowIdx} rowIndex={rowIdx}>
+                {row.map((service) => (
+                  <Link
+                    key={service.id}
+                    href={`/services/${service.slug}`}
+                    className="group block h-full"
+                    style={{ textDecoration: 'none' }}
                   >
-                    {/* Accent Line */}
-                    <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
+                    <div
+                      onMouseMove={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = (e.clientX - rect.left) / rect.width - 0.5;
+                        const y = (e.clientY - rect.top) / rect.height - 0.5;
+                        e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
+                        e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
+                      }}
+                      style={{
+                        background: 'rgba(255,255,255,0.72)',
+                        backdropFilter: 'blur(14px)',
+                        WebkitBackdropFilter: 'blur(14px)',
+                        borderRadius: '24px',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        border: '1px solid rgba(255,255,255,0.60)',
+                        boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
+                        overflow: 'hidden',
+                        position: 'relative',
+                        transition: 'transform 0.1s ease, box-shadow 0.3s ease',
+                        willChange: 'transform',
+                      }}
+                    >
+                      {/* Accent Line */}
+                      <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
 
-                    {/* Service Image */}
-                    <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          transition: 'transform 0.6s ease',
-                        }}
-                        className="group-hover:[transform:scale(1.06)]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
+                      {/* Service Image */}
+                      <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+                        <motion.img
+                          variants={imageRevealVariants}
+                          src={service.image}
+                          alt={service.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          className="transition-transform duration-700 ease-out group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
 
-                    {/* Content */}
-                    <div className="p-8 flex-grow flex flex-col">
-                      <h3
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontSize: '1.5rem',
-                          fontWeight: 700,
-                          color: '#3D1A0A',
-                          marginBottom: '14px',
-                          transition: 'color 0.3s ease',
-                        }}
-                        className="group-hover:text-[#6AB04C]"
-                      >
-                        {service.title}
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: "'Nunito', sans-serif",
-                          color: '#5C3D2A',
-                          fontSize: '1rem',
-                          lineHeight: 1.7,
-                          marginBottom: '24px',
-                        }}
-                      >
-                        {service.description}
-                      </p>
-
-                      {/* More Details Button */}
-                      <div style={{ marginTop: 'auto' }}>
-                        <span className="inline-flex items-center gap-2 font-bold text-[#6AB04C] transition-all duration-300 group-hover:gap-3">
-                          <span style={{ fontSize: '0.95rem' }}>View Details</span>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                          </svg>
-                        </span>
+                      {/* Content */}
+                      <div className="p-8 flex-grow flex flex-col">
+                        <h3
+                          style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontSize: '1.5rem',
+                            fontWeight: 700,
+                            color: '#3D1A0A',
+                            marginBottom: '14px',
+                            transition: 'color 0.3s ease',
+                          }}
+                          className="group-hover:text-[#6AB04C]"
+                        >
+                          {service.title}
+                        </h3>
+                        <p
+                          style={{
+                            fontFamily: "'Nunito', sans-serif",
+                            color: '#5C3D2A',
+                            fontSize: '1rem',
+                            lineHeight: 1.7,
+                            marginBottom: '24px',
+                          }}
+                        >
+                          {service.description}
+                        </p>
+                        <div style={{ marginTop: 'auto' }}>
+                          <span className="inline-flex items-center gap-2 font-bold text-[#6AB04C] transition-all duration-300 group-hover:gap-3">
+                            <span style={{ fontSize: '0.95rem' }}>View Details</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                              <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-        </motion.div>
-      </section>
+                  </Link>
+                ))}
+              </ServiceRowReveal>
+            ));
+          })()}
+        </section>
+      </div>
 
       {/* ── Service Highlights ── */}
       <section style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
@@ -253,33 +284,50 @@ export default function Services() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.2 } }
+            }}
             className="text-center mb-16"
           >
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                fontWeight: 700,
-                color: '#3D1A0A',
+            <div style={{ overflow: 'hidden', paddingBottom: '10px' }}>
+              <motion.h2
+                variants={{
+                  hidden: { y: "100%", opacity: 0 },
+                  visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+                }}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                }}
+                className="text-raise"
+              >
+                Why Choose Our Care?
+              </motion.h2>
+            </div>
+            <motion.div 
+              variants={{
+                hidden: { scaleX: 0, opacity: 0 },
+                visible: { scaleX: 1, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
               }}
-              className="text-raise"
-            >
-              Why Choose Our Care?
-            </h2>
-            <div className="w-24 h-1 bg-[#6AB04C] mx-auto mt-4 rounded-full" />
+              style={{ originX: 0.5 }}
+              className="w-24 h-1 bg-[#6AB04C] mx-auto mt-4 rounded-full" 
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {highlights.map(({ title, desc, points }, idx) => (
               <motion.div
                 key={title}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 1.2, delay: idx * 0.2, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   background: '#F4F1ED',
                   borderRadius: '24px',

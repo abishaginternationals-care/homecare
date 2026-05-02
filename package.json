@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.90",
     "@vercel/postgres": "^0.10.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.9.0",

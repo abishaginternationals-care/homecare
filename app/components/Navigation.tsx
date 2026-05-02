@@ -132,16 +132,24 @@ export default function Navigation() {
                   }}
                   onMouseEnter={e => {
                     if (!isActive) {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(106,176,76,0.12)';
-                      (e.currentTarget as HTMLElement).style.color = '#3D1A0A';
-                      (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px) scale(1.04)';
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.background = 'rgba(255, 255, 255, 0.45)';
+                      el.style.backdropFilter = 'blur(16px)';
+                      el.style.setProperty('-webkit-backdrop-filter', 'blur(16px)');
+                      el.style.color = '#3D1A0A';
+                      el.style.transform = 'translateY(-2px) scale(1.04)';
+                      el.style.boxShadow = '0 10px 24px rgba(106, 176, 76, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.8)';
                     }
                   }}
                   onMouseLeave={e => {
                     if (!isActive) {
-                      (e.currentTarget as HTMLElement).style.background = 'transparent';
-                      (e.currentTarget as HTMLElement).style.color = '#5C3D2A';
-                      (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(1)';
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.background = 'transparent';
+                      el.style.backdropFilter = 'none';
+                      el.style.setProperty('-webkit-backdrop-filter', 'none');
+                      el.style.color = '#5C3D2A';
+                      el.style.transform = 'translateY(0) scale(1)';
+                      el.style.boxShadow = 'none';
                     }
                   }}
                 >

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Card3D from './components/Card3D';
 import MagneticButton from './components/MagneticButton';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import ServiceRowReveal from './components/ServiceRowReveal';
 
 export default function Home() {
   useScrollReveal();
@@ -304,75 +305,117 @@ export default function Home() {
             <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
           </motion.div>
 
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.1 } }
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-          >
-            {previewServices.map((svc) => (
-              <motion.div
+          {/* Row 1: first 3 services */}
+          <ServiceRowReveal rowIndex={0} cols={3}>
+            {previewServices.slice(0, 3).map((svc) => (
+              <Link
                 key={svc.id}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-                }}
+                href="/services"
+                className="group block h-full"
+                style={{ textDecoration: 'none' }}
               >
-                <Link
-                  href="/services"
-                  className="group block h-full"
-                  style={{ textDecoration: 'none' }}
-                >
-                <Card3D style={{ borderRadius: '24px', height: '100%' }}>
-                    <div
-                      style={{
-                        background: 'rgba(255,255,255,0.75)',
-                        backdropFilter: 'blur(14px)',
-                        WebkitBackdropFilter: 'blur(14px)',
-                        borderRadius: '24px',
-                        overflow: 'hidden',
-                        borderTop: '6px solid #6AB04C',
-                        border: '1px solid rgba(255,255,255,0.60)',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column'
-                      }}
-                    >
-                      <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                        <img
-                          src={svc.image}
-                          alt={svc.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
-                          onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
-                          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-                        />
-                      </div>
-                      <div className="p-8 flex-grow">
-                        <h3
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: '1.6rem',
-                            fontWeight: 700,
-                            color: '#3D1A0A',
-                            marginBottom: '12px',
-                            transition: 'color 0.3s',
-                          }}
-                        >
-                          {svc.title}
-                        </h3>
-                        <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '1rem', lineHeight: 1.7 }}>
-                          {svc.desc}
-                        </p>
-                      </div>
+              <Card3D style={{ borderRadius: '24px', height: '100%' }}>
+                  <div
+                    style={{
+                      background: 'rgba(255,255,255,0.75)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
+                      borderRadius: '24px',
+                      overflow: 'hidden',
+                      borderTop: '6px solid #6AB04C',
+                      border: '1px solid rgba(255,255,255,0.60)',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+                      <img
+                        src={svc.image}
+                        alt={svc.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
+                        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
+                        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                      />
                     </div>
-                  </Card3D>
-                </Link>
-              </motion.div>
+                    <div className="p-8 flex-grow">
+                      <h3
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: '1.6rem',
+                          fontWeight: 700,
+                          color: '#3D1A0A',
+                          marginBottom: '12px',
+                          transition: 'color 0.3s',
+                        }}
+                      >
+                        {svc.title}
+                      </h3>
+                      <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '1rem', lineHeight: 1.7 }}>
+                        {svc.desc}
+                      </p>
+                    </div>
+                  </div>
+                </Card3D>
+              </Link>
             ))}
-          </motion.div>
+          </ServiceRowReveal>
+
+          {/* Row 2: next 3 services */}
+          <ServiceRowReveal rowIndex={1} cols={3}>
+            {previewServices.slice(3, 6).map((svc) => (
+              <Link
+                key={svc.id}
+                href="/services"
+                className="group block h-full"
+                style={{ textDecoration: 'none' }}
+              >
+              <Card3D style={{ borderRadius: '24px', height: '100%' }}>
+                  <div
+                    style={{
+                      background: 'rgba(255,255,255,0.75)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
+                      borderRadius: '24px',
+                      overflow: 'hidden',
+                      borderTop: '6px solid #6AB04C',
+                      border: '1px solid rgba(255,255,255,0.60)',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+                      <img
+                        src={svc.image}
+                        alt={svc.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
+                        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
+                        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                      />
+                    </div>
+                    <div className="p-8 flex-grow">
+                      <h3
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: '1.6rem',
+                          fontWeight: 700,
+                          color: '#3D1A0A',
+                          marginBottom: '12px',
+                          transition: 'color 0.3s',
+                        }}
+                      >
+                        {svc.title}
+                      </h3>
+                      <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '1rem', lineHeight: 1.7 }}>
+                        {svc.desc}
+                      </p>
+                    </div>
+                  </div>
+                </Card3D>
+              </Link>
+            ))}
+          </ServiceRowReveal>
 
           <motion.div 
             initial={{ opacity: 0 }}
@@ -416,58 +459,42 @@ export default function Home() {
             <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
           </motion.div>
 
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.1 } }
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
+          <ServiceRowReveal rowIndex={0} cols={4}>
             {whyUs.map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, scale: 0.9 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-                }}
-              >
-                <Card3D className="h-full" style={{ borderRadius: '24px', height: '100%' }}>
-                  <div
-                    style={{
-                      background: '#F9F7F4',
-                      borderRadius: '24px',
-                      padding: '40px 32px',
-                      borderTop: '6px solid #6AB04C',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '24px',
-                      height: '100%',
-                    }}
-                  >
-                    <div style={{ 
-                      background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', 
-                      width: '68px', 
-                      height: '68px', 
-                      borderRadius: '20px', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      color: '#4A8A30',
-                      boxShadow: '0 8px 20px rgba(106,176,76,0.2)',
-                    }}>
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px', lineHeight: 1.2 }}>{feature.title}</h3>
-                      <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1rem', color: '#5C3D2A', lineHeight: 1.7 }}>{feature.desc}</p>
-                    </div>
+              <Card3D key={index} className="h-full" style={{ borderRadius: '24px', height: '100%' }}>
+                <div
+                  style={{
+                    background: '#F9F7F4',
+                    borderRadius: '24px',
+                    padding: '40px 32px',
+                    borderTop: '6px solid #6AB04C',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '24px',
+                    height: '100%',
+                  }}
+                >
+                  <div style={{ 
+                    background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', 
+                    width: '68px', 
+                    height: '68px', 
+                    borderRadius: '20px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    color: '#4A8A30',
+                    boxShadow: '0 8px 20px rgba(106,176,76,0.2)',
+                  }}>
+                    {feature.icon}
                   </div>
-                </Card3D>
-              </motion.div>
+                  <div>
+                    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px', lineHeight: 1.2 }}>{feature.title}</h3>
+                    <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1rem', color: '#5C3D2A', lineHeight: 1.7 }}>{feature.desc}</p>
+                  </div>
+                </div>
+              </Card3D>
             ))}
-          </motion.div>
+          </ServiceRowReveal>
         </div>
       </section>
 

@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import ServiceRowReveal from '../components/ServiceRowReveal';
+import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 const blogPosts = [
   {
@@ -132,19 +135,76 @@ export default function Blog() {
             overflow: 'hidden',
           }}
         >
-          <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.1 }}>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            transition={{ duration: 2, delay: 0.4 }}
+            className="absolute inset-0 pointer-events-none"
+          >
              <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl animate-pulse" />
-          </div>
+          </motion.div>
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <p className="reveal" style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}>
-              Knowledge & Insights
-            </p>
-            <h1 className="reveal reveal-delay-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}>
-              Our Blog
-            </h1>
-            <p className="reveal reveal-delay-2" style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.6 }}>
-              Expert insights, care guidance, and stories to help families navigate elderly home health with confidence.
-            </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Side: Header Text */}
+              <div>
+                <motion.p 
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}
+                >
+                  Knowledge & Insights
+                </motion.p>
+                <motion.h1 
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.0 }}
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}
+                >
+                  Our Blog
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.6 }}
+                >
+                  Expert insights, care guidance, and stories to help families navigate elderly home health with confidence.
+                </motion.p>
+              </div>
+
+              {/* Right Side: ECG Widget with Medical Box */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+                style={{ height: '220px' }}
+              >
+                <EcgHeartbeatWidget
+                  icon={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="42"
+                      height="42"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#6AB04C"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ filter: 'drop-shadow(0 0 8px rgba(106,176,76,0.7))' }}
+                    >
+                      <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
+                      <path d="M16 8V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                      <line x1="12" y1="11" x2="12" y2="17" />
+                      <line x1="9" y1="14" x2="15" y2="14" />
+                    </svg>
+                  }
+                  label="Guidance · Care · Health"
+                />
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -165,10 +225,32 @@ export default function Blog() {
                     border: 'none',
                     cursor: 'pointer',
                     transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    background: activeCategory === cat ? '#6AB04C' : '#F4F1ED',
+                    background: activeCategory === cat ? '#6AB04C' : 'transparent',
                     color: activeCategory === cat ? '#ffffff' : '#5C3D2A',
                     boxShadow: activeCategory === cat ? '0 8px 20px rgba(106, 176, 76, 0.3)' : 'none',
                     transform: activeCategory === cat ? 'translateY(-2px)' : 'translateY(0)',
+                  }}
+                  onMouseEnter={e => {
+                    if (activeCategory !== cat) {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.background = 'rgba(255, 255, 255, 0.45)';
+                      el.style.backdropFilter = 'blur(16px)';
+                      el.style.setProperty('-webkit-backdrop-filter', 'blur(16px)');
+                      el.style.color = '#3D1A0A';
+                      el.style.transform = 'translateY(-2px) scale(1.04)';
+                      el.style.boxShadow = '0 10px 24px rgba(106, 176, 76, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.8)';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (activeCategory !== cat) {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.background = 'transparent';
+                      el.style.backdropFilter = 'none';
+                      el.style.setProperty('-webkit-backdrop-filter', 'none');
+                      el.style.color = '#5C3D2A';
+                      el.style.transform = 'translateY(0) scale(1)';
+                      el.style.boxShadow = 'none';
+                    }
                   }}
                 >
                   {cat}
@@ -178,69 +260,76 @@ export default function Blog() {
           </div>
         </section>
 
-        {/* Blog Grid */}
+        {/* Blog Grid — chunked into rows of 3 with ECG reveal */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
-            {filtered.map((post, idx) => (
-              <Card3D 
-                key={post.id} 
-                className={`reveal reveal-delay-${(idx % 3) + 1}`}
-                style={{ borderRadius: '24px', height: '100%' }}
-                glowColor={`${post.color}44`}
-              >
-                <article
-                  style={{
-                    background: 'rgba(255,255,255,0.75)',
-                    backdropFilter: 'blur(14px)',
-                    WebkitBackdropFilter: 'blur(14px)',
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    borderTop: `6px solid ${post.color}`,
-                    border: '1px solid rgba(255,255,255,0.60)',
-                    boxShadow: '0 15px 45px rgba(61, 26, 10, 0.07)',
-                  }}
-                >
-                  <div style={{ padding: '40px' }}>
-                    <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', color: post.color, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: post.color }} />
-                      {post.category}
-                    </div>
-                    <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.85rem', fontWeight: 700, color: '#3D1A0A', lineHeight: 1.25, marginBottom: '18px' }}>
-                      {post.title}
-                    </h2>
-                    <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '32px' }}>
-                      {post.excerpt}
-                    </p>
-                    <div style={{ borderTop: '1px solid #EAE5DF', paddingTop: '24px' }}>
-                      <div className="flex items-center gap-4 mb-5">
-                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: `linear-gradient(135deg, ${post.color}, #3D1A0A)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800 }}>
-                          <span className="m-auto">{post.author.charAt(0)}</span>
+          {(() => {
+            const rows: (typeof filtered)[] = [];
+            for (let i = 0; i < filtered.length; i += 3) {
+              rows.push(filtered.slice(i, i + 3));
+            }
+            return rows.map((row, rowIdx) => (
+              <ServiceRowReveal key={rowIdx} rowIndex={rowIdx} cols={3}>
+                {row.map((post, idx) => (
+                  <Card3D
+                    key={post.id}
+                    style={{ borderRadius: '24px', height: '100%' }}
+                    glowColor={`${post.color}44`}
+                  >
+                    <article
+                      style={{
+                        background: 'rgba(255,255,255,0.75)',
+                        backdropFilter: 'blur(14px)',
+                        WebkitBackdropFilter: 'blur(14px)',
+                        borderRadius: '24px',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                        borderTop: `6px solid ${post.color}`,
+                        border: '1px solid rgba(255,255,255,0.60)',
+                        boxShadow: '0 15px 45px rgba(61, 26, 10, 0.07)',
+                      }}
+                    >
+                      <div style={{ padding: '40px' }}>
+                        <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', color: post.color, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: post.color }} />
+                          {post.category}
                         </div>
-                        <div>
-                          <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#3D1A0A' }}>{post.author}</div>
-                          <div style={{ fontSize: '0.75rem', color: '#8C7B6E' }}>{post.authorRole}</div>
+                        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.85rem', fontWeight: 700, color: '#3D1A0A', lineHeight: 1.25, marginBottom: '18px' }}>
+                          {post.title}
+                        </h2>
+                        <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '32px' }}>
+                          {post.excerpt}
+                        </p>
+                        <div style={{ borderTop: '1px solid #EAE5DF', paddingTop: '24px' }}>
+                          <div className="flex items-center gap-4 mb-5">
+                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: `linear-gradient(135deg, ${post.color}, #3D1A0A)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800 }}>
+                              <span className="m-auto">{post.author.charAt(0)}</span>
+                            </div>
+                            <div>
+                              <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#3D1A0A' }}>{post.author}</div>
+                              <div style={{ fontSize: '0.75rem', color: '#8C7B6E' }}>{post.authorRole}</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div style={{ fontSize: '0.8rem', color: '#8C7B6E' }}>{post.date} · {post.readTime}</div>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); openPost(post); }}
+                              style={{ background: post.color, border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '10px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', transition: 'all 0.3s' }}
+                              onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
+                              onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
+                            >
+                              Read More
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div style={{ fontSize: '0.8rem', color: '#8C7B6E' }}>{post.date} · {post.readTime}</div>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); openPost(post); }}
-                          style={{ background: post.color, border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '10px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', transition: 'all 0.3s' }}
-                          onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
-                          onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
-                        >
-                          Read More
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </Card3D>
-            ))}
-          </div>
+                    </article>
+                  </Card3D>
+                ))}
+              </ServiceRowReveal>
+            ));
+          })()}
         </section>
 
         {/* Blog Modal */}

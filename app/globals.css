@@ -401,6 +401,153 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─────────────────────────────────
+   HERO 3D PREMIUM EFFECTS
+───────────────────────────────── */
+
+/* Floating depth-parallax for hero layers */
+@keyframes depthFloat {
+  0%   { transform: translateY(0px) translateZ(0px); }
+  50%  { transform: translateY(-12px) translateZ(20px); }
+  100% { transform: translateY(0px) translateZ(0px); }
+}
+
+/* Aurora glow pulse for hero orbs */
+@keyframes auroraGlow {
+  0%   { opacity: 0.18; transform: scale(1)   rotate(0deg); }
+  33%  { opacity: 0.32; transform: scale(1.14) rotate(120deg); }
+  66%  { opacity: 0.22; transform: scale(0.92) rotate(240deg); }
+  100% { opacity: 0.18; transform: scale(1)   rotate(360deg); }
+}
+
+/* Glint twinkle */
+@keyframes glintTwinkle {
+  0%,100% { opacity: 0;   transform: scale(0.4) rotate(0deg); }
+  50%      { opacity: 0.9; transform: scale(1)   rotate(180deg); }
+}
+
+/* Horizontal light ray sweep */
+@keyframes lightRaySweep {
+  0%   { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  10%  { opacity: 0.55; }
+  90%  { opacity: 0.55; }
+  100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+}
+
+/* Holographic ring spin */
+@keyframes holoRingSpin {
+  from { transform: rotateX(65deg) rotateZ(0deg);   opacity: 0.22; }
+  to   { transform: rotateX(65deg) rotateZ(360deg); opacity: 0.18; }
+}
+
+/* 3D depth card hero */
+@keyframes heroCardFloat {
+  0%,100% { transform: perspective(800px) rotateY(0deg)   translateZ(0);  }
+  50%     { transform: perspective(800px) rotateY(-3deg)  translateZ(16px); }
+}
+
+/* Scanline drift */
+@keyframes scanlineDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 40px; }
+}
+
+/* Hero utility classes */
+.hero-aurora-orb {
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: auroraGlow 12s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+.hero-glint {
+  pointer-events: none;
+  animation: glintTwinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.hero-light-ray {
+  position: absolute;
+  top: 0; left: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), rgba(255,255,255,0.12), rgba(255,255,255,0.06), transparent);
+  pointer-events: none;
+  animation: lightRaySweep 6s ease-in-out infinite;
+  animation-delay: var(--ray-delay, 0s);
+}
+.hero-holo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: holoRingSpin var(--spin-dur, 10s) linear infinite;
+}
+.hero-depth-layer {
+  pointer-events: none;
+  animation: depthFloat var(--float-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+.hero-scanlines {
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(255,255,255,0.012) 3px,
+    rgba(255,255,255,0.012) 4px
+  );
+  animation: scanlineDrift 8s linear infinite;
+}
+
+/* ─────────────────────────────────
+   HERO TEXT PREMIUM ANIMATIONS
+───────────────────────────────── */
+
+/* Per-word 3D flip from below with blur-in */
+@keyframes heroCharIn {
+  0%   { opacity: 0; transform: translateY(48px) rotateX(-90deg) scale(0.84); filter: blur(8px); }
+  55%  { filter: blur(0px); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0px); }
+}
+
+/* Subtitle word slide-in from left with perspective */
+@keyframes heroWordIn {
+  0%   { opacity: 0; transform: translateX(-30px) rotateY(-28deg) scale(0.9); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0) rotateY(0deg) scale(1); filter: blur(0); }
+}
+
+/* Badge spring entrance from left */
+@keyframes heroBadgeIn {
+  0%   { opacity: 0; transform: translateX(-40px) scale(0.82); }
+  68%  { transform: translateX(5px) scale(1.03); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* Accent gradient line draw-in */
+@keyframes heroAccentLine {
+  0%   { width: 0; opacity: 0; }
+  100% { width: 100px; opacity: 1; }
+}
+
+/* Pulsing text glow — applied after title reveal */
+@keyframes heroTitleGlow {
+  0%,100% { text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 0 0px rgba(106,176,76,0); }
+  50%      { text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 36px rgba(106,176,76,0.22), 0 0 80px rgba(106,176,76,0.08); }
+}
+
+/* ─────────────────────────────────
+   ECG DOODLE TRANSITION
+───────────────────────────────── */
+@keyframes ecgScan {
+  0%   { top: 0%;    opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { top: 100%;  opacity: 0; }
+}
+
+/* ─────────────────────────────────
    ACCESSIBILITY
 ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -415,3 +562,11 @@ h1, h2, h3, h4, h5, h6 {
   .orb { animation: none; }
   .mesh-bg { animation: none; }
 }
+
+/* ── ECG Widget: pulsing glow on the icon backdrop ── */
+@keyframes glowPulseGreen {
+  0%   { box-shadow: 0 0 18px rgba(106,176,76,0.20), 0 0 6px rgba(106,176,76,0.14); }
+  50%  { box-shadow: 0 0 42px rgba(106,176,76,0.48), 0 0 18px rgba(106,176,76,0.32); }
+  100% { box-shadow: 0 0 18px rgba(106,176,76,0.20), 0 0 6px rgba(106,176,76,0.14); }
+}
+
