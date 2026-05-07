@@ -249,32 +249,10 @@ export default function EcgDoodleTransition({ slideIndex, onComplete }: Props) {
         drawEcg(ctx, W, H, progress);
       }
 
-      // ── Phase 2: left-to-right wipe of Sobel edges ───────────────────
+      // ── Phase 2: Removed green Sobel sweep for better aesthetics ───────────────────
       else if (elapsed < PHASE2_END) {
-        if (edgeCanvas) {
-          const sweepX = Math.round(
-            W * ((elapsed - PHASE1_END) / (PHASE2_END - PHASE1_END)),
-          );
-
-          // Clip to swept region
-          ctx.save();
-          ctx.beginPath();
-          ctx.rect(0, 0, sweepX, H);
-          ctx.clip();
-          ctx.drawImage(edgeCanvas, 0, 0);
-          ctx.restore();
-
-          // Leading sweep glow bar
-          const grad = ctx.createLinearGradient(sweepX - 30, 0, sweepX + 8, 0);
-          grad.addColorStop(0, 'rgba(106,176,76,0)');
-          grad.addColorStop(0.6, 'rgba(106,176,76,0.45)');
-          grad.addColorStop(1, 'rgba(74,190,214,0.85)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(sweepX - 30, 0, 38, H);
-        } else {
-          // Image still loading — hold ECG at 100%
-          drawEcg(ctx, W, H, 1);
-        }
+        // Just hold the ECG line at 100% or proceed to fade
+        drawEcg(ctx, W, H, 1);
       }
 
       // ── Phase 3: fade out ─────────────────────────────────────────────

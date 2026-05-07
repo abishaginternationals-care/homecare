@@ -106,8 +106,8 @@ export default function CinematicHero() {
         backgroundSize: `20px 20px`
       }} />
 
-      {/* 🌞 Soft Warm Glow - reduced blur */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/15 blur-[60px]" />
+      {/* 🌞 Soft Warm Glow - changed from green to neutral warm */}
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#3D1A0A]/10 blur-[60px]" />
 
       {/* ✨ PREMIUM 3D EFFECTS — purely decorative, no functional impact ✨ */}
 
@@ -118,7 +118,7 @@ export default function CinematicHero() {
       <div className="hero-aurora-orb absolute z-[4]"
         style={{
           width: 560, height: 560, top: '-12%', right: '-6%',
-          background: 'radial-gradient(circle, rgba(106,176,76,0.30) 0%, rgba(74,190,214,0.12) 55%, transparent 78%)',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(74,190,214,0.08) 55%, transparent 78%)',
           animationDuration: '14s',
         }} />
       <div className="hero-aurora-orb absolute z-[4]"
@@ -213,14 +213,14 @@ export default function CinematicHero() {
           '--float-dur': '7s', '--float-delay': '-4s',
         } as React.CSSProperties} />
 
-      {/* Glassy pulsing corner badge - removed backdropFilter */}
+      {/* Glassy pulsing corner badge - changed color to warm gold/white */}
       <div className="absolute top-8 right-8 z-[6]" style={{ pointerEvents: 'none' }}>
         <div style={{
           width: 64, height: 64, borderRadius: '50%',
-          background: 'radial-gradient(circle,rgba(106,176,76,0.38) 0%,rgba(74,190,214,0.16) 58%,transparent 80%)',
-          border: '1px solid rgba(106,176,76,0.32)',
-          boxShadow: '0 0 24px rgba(106,176,76,0.28), 0 0 60px rgba(74,190,214,0.14)',
-          animation: 'glowPulseGreen 3s ease-in-out infinite',
+          background: 'radial-gradient(circle,rgba(255,255,255,0.2) 0%,rgba(74,190,214,0.1) 58%,transparent 80%)',
+          border: '1px solid rgba(255,255,255,0.2)',
+          boxShadow: '0 0 24px rgba(255,255,255,0.15), 0 0 60px rgba(74,190,214,0.1)',
+          animation: 'glowPulse 3s ease-in-out infinite',
         }} />
       </div>
 
