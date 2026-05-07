@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  HeartPulse,
   Phone,
   MapPin,
   Mail,
@@ -16,7 +15,6 @@ import {
   HeartHandshake,
   Stethoscope,
   Ambulance,
-  Activity,
   Home,
   Clock,
   Award,
@@ -25,13 +23,13 @@ import {
 
 const iconMap: Record<string, any> = {
   // Healthcare
-  care: HeartPulse,
+  care: HeartHandshake,
   doctor: UserCheck,
   medicine: Pill,
   hospital: Hospital,
   stethoscope: Stethoscope,
   ambulance: Ambulance,
-  activity: Activity,
+  activity: UserCheck,
 
   // Contact
   phone: Phone,

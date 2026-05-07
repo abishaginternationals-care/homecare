@@ -226,9 +226,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Curtain & flip */
 @keyframes curtainLeft  { from { transform:translateX(0) } to { transform:translateX(-100%) } }
 @keyframes curtainRight { from { transform:translateX(0) } to { transform:translateX(100%) } }
-@keyframes wordFlipIn   { from { opacity:0; transform:rotateX(-90deg) translateY(20px) } to { opacity:1; transform:rotateX(0) translateY(0) } }
 @keyframes letterReveal { from { opacity:0; transform:rotateX(-90deg) } to { opacity:1; transform:rotateX(0) } }
-@keyframes ecgDraw      { from { stroke-dashoffset:1000 } to { stroke-dashoffset:0 } }
 @keyframes countUp      { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
 @keyframes chatPulse {
   0%   { box-shadow: 0 0 0 0 rgba(106,176,76,0.7); }
@@ -536,15 +534,7 @@ h1, h2, h3, h4, h5, h6 {
   50%      { text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 36px rgba(106,176,76,0.22), 0 0 80px rgba(106,176,76,0.08); }
 }
 
-/* ─────────────────────────────────
-   ECG DOODLE TRANSITION
-───────────────────────────────── */
-@keyframes ecgScan {
-  0%   { top: 0%;    opacity: 0; }
-  8%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { top: 100%;  opacity: 0; }
-}
+/* Accessibility classes remain same */
 
 /* ─────────────────────────────────
    ACCESSIBILITY
@@ -562,10 +552,5 @@ h1, h2, h3, h4, h5, h6 {
   .mesh-bg { animation: none; }
 }
 
-/* ── ECG Widget: pulsing glow on the icon backdrop ── */
-@keyframes glowPulseGreen {
-  0%   { box-shadow: 0 0 18px rgba(106,176,76,0.20), 0 0 6px rgba(106,176,76,0.14); }
-  50%  { box-shadow: 0 0 42px rgba(106,176,76,0.48), 0 0 18px rgba(106,176,76,0.32); }
-  100% { box-shadow: 0 0 18px rgba(106,176,76,0.20), 0 0 6px rgba(106,176,76,0.14); }
-}
+/* Accessibility classes remain same */
 

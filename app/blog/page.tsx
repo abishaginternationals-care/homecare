@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import ServiceRowReveal from '../components/ServiceRowReveal';
-import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 const blogPosts = [
   {
@@ -174,35 +173,18 @@ export default function Blog() {
                 </motion.p>
               </div>
 
-              {/* Right Side: ECG Widget with Medical Box */}
+              {/* Right Side: Replaced ECG Widget with a subtle branding element */}
               <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center justify-center"
                 style={{ height: '220px' }}
               >
-                <EcgHeartbeatWidget
-                  icon={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="42"
-                      height="42"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#6AB04C"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      style={{ filter: 'drop-shadow(0 0 8px rgba(106,176,76,0.7))' }}
-                    >
-                      <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
-                      <path d="M16 8V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                      <line x1="12" y1="11" x2="12" y2="17" />
-                      <line x1="9" y1="14" x2="15" y2="14" />
-                    </svg>
-                  }
-                  label="Guidance · Care · Health"
-                />
+                <div className="w-48 h-48 border-[1.5px] border-white/20 rounded-full flex items-center justify-center relative">
+                   <div className="absolute inset-0 border-[1.5px] border-white/10 rounded-full animate-ping" style={{ animationDuration: '4s' }} />
+                   <img src="/images/Abishag_img/Abishag_transparent_logo.png" className="w-32 opacity-20 filter invert grayscale" alt="" />
+                </div>
               </motion.div>
             </div>
           </div>

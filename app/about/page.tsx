@@ -22,7 +22,6 @@ import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import ServiceRowReveal from '../components/ServiceRowReveal';
-import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 export default function About() {
   useScrollReveal();
@@ -33,26 +32,6 @@ export default function About() {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-
-  // Medical Heart + cross icon for the About ECG widget
-  const medicalHeartIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="46"
-      height="46"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#6AB04C"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ filter: 'drop-shadow(0 0 8px rgba(106,176,76,0.7))' }}
-    >
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-      <line x1="12" y1="7" x2="12" y2="13" />
-      <line x1="9" y1="10" x2="15" y2="10" />
-    </svg>
-  );
 
   return (
     <div ref={containerRef} style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative', background: 'transparent' }}>
@@ -137,15 +116,15 @@ export default function About() {
               </motion.p>
             </div>
 
-            {/* Right: ECG Widget */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ height: '220px' }}
-            >
-              <EcgHeartbeatWidget icon={medicalHeartIcon} label="Health · Dignity · Life" />
-            </motion.div>
+            {/* Right Side: Replaced ECG Widget with a simple brand illustration or left it clean */}
+            <div className="relative h-full flex items-center justify-center p-8">
+              <div className="w-64 h-64 bg-white/40 rounded-full blur-3xl absolute -z-10" />
+              <img 
+                src="/images/Abishag_img/Abishag_transparent_logo.png" 
+                alt="Abishag Logo" 
+                style={{ width: '80%', opacity: 0.15, filter: 'grayscale(1)' }}
+              />
+            </div>
           </div>
         </div>
       </section>

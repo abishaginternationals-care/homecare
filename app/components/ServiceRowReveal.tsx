@@ -156,10 +156,7 @@ const GRID: Record<number, string> = {
 
 export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props) {
   const wrapRef   = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef    = useRef<number>(0);
-  const startRef  = useRef<number>(0);
-  const [phase, setPhase] = useState<'idle' | 'ecg' | 'cards'>('idle');
+  const [phase, setPhase] = useState<'idle' | 'cards'>('idle');
 
   // Observe when the row wrapper enters the viewport
   useEffect(() => {
@@ -170,7 +167,7 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
       ([entry]) => {
         if (entry.isIntersecting) {
           obs.disconnect();
-          setPhase('ecg');
+          setPhase('cards');
         }
       },
       { threshold: 0.15 },
@@ -179,81 +176,26 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
     return () => obs.disconnect();
   }, []);
 
-  // Canvas ECG animation
-  useEffect(() => {
-    if (phase !== 'ecg') return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const W = canvas.clientWidth  || 900;
-    const H = canvas.clientHeight || 100;
-    canvas.width  = W;
-    canvas.height = H;
-
-    const pts = buildPoints(W, H, cols);
-    const DURATION = 1300;
-    startRef.current = 0;
-
-    const tick = (now: number) => {
-      if (!startRef.current) startRef.current = now;
-      const p = Math.min((now - startRef.current) / DURATION, 1);
-      drawFrame(ctx, W, H, p, pts);
-      if (p < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        setTimeout(() => setPhase('cards'), 100);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [phase]);
-
   const items = Array.isArray(children) ? children : [children];
 
   return (
     // Real block wrapper — IntersectionObserver needs this to have layout
     <div ref={wrapRef} className="w-full mb-8 md:mb-10">
-
-      {/* ECG strip — shown only during ecg phase */}
-      {phase === 'ecg' && (
-        <div style={{ width: '100%', height: 100, marginBottom: 12 }}>
-          <canvas
-            ref={canvasRef}
-            style={{ width: '100%', height: '100%', display: 'block' }}
-          />
-        </div>
-      )}
-
-      {/* Invisible placeholders in idle phase — preserve row height so
-          IntersectionObserver fires at the correct scroll position */}
-      {phase === 'idle' && (
-        <div className={GRID[cols]}>
-          {items.map((_, i) => (
-            <div key={i} style={{ minHeight: 480, opacity: 0, pointerEvents: 'none' }} aria-hidden="true" />
-          ))}
-        </div>
-      )}
-
-      {/* Real cards — hidden in idle, animated in cards/ecg phase */}
-      {phase !== 'idle' && (
-        <div className={GRID[cols]}>
-          {items.map((child, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              animate={phase === 'cards' ? 'visible' : 'hidden'}
-            >
-              {child}
-            </motion.div>
-          ))}
-        </div>
-      )}
+      {/* Real cards — hidden in idle, animated in cards phase */}
+      <div className={GRID[cols]}>
+        {items.map((child, i) => (
+          <motion.div
+            key={i}
+            custom={i}
+            variants={cardVariants}
+            initial="hidden"
+            animate={phase === 'cards' ? 'visible' : 'hidden'}
+            style={phase === 'idle' ? { minHeight: 480, opacity: 0, pointerEvents: 'none' } : {}}
+          >
+            {child}
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

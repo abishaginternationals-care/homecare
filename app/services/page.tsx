@@ -55,7 +55,6 @@ const imageRevealVariants = {
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 import ServiceRowReveal from '../components/ServiceRowReveal';
 
 export default function Services() {
@@ -158,14 +157,18 @@ export default function Services() {
               </div>
             </div>
 
-            {/* Right: live ECG heartbeat + HandShake icon */}
+            {/* Right: Replaced ECG Widget with a subtle branding element */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center justify-center"
               style={{ height: '220px' }}
             >
-              <EcgHeartbeatWidget />
+              <div className="w-48 h-48 border-[1.5px] border-white/20 rounded-full flex items-center justify-center relative">
+                 <div className="absolute inset-0 border-[1.5px] border-white/10 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
+                 <img src="/images/Abishag_img/Abishag_transparent_logo.png" className="w-32 opacity-20 filter invert grayscale" alt="" />
+              </div>
             </motion.div>
           </div>
         </div>
