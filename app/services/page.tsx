@@ -201,31 +201,29 @@ export default function Services() {
                         const rect = e.currentTarget.getBoundingClientRect();
                         const x = (e.clientX - rect.left) / rect.width - 0.5;
                         const y = (e.clientY - rect.top) / rect.height - 0.5;
-                        e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
-                        e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
+                        e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) translateY(-8px) scale(1.02)`;
+                        e.currentTarget.style.boxShadow = '0 0 0 1.5px rgba(106,176,76,0.25), 0 32px 64px rgba(61,26,10,0.16), 0 0 40px rgba(106,176,76,0.06)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
+                        e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 24px rgba(61,26,10,0.06), 0 12px 48px rgba(61,26,10,0.04)';
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.82)',
-                        backdropFilter: 'blur(6px)',
-                        WebkitBackdropFilter: 'blur(6px)',
+                        background: 'rgba(255,255,255,0.92)',
                         borderRadius: '24px',
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column',
-                        border: '1px solid rgba(255,255,255,0.60)',
-                        boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
+                        border: '1px solid rgba(221,213,204,0.5)',
+                        boxShadow: '0 4px 24px rgba(61,26,10,0.06), 0 12px 48px rgba(61,26,10,0.04)',
                         overflow: 'hidden',
                         position: 'relative',
-                        transition: 'transform 0.1s ease, box-shadow 0.3s ease',
+                        transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease',
                         willChange: 'transform',
                       }}
                     >
                       {/* Accent Line */}
-                      <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
+                      <div style={{ height: '4px', width: '100%', background: 'linear-gradient(90deg, #6AB04C 0%, #4A8A30 50%, #6AB04C 100%)' }} />
 
                       {/* Service Image */}
                       <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
