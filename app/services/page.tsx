@@ -56,6 +56,7 @@ import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import ServiceRowReveal from '../components/ServiceRowReveal';
+import ServicesBackground from '../components/ServicesBackground';
 
 export default function Services() {
   useScrollReveal();
@@ -75,6 +76,9 @@ export default function Services() {
 
   return (
     <div ref={containerRef} style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative', background: 'transparent' }}>
+
+      {/* ── Premium Animated Services Background ── */}
+      <ServicesBackground />
 
       <div className="relative z-10">
 
@@ -205,9 +209,9 @@ export default function Services() {
                         e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
                       }}
                       style={{
-                        background: 'rgba(255,255,255,0.72)',
-                        backdropFilter: 'blur(14px)',
-                        WebkitBackdropFilter: 'blur(14px)',
+                        background: 'rgba(255,255,255,0.82)',
+                        backdropFilter: 'blur(6px)',
+                        WebkitBackdropFilter: 'blur(6px)',
                         borderRadius: '24px',
                         height: '100%',
                         display: 'flex',
@@ -278,6 +282,15 @@ export default function Services() {
             ));
           })()}
         </section>
+      </div>
+
+      {/* ── Floating Glow Divider between Grid & Highlights ── */}
+      <div style={{ position: 'relative', zIndex: 5, height: '60px', overflow: 'hidden', pointerEvents: 'none' }}>
+        <motion.div
+          animate={{ x: [-40, 40, -40], opacity: [0.04, 0.09, 0.04] }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ position: 'absolute', left: '20%', top: '-40px', width: '60%', height: '120px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(106,176,76,0.12) 0%, transparent 70%)' }}
+        />
       </div>
 
       {/* ── Service Highlights ── */}
@@ -387,10 +400,10 @@ export default function Services() {
       >
         <motion.div 
           style={{ y: backgroundY }}
-          className="absolute inset-0 pointer-events-none opacity-20"
+          className="absolute inset-0 pointer-events-none opacity-15"
         >
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[120px] mix-blend-screen" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4ABED6] rounded-full filter blur-[100px] mix-blend-screen" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4ABED6] rounded-full filter blur-[100px]" />
         </motion.div>
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
