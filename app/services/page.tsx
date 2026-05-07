@@ -75,7 +75,7 @@ export default function Services() {
 
 
   return (
-    <div ref={containerRef} style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative', background: 'transparent' }}>
+    <div ref={containerRef} style={{ minHeight: '100vh', overflow: 'hidden', position: 'relative', background: 'linear-gradient(160deg, #F0EDE8 0%, #EBF5E0 35%, #F4F1ED 65%, #EAF3E1 100%)' }}>
 
       {/* ── Premium Animated Services Background ── */}
       <ServicesBackground />
