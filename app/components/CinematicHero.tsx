@@ -27,12 +27,7 @@ const trustBadges = [
   { icon: <Home size={16} />, label: 'Personalized Home Care' },
 ];
 
-const stats = [
-  { value: 10, suffix: 'K+', label: 'Patients Served' },
-  { value: 15, suffix: '+', label: 'Care Services' },
-  { value: 98, suffix: '%', label: 'Satisfaction Rate' },
-  { value: 8, suffix: '+', label: 'Years of Trust' },
-];
+
 
 const floatingCards = [
   {
@@ -57,46 +52,7 @@ const floatingCards = [
 
 // ── Animated Counter ──────────────────────────────────────────────────────────
 
-function AnimatedCounter({ value, suffix, label, delay }: { value: number; suffix: string; label: string; delay: number }) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started) {
-        setStarted(true);
-        const timeout = setTimeout(() => {
-          let start = 0;
-          const duration = 1800;
-          const startTime = performance.now();
-          const step = (now: number) => {
-            const progress = Math.min((now - startTime) / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(ease * value));
-            if (progress < 1) requestAnimationFrame(step);
-            else setCount(value);
-          };
-          requestAnimationFrame(step);
-        }, delay * 1000);
-        return () => clearTimeout(timeout);
-      }
-    }, { threshold: 0.5 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [value, delay, started]);
-
-  return (
-    <div ref={ref} className="flex flex-col items-center">
-      <div className="text-3xl md:text-4xl font-bold font-serif" style={{ color: '#3D1A0A' }}>
-        {count}{suffix}
-      </div>
-      <div className="text-xs font-semibold uppercase tracking-widest mt-1" style={{ color: '#6AB04C' }}>
-        {label}
-      </div>
-    </div>
-  );
-}
 
 // ── Floating Service Card ─────────────────────────────────────────────────────
 
@@ -346,17 +302,7 @@ export default function CinematicHero() {
             ))}
           </motion.div>
 
-          {/* Stats Row */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.85 }}
-            style={{ display: 'flex', gap: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.12)', flexWrap: 'wrap' }}
-          >
-            {stats.map((s, i) => (
-              <AnimatedCounter key={i} value={s.value} suffix={s.suffix} label={s.label} delay={0.9 + i * 0.1} />
-            ))}
-          </motion.div>
+
         </div>
 
         {/* ── RIGHT: Floating Visual ── */}
