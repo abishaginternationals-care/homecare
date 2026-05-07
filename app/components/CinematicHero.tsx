@@ -72,21 +72,36 @@ export default function CinematicHero() {
         />
       ))}
 
-      {/* 🎨 Gradient Overlay - Simplified */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#3D1A0A]/40 via-black/20 to-black/60" />
+      {/* 🎨 Gradient Overlays - Layered for maximum text legibility */}
+      <div className="absolute inset-0 bg-black/30 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
 
       {/* 🧡 Content (Bottom Left) */}
-      <div key={`content-${index}`} className="absolute bottom-14 left-12 z-20 max-w-3xl text-left pl-6" style={{ borderLeft: '4px solid #6AB04C' }}>
+      <div 
+        key={`content-${index}`} 
+        className="absolute bottom-14 left-12 z-20 max-w-3xl text-left pl-8 py-6 pr-12" 
+        style={{ 
+          borderLeft: '5px solid #6AB04C',
+          background: 'linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%)',
+          backdropFilter: 'blur(4px)',
+          borderRadius: '0 24px 24px 0',
+        }}
+      >
         
         <h1
-          className="text-4xl md:text-5xl md:text-[4rem] mb-3 leading-tight font-serif text-white"
+          className="text-4xl md:text-5xl md:text-[4.2rem] mb-4 leading-tight font-serif text-white font-bold"
+          style={{ 
+            textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 8px 32px rgba(0,0,0,0.4)',
+            letterSpacing: '-0.02em'
+          }}
         >
           {slide.title}
         </h1>
 
         <p
-          className="text-lg md:text-xl font-light text-white mb-8 font-sans"
-          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+          className="text-lg md:text-2xl font-medium text-white/95 mb-10 font-sans max-w-2xl"
+          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
         >
           {slide.subtitle}
         </p>
