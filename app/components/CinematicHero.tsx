@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import MagneticButton from "./MagneticButton";
-import EcgDoodleTransition from "./EcgDoodleTransition";
 
 const slides = [
   {

@@ -1,7 +1,7 @@
 import { 
-  HeartHandshake, HeartPulse, Flower2, Brain, Activity, Ambulance, 
+  HeartHandshake, Flower2, Brain, Ambulance, 
   UserPlus, Heart, Wrench, Bed, ClipboardList, TestTube, Pill, 
-  Apple, Puzzle 
+  Apple, Puzzle, ShieldCheck, Stethoscope
 } from 'lucide-react';
 
 export const servicesData = [
@@ -20,7 +20,7 @@ export const servicesData = [
     title: "Nursing Services",
     slug: "nursing-services",
     description: "Skilled nursing care at home including wound care, medication management, and post-operative support by licensed nurses.",
-    icon: <HeartPulse className="w-8 h-8 md:w-12 md:h-12" />,
+    icon: <Stethoscope className="w-8 h-8 md:w-12 md:h-12" />,
     image: "/images/Abishag_img/11. Care Coordination.png",
     details: "Wound care, medication schedules, health assessments, IV therapy, and emergency support",
     fullDetails: "Our skilled nursing services bring hospital-level care directly to your doorstep. Licensed and experienced nurses perform a variety of medical procedures including complex wound dressing, catheter care, IV therapies, and post-surgical monitoring. They also work closely with your primary physician to manage chronic conditions, adjust medication schedules safely, and provide regular health assessments to prevent hospital readmissions."
@@ -50,7 +50,7 @@ export const servicesData = [
     title: "Allied Health Visit",
     slug: "allied-health-visit",
     description: "Home visits by allied health professionals including physiotherapists, occupational therapists, and speech therapists.",
-    icon: <Activity className="w-8 h-8 md:w-12 md:h-12" />,
+    icon: <ShieldCheck className="w-8 h-8 md:w-12 md:h-12" />,
     image: "/images/Abishag_img/12. Lab Sample Collection.png",
     details: "Physiotherapy, occupational therapy, speech therapy, rehabilitation, and functional assessments",
     fullDetails: "Recovery and rehabilitation don't have to require stressful trips to a clinic. Our allied health visits bring highly qualified physiotherapists, occupational therapists, and speech therapists directly to your home. Whether recovering from a stroke, a fall, or managing a chronic physical condition, our therapists design customized exercises and interventions to restore mobility, independence, and communication skills."

@@ -166,14 +166,7 @@ export default function ChatAssistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentNode, setCurrentNode] = useState('start');
   const [showOptions, setShowOptions] = useState(true);
-  const [pulse, setPulse] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  // Stop pulsing after 5 s
-  useEffect(() => {
-    const t = setTimeout(() => setPulse(false), 5000);
-    return () => clearTimeout(t);
-  }, []);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -186,7 +179,6 @@ export default function ChatAssistant() {
       setMessages([{ from: 'bot', text: node.text }]);
     }
     setOpen(true);
-    setPulse(false);
   };
 
   const handleOption = (option: Option) => {
@@ -229,21 +221,7 @@ export default function ChatAssistant() {
             Care Guide
           </div>
         )}
-        {/* Pulse rings */}
-        {pulse && (
-          <>
-            <div style={{
-              position: 'absolute', inset: '-8px', borderRadius: '50%',
-              border: '2px solid rgba(106,176,76,0.4)',
-              animation: 'ripplePing 2s cubic-bezier(0,0,0.2,1) infinite',
-            }} />
-            <div style={{
-              position: 'absolute', inset: '-4px', borderRadius: '50%',
-              border: '2px solid rgba(106,176,76,0.3)',
-              animation: 'ripplePing 2s cubic-bezier(0,0,0.2,1) infinite 0.5s',
-            }} />
-          </>
-        )}
+        {/* Button */}
         <button
           onClick={openChat}
           aria-label="Open care guide chat"
@@ -254,14 +232,11 @@ export default function ChatAssistant() {
             background: 'linear-gradient(135deg, #6AB04C, #3D7A28)',
             border: 'none',
             cursor: 'pointer',
-            boxShadow: pulse
-              ? '0 0 0 0 rgba(106,176,76,0.7)'
-              : '0 6px 28px rgba(61,26,10,0.35)',
+            boxShadow: '0 6px 28px rgba(61,26,10,0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease',
-            animation: pulse ? 'chatPulse 1.6s ease-in-out infinite' : 'none',
             position: 'relative',
           }}
           onMouseEnter={(e) => {
@@ -392,8 +367,8 @@ export default function ChatAssistant() {
                 flexShrink: 0,
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6AB04C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6AB04C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </div>
             <div>
@@ -525,11 +500,7 @@ export default function ChatAssistant() {
 
       {/* ── Keyframes ── */}
       <style>{`
-        @keyframes chatPulse {
-          0%   { box-shadow: 0 0 0 0 rgba(106,176,76,0.7); }
-          70%  { box-shadow: 0 0 0 14px rgba(106,176,76,0); }
-          100% { box-shadow: 0 0 0 0 rgba(106,176,76,0); }
-        }
+
         @keyframes chatSlideUp {
           from { opacity: 0; transform: translateY(20px) scale(0.97); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
