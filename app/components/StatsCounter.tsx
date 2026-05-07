@@ -59,9 +59,9 @@ const CountUp = ({ end, label, suffix = '', duration = 2000, delay = 0, index = 
       className="rounded-2xl p-8 flex flex-col items-center justify-center text-center border-t-[6px] border-[#6AB04C]"
       style={{ 
         animation: `floatY ${FLOAT_DURATIONS[index]} ease-in-out infinite`,
-        background: 'rgba(255,255,255,0.72)',
-        backdropFilter: 'blur(14px)',
-        WebkitBackdropFilter: 'blur(14px)',
+        background: 'rgba(255,255,255,0.85)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
         border: '1px solid rgba(255,255,255,0.60)',
         borderTop: '6px solid #6AB04C',
         boxShadow: '0 20px 50px rgba(61,26,10,0.09)',

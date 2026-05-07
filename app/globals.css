@@ -304,18 +304,18 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-8px) scale(1.015);
 }
 
-/* Glass card */
+/* Glass card - significantly reduced blur for performance */
 .glass-card {
-  background: rgba(255,255,255,0.70);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* Floating orbs */
+/* Floating orbs - reduced blur radius for performance */
 .orb {
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(40px);
   will-change: transform;
   pointer-events: none;
   animation: orbDrift 15s ease-in-out infinite;
@@ -454,11 +454,11 @@ h1, h2, h3, h4, h5, h6 {
 /* Hero utility classes */
 .hero-aurora-orb {
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(40px);
   pointer-events: none;
   will-change: transform, opacity;
   animation: auroraGlow 12s ease-in-out infinite;
-  mix-blend-mode: screen;
+  /* mix-blend-mode removed for performance */
 }
 .hero-glint {
   pointer-events: none;
@@ -507,9 +507,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Per-word 3D flip from below with blur-in */
 @keyframes heroCharIn {
-  0%   { opacity: 0; transform: translateY(48px) rotateX(-90deg) scale(0.84); filter: blur(8px); }
-  55%  { filter: blur(0px); }
-  100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0px); }
+  0%   { opacity: 0; transform: translateY(48px) rotateX(-90deg) scale(0.84); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
 }
 
 /* Subtitle word slide-in from left with perspective */

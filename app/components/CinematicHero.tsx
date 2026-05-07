@@ -106,8 +106,8 @@ export default function CinematicHero() {
         backgroundSize: `20px 20px`
       }} />
 
-      {/* 🌞 Soft Warm Glow */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/20 blur-[120px]" />
+      {/* 🌞 Soft Warm Glow - reduced blur */}
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/15 blur-[60px]" />
 
       {/* ✨ PREMIUM 3D EFFECTS — purely decorative, no functional impact ✨ */}
 
@@ -175,11 +175,6 @@ export default function CinematicHero() {
         { top: '60%', left: '35%', dur: '4.1s', delay: '0.6s', sz: 5 },
         { top: '18%', left: '70%', dur: '2.4s', delay: '2.1s', sz: 7 },
         { top: '75%', left: '55%', dur: '3.8s', delay: '0.3s', sz: 4 },
-        { top: '40%', left: '80%', dur: '3.0s', delay: '1.7s', sz: 6 },
-        { top: '85%', left: '20%', dur: '4.5s', delay: '0.9s', sz: 5 },
-        { top: '50%', left: '62%', dur: '2.6s', delay: '3.0s', sz: 8 },
-        { top: '08%', left: '55%', dur: '3.2s', delay: '1.5s', sz: 4 },
-        { top: '65%', left: '75%', dur: '4.8s', delay: '2.4s', sz: 5 },
       ] as const).map((g, gi) => (
         <div key={gi} className="hero-glint absolute z-[6]"
           style={{
@@ -218,12 +213,11 @@ export default function CinematicHero() {
           '--float-dur': '7s', '--float-delay': '-4s',
         } as React.CSSProperties} />
 
-      {/* Glassy pulsing corner badge */}
+      {/* Glassy pulsing corner badge - removed backdropFilter */}
       <div className="absolute top-8 right-8 z-[6]" style={{ pointerEvents: 'none' }}>
         <div style={{
           width: 64, height: 64, borderRadius: '50%',
           background: 'radial-gradient(circle,rgba(106,176,76,0.38) 0%,rgba(74,190,214,0.16) 58%,transparent 80%)',
-          backdropFilter: 'blur(6px)',
           border: '1px solid rgba(106,176,76,0.32)',
           boxShadow: '0 0 24px rgba(106,176,76,0.28), 0 0 60px rgba(74,190,214,0.14)',
           animation: 'glowPulseGreen 3s ease-in-out infinite',
@@ -243,8 +237,7 @@ export default function CinematicHero() {
         >
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(106,176,76,0.16)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(61, 26, 10, 0.45)', /* Darker semi-transparent background instead of blur */
             border: '1px solid rgba(106,176,76,0.38)',
             borderRadius: 999,
             padding: '5px 16px',

@@ -34,32 +34,36 @@ function runSobel(
   height: number,
   threshold = 28,
 ): ImageData {
-  // Draw source image into temp canvas
+  // Downsample for performance — run Sobel on a smaller scale
+  const scale = 0.5;
+  const sw = Math.floor(width * scale);
+  const sh = Math.floor(height * scale);
+  
   const tmp = document.createElement('canvas');
-  tmp.width  = width;
-  tmp.height = height;
-  const tc = tmp.getContext('2d')!;
-  tc.drawImage(src, 0, 0, width, height);
-  const { data } = tc.getImageData(0, 0, width, height);
+  tmp.width  = sw;
+  tmp.height = sh;
+  const tc = tmp.getContext('2d', { alpha: false })!;
+  tc.drawImage(src, 0, 0, sw, sh);
+  const { data } = tc.getImageData(0, 0, sw, sh);
 
   // Convert to grayscale buffer
-  const gray = new Float32Array(width * height);
+  const gray = new Float32Array(sw * sh);
   for (let i = 0; i < gray.length; i++) {
     const p = i * 4;
     gray[i] = 0.299 * data[p] + 0.587 * data[p + 1] + 0.114 * data[p + 2];
   }
 
   // Sobel kernels applied per pixel
-  const output = new ImageData(width, height);
+  const output = new ImageData(sw, sh);
   const od = output.data;
 
   const g = (x: number, y: number) =>
-    x < 0 || x >= width || y < 0 || y >= height
+    x < 0 || x >= sw || y < 0 || y >= sh
       ? 0
-      : gray[y * width + x];
+      : gray[y * sw + x];
 
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
+  for (let y = 0; y < sh; y++) {
+    for (let x = 0; x < sw; x++) {
       const gx =
         -1 * g(x - 1, y - 1) + 1 * g(x + 1, y - 1) +
         -2 * g(x - 1, y)     + 2 * g(x + 1, y)     +
@@ -130,8 +134,7 @@ function drawEcg(
   ctx.lineWidth   = 3;
   ctx.lineJoin    = 'round';
   ctx.lineCap     = 'round';
-  ctx.shadowColor = 'rgba(106,176,76,0.9)';
-  ctx.shadowBlur  = 18;
+  /* shadowBlur removed for performance */
   ctx.beginPath();
   ctx.moveTo(peaks[0].x, peaks[0].y);
 
@@ -179,7 +182,7 @@ function drawEcg(
   ctx.beginPath();
   ctx.arc(dotX, dotY, 6, 0, Math.PI * 2);
   ctx.fillStyle = '#6AB04C';
-  ctx.shadowBlur = 28;
+  /* shadowBlur removed for performance */
   ctx.fill();
 
   ctx.restore();

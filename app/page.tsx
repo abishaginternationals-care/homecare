@@ -171,7 +171,7 @@ export default function Home() {
 
       {/* â”€â”€ EXISTING SECTIONS BELOW â”€â”€ */}
       <div ref={containerRef} style={{ position: 'relative' }}>
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)', position: 'relative' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Image with float effect */}
@@ -282,7 +282,7 @@ export default function Home() {
 
 
       {/* â”€â”€ SERVICES PREVIEW â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'transparent', backdropFilter: 'blur(4px)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'transparent', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -373,9 +373,9 @@ export default function Home() {
               <Card3D style={{ borderRadius: '24px', height: '100%' }}>
                   <div
                     style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
+                      background: 'rgba(255,255,255,0.88)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
                       borderRadius: '24px',
                       overflow: 'hidden',
                       borderTop: '6px solid #6AB04C',
@@ -436,7 +436,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ FEATURES â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -499,7 +499,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.3)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.4)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Heading row: centered title + top-right button */}
           <div className="relative flex items-start justify-center mb-14">
@@ -546,9 +546,9 @@ export default function Home() {
                 className="mb-20 overflow-hidden"
               >
                 <div style={{
-                  background: 'rgba(255,255,255,0.82)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
+                  background: 'rgba(255,255,255,0.92)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
                   border: '1px solid rgba(255,255,255,0.65)',
                   boxShadow: '0 25px 60px rgba(61,26,10,0.12)',
                 }} className="p-10 rounded-3xl max-w-2xl mx-auto relative">
@@ -624,9 +624,9 @@ export default function Home() {
                 <Card3D key={i}>
                   <div
                     style={{
-                      background: 'rgba(255,255,255,0.78)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
+                      background: 'rgba(255,255,255,0.88)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
                       border: '1px solid rgba(255,255,255,0.60)',
                       boxShadow: '0 20px 50px rgba(97,26,10,0.08)',
                     }}
@@ -669,7 +669,7 @@ export default function Home() {
             opacity: [0.1, 0.2, 0.1]
           }}
           transition={{ duration: 15, repeat: Infinity }}
-          className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full filter blur-[150px] pointer-events-none" 
+          className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full filter blur-[80px] pointer-events-none" 
         />
         <motion.div 
           animate={{ 
@@ -678,7 +678,7 @@ export default function Home() {
             opacity: [0.05, 0.15, 0.05]
           }}
           transition={{ duration: 20, repeat: Infinity }}
-          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[120px] pointer-events-none" 
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[60px] pointer-events-none" 
         />
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">

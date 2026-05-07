@@ -22,7 +22,7 @@ export default function AnimatedBackground() {
           will-change: transform;
           transform: translateZ(0);
           /* Reduced blur radius for significantly better performance */
-          filter: blur(40px);
+          filter: blur(25px);
         }
 
         /* Large bold green orb — top left */
