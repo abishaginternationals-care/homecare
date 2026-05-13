@@ -234,20 +234,27 @@ export default function Services() {
                       </div>
 
                       {/* Content */}
-                      <div className="p-8 flex-grow flex flex-col">
-                        <h3
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: '1.5rem',
-                            fontWeight: 700,
-                            color: '#3D1A0A',
-                            marginBottom: '14px',
-                            transition: 'color 0.3s ease',
-                          }}
-                          className="group-hover:text-[#6AB04C]"
-                        >
-                          {service.title}
-                        </h3>
+                      <div className="p-8 flex-grow flex flex-col" style={{ alignItems: 'center' }}>
+
+                        {/* Centred title + animated underline */}
+                        <div style={{ margin: '0 auto', width: 'fit-content', textAlign: 'center', marginBottom: '16px' }}>
+                          <h3
+                            style={{
+                              fontFamily: "'Cormorant Garamond', serif",
+                              fontSize: '1.5rem',
+                              fontWeight: 700,
+                              color: '#3D1A0A',
+                              marginBottom: '4px',
+                              transition: 'color 0.3s ease',
+                              textAlign: 'center',
+                            }}
+                            className="group-hover:text-[#6AB04C]"
+                          >
+                            {service.title}
+                          </h3>
+                          <AnimatedUnderline delay={0.25} height={2} />
+                        </div>
+
                         <p
                           style={{
                             fontFamily: "'Nunito', sans-serif",
@@ -255,16 +262,49 @@ export default function Services() {
                             fontSize: '1rem',
                             lineHeight: 1.7,
                             marginBottom: '24px',
+                            textAlign: 'center',
                           }}
                         >
                           {service.description}
                         </p>
-                        <div style={{ marginTop: 'auto' }}>
-                          <span className="inline-flex items-center gap-2 font-bold text-[#6AB04C] transition-all duration-300 group-hover:gap-3">
-                            <span style={{ fontSize: '0.95rem' }}>View Details</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                              <polyline points="12 5 19 12 12 19"></polyline>
+
+                        {/* Glassmorphic "View Details" button */}
+                        <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'center' }}>
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              padding: '10px 26px',
+                              borderRadius: '50px',
+                              background: 'rgba(106,176,76,0.55)',
+                              backdropFilter: 'blur(18px)',
+                              WebkitBackdropFilter: 'blur(18px)',
+                              border: '1px solid rgba(106,176,76,0.45)',
+                              boxShadow: '0 4px 18px rgba(106,176,76,0.25), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.06)',
+                              color: '#ffffff',
+                              fontFamily: "'Nunito', sans-serif",
+                              fontWeight: 700,
+                              fontSize: '0.9rem',
+                              transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                            }}
+                            onMouseEnter={e => {
+                              const el = e.currentTarget as HTMLElement;
+                              el.style.background = 'rgba(106,176,76,0.80)';
+                              el.style.boxShadow = '0 8px 28px rgba(106,176,76,0.40), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 0 1px rgba(255,255,255,0.25)';
+                              el.style.transform = 'translateY(-2px) scale(1.04)';
+                            }}
+                            onMouseLeave={e => {
+                              const el = e.currentTarget as HTMLElement;
+                              el.style.background = 'rgba(106,176,76,0.55)';
+                              el.style.boxShadow = '0 4px 18px rgba(106,176,76,0.25), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.06)';
+                              el.style.transform = 'translateY(0) scale(1)';
+                            }}
+                          >
+                            View Details
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="5" y1="12" x2="19" y2="12" />
+                              <polyline points="12 5 19 12 12 19" />
                             </svg>
                           </span>
                         </div>
