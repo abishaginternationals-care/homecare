@@ -1,13 +1,16 @@
 'use client';
 
 /**
- * ServiceRowReveal — fixed version
+ * ServiceRowReveal — alternating ECG direction
  *
  * Each row of service cards triggers:
  *   Phase 1 (0 – 1.3s)  Lively ECG heartbeat draws across the full row width
- *                        — 3 spikes, one per card column
+ *                        — even rows: LEFT → RIGHT
+ *                        — odd rows:  RIGHT → LEFT (canvas-flipped)
  *   Phase 2 (1.3s → )   Each card floats up with a hovering-raise entrance,
- *                        staggered 130ms apart left → centre → right
+ *                        staggered to match the ECG sweep direction:
+ *                        — even rows: left → centre → right
+ *                        — odd rows:  right → centre → left
  *
  * Key fix: outer wrapper is a real block div (NOT display:contents) so that
  * IntersectionObserver can detect when the row enters the viewport.
@@ -53,6 +56,7 @@ function drawFrame(
   h: number,
   progress: number,
   pts: { x: number; y: number }[],
+  rtl: boolean,
 ) {
   const segs: number[] = [];
   let total = 0;
@@ -68,6 +72,13 @@ function drawFrame(
   let dotY = pts[0].y;
 
   ctx.clearRect(0, 0, w, h);
+
+  // ── Apply horizontal flip for RTL rows ─────────────────────────────────
+  ctx.save();
+  if (rtl) {
+    ctx.translate(w, 0);
+    ctx.scale(-1, 1);
+  }
 
   // Faint dashed mid-line
   ctx.save();
@@ -123,7 +134,8 @@ function drawFrame(
   ctx.shadowBlur = 0;
   ctx.fill();
 
-  ctx.restore();
+  ctx.restore(); // inner restore (shadow/stroke state)
+  ctx.restore(); // outer restore (flip transform)
 }
 
 // ── Card animation variants ─────────────────────────────────────────────────
@@ -160,6 +172,9 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
   const rafRef    = useRef<number>(0);
   const startRef  = useRef<number>(0);
   const [phase, setPhase] = useState<'idle' | 'ecg' | 'cards'>('idle');
+
+  // Odd rows flow right-to-left
+  const rtl = rowIndex % 2 === 1;
 
   // Observe when the row wrapper enters the viewport
   useEffect(() => {
@@ -200,7 +215,7 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
     const tick = (now: number) => {
       if (!startRef.current) startRef.current = now;
       const p = Math.min((now - startRef.current) / DURATION, 1);
-      drawFrame(ctx, W, H, p, pts);
+      drawFrame(ctx, W, H, p, pts, rtl);
       if (p < 1) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
@@ -238,20 +253,26 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
         </div>
       )}
 
-      {/* Real cards — hidden in idle, animated in cards/ecg phase */}
+      {/* Real cards — hidden in idle, animated in cards/ecg phase.
+          For RTL rows, card stagger is reversed so rightmost card enters first. */}
       {phase !== 'idle' && (
         <div className={GRID[cols]}>
-          {items.map((child, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              animate={phase === 'cards' ? 'visible' : 'hidden'}
-            >
-              {child}
-            </motion.div>
-          ))}
+          {items.map((child, i) => {
+            // For RTL rows, reverse the stagger index so the last card (right)
+            // animates first, matching the right-to-left ECG sweep direction
+            const staggerIndex = rtl ? (items.length - 1 - i) : i;
+            return (
+              <motion.div
+                key={i}
+                custom={staggerIndex}
+                variants={cardVariants}
+                initial="hidden"
+                animate={phase === 'cards' ? 'visible' : 'hidden'}
+              >
+                {child}
+              </motion.div>
+            );
+          })}
         </div>
       )}
     </div>

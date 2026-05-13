@@ -8,9 +8,13 @@
  *
  * Animation sequence (per slide change):
  *   Phase 1 (0 – 1.0s)  ECG heartbeat sweeps across a scan-line canvas
- *   Phase 2 (1.0 – 2.8s) Left-to-right wipe reveals the Sobel edge-detected
+ *   Phase 2 (1.0 – 2.8s) Edge-sweep wipe reveals the Sobel edge-detected
  *                         version of the *actual* slide image, glowing green
  *   Phase 3 (2.8 – 3.4s) Fade out → slide photo fully visible
+ *
+ * Direction alternates per slideIndex:
+ *   Even slides → left-to-right sweep (original)
+ *   Odd  slides → right-to-left sweep (canvas-flipped)
  *
  * All pixel work happens on an offscreen canvas; the result is composited on a
  * visible <canvas> so the main thread paint is a single drawImage call per frame.
@@ -98,6 +102,7 @@ function drawEcg(
   w: number,
   h: number,
   progress: number,   // 0 → 1
+  rtl = false,        // right-to-left sweep
 ) {
   const midY = h * 0.5;
   const peaks = [
@@ -115,6 +120,13 @@ function drawEcg(
     { x: 0.65, y: midY },
     { x: 1.02, y: midY },
   ].map(p => ({ x: p.x * w, y: p.y }));
+
+  // Apply horizontal flip for right-to-left direction
+  if (rtl) {
+    ctx.save();
+    ctx.translate(w, 0);
+    ctx.scale(-1, 1);
+  }
 
   const totalLen = peaks.reduce((acc, p, i) => {
     if (i === 0) return 0;
@@ -182,7 +194,10 @@ function drawEcg(
   ctx.shadowBlur = 28;
   ctx.fill();
 
-  ctx.restore();
+  ctx.restore(); // shadow/stroke state
+
+  // Close the RTL flip transform if applied
+  if (rtl) ctx.restore();
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -190,6 +205,9 @@ interface Props {
   slideIndex: number;
   onComplete?: () => void;
 }
+
+/** Returns true for odd slide indices → right-to-left animation */
+const isRtl = (idx: number) => idx % 2 === 1;
 
 export default function EcgDoodleTransition({ slideIndex, onComplete }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -240,37 +258,54 @@ export default function EcgDoodleTransition({ slideIndex, onComplete }: Props) {
 
       ctx.clearRect(0, 0, W, H);
 
+      const rtl = isRtl(slideIndex);
+
       // ── Phase 1: draw ECG ─────────────────────────────────────────────
       if (elapsed < PHASE1_END) {
         const progress = elapsed / PHASE1_END;
-        drawEcg(ctx, W, H, progress);
+        drawEcg(ctx, W, H, progress, rtl);
       }
 
-      // ── Phase 2: left-to-right wipe of Sobel edges ───────────────────
+      // ── Phase 2: directional wipe of Sobel edges ─────────────────────
       else if (elapsed < PHASE2_END) {
         if (edgeCanvas) {
-          const sweepX = Math.round(
-            W * ((elapsed - PHASE1_END) / (PHASE2_END - PHASE1_END)),
-          );
+          const sweepFrac = (elapsed - PHASE1_END) / (PHASE2_END - PHASE1_END);
+          const sweepX = Math.round(W * sweepFrac);
 
-          // Clip to swept region
           ctx.save();
-          ctx.beginPath();
-          ctx.rect(0, 0, sweepX, H);
-          ctx.clip();
-          ctx.drawImage(edgeCanvas, 0, 0);
-          ctx.restore();
+          if (rtl) {
+            // Right-to-left: clip from right edge inward
+            ctx.beginPath();
+            ctx.rect(W - sweepX, 0, sweepX, H);
+            ctx.clip();
+            ctx.drawImage(edgeCanvas, 0, 0);
 
-          // Leading sweep glow bar
-          const grad = ctx.createLinearGradient(sweepX - 30, 0, sweepX + 8, 0);
-          grad.addColorStop(0, 'rgba(106,176,76,0)');
-          grad.addColorStop(0.6, 'rgba(106,176,76,0.45)');
-          grad.addColorStop(1, 'rgba(74,190,214,0.85)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(sweepX - 30, 0, 38, H);
+            // Leading sweep glow bar (right-to-left)
+            const barX = W - sweepX;
+            const grad = ctx.createLinearGradient(barX + 30, 0, barX - 8, 0);
+            grad.addColorStop(0, 'rgba(106,176,76,0)');
+            grad.addColorStop(0.6, 'rgba(106,176,76,0.45)');
+            grad.addColorStop(1, 'rgba(74,190,214,0.85)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(barX - 8, 0, 38, H);
+          } else {
+            // Left-to-right (original)
+            ctx.beginPath();
+            ctx.rect(0, 0, sweepX, H);
+            ctx.clip();
+            ctx.drawImage(edgeCanvas, 0, 0);
+
+            const grad = ctx.createLinearGradient(sweepX - 30, 0, sweepX + 8, 0);
+            grad.addColorStop(0, 'rgba(106,176,76,0)');
+            grad.addColorStop(0.6, 'rgba(106,176,76,0.45)');
+            grad.addColorStop(1, 'rgba(74,190,214,0.85)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(sweepX - 30, 0, 38, H);
+          }
+          ctx.restore();
         } else {
           // Image still loading — hold ECG at 100%
-          drawEcg(ctx, W, H, 1);
+          drawEcg(ctx, W, H, 1, rtl);
         }
       }
 

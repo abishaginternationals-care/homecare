@@ -128,7 +128,7 @@ export default function Blog() {
       <div className="relative z-10">
         {/* Page Header */}
         <section
-          className="py-16 md:py-24"
+          className="py-8 md:py-12"
           style={{
             background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 55%, #4A8A30 100%)',
             position: 'relative',
@@ -145,14 +145,14 @@ export default function Blog() {
           </motion.div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
               {/* Left Side: Header Text */}
               <div>
                 <motion.p 
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
-                  style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '8px' }}
                 >
                   Knowledge & Insights
                 </motion.p>
@@ -160,7 +160,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.0 }}
-                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '10px' }}
                 >
                   Our Blog
                 </motion.h1>
@@ -168,7 +168,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.2 }}
-                  style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.6 }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.5 }}
                 >
                   Expert insights, care guidance, and stories to help families navigate elderly home health with confidence.
                 </motion.p>
@@ -179,9 +179,10 @@ export default function Blog() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-                style={{ height: '220px' }}
+                style={{ height: '140px' }}
               >
                 <EcgHeartbeatWidget
+                  direction="rtl"
                   icon={
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

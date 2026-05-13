@@ -6,8 +6,11 @@
  * A continuously looping, live ECG heartbeat animation rendered on a Canvas,
  * with a HeartHandshake icon centred between two pulse spikes.
  *
- * The line scrolls rightward indefinitely — when it reaches the edge it
- * wraps seamlessly so the animation never pauses.
+ * The line scrolls indefinitely — when it reaches the edge it wraps
+ * seamlessly so the animation never pauses.
+ *
+ * direction='ltr' (default) — wave scrolls left, lead dot on the RIGHT edge
+ * direction='rtl'            — wave scrolls right, lead dot on the LEFT edge
  */
 
 import { useEffect, useRef, ReactNode } from 'react';
@@ -18,6 +21,8 @@ interface Props {
   icon?: ReactNode;
   /** Small caption below the icon. Defaults to 'Care · Compassion · Trust'. */
   label?: string;
+  /** Scroll direction of the ECG wave. 'ltr' = left-to-right leading dot (default). 'rtl' = right-to-left leading dot. */
+  direction?: 'ltr' | 'rtl';
 }
 
 // ── ECG waveform template (one "heartbeat unit") ───────────────────────────
@@ -54,6 +59,7 @@ function yAtX(pts: { x: number; y: number }[], x: number): number {
 export default function EcgHeartbeatWidget({
   icon,
   label = 'Care · Compassion · Trust',
+  direction = 'ltr',
 }: Props) {
   // default icon — HeartHandshake from lucide
   const renderedIcon = icon ?? (
@@ -83,6 +89,7 @@ export default function EcgHeartbeatWidget({
     ro.observe(canvas);
 
     const SPEED = 1.4; // px per frame
+    const isRtl = direction === 'rtl';
 
     const draw = () => {
       const W = canvas.width;
@@ -101,6 +108,13 @@ export default function EcgHeartbeatWidget({
       ctx.lineTo(W, H / 2);
       ctx.stroke();
       ctx.restore();
+
+      // ── Apply horizontal flip for RTL ──────────────────────────────────
+      ctx.save();
+      if (isRtl) {
+        ctx.translate(W, 0);
+        ctx.scale(-1, 1);
+      }
 
       // ── Scrolling ECG line ─────────────────────────────────────────────
       ctx.save();
@@ -122,7 +136,10 @@ export default function EcgHeartbeatWidget({
       ctx.stroke();
       ctx.restore();
 
-      // ── Glowing dot at the right-leading edge ─────────────────────────
+      // ── Glowing dot at the leading edge ───────────────────────────────
+      // In the (possibly flipped) coordinate space, lead dot is always at
+      // the RIGHT side (x = W-1). After the flip transform this appears at
+      // the correct visual edge regardless of LTR / RTL.
       const leadX = W - 1;
       const leadCycleX = ((leadX + offsetRef.current) % PERIOD_PX + PERIOD_PX) % PERIOD_PX;
       const leadY = yAtX(cycle, leadCycleX);
@@ -141,6 +158,9 @@ export default function EcgHeartbeatWidget({
       ctx.fill();
       ctx.restore();
 
+      ctx.restore(); // outer restore (flip transform)
+
+      // Advance offset — same direction either way; flip handles the visual
       offsetRef.current += SPEED;
       rafRef.current = requestAnimationFrame(draw);
     };
@@ -150,7 +170,7 @@ export default function EcgHeartbeatWidget({
       cancelAnimationFrame(rafRef.current);
       ro.disconnect();
     };
-  }, []);
+  }, [direction]);
 
   return (
     <div

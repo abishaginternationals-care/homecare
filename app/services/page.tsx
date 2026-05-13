@@ -57,6 +57,7 @@ import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 import ServiceRowReveal from '../components/ServiceRowReveal';
+import AnimatedUnderline from '../components/AnimatedUnderline';
 
 export default function Services() {
   useScrollReveal();
@@ -81,7 +82,7 @@ export default function Services() {
 
       {/* ── Page Header ── */}
       <section
-        className="py-24 md:py-32"
+        className="py-8 md:py-12"
         style={{
           background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 55%, #4A8A30 100%)',
           position: 'relative',
@@ -118,7 +119,7 @@ export default function Services() {
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             {/* Left: existing title + subtitle — untouched */}
             <div>
               <div style={{ overflow: 'hidden', paddingBottom: '10px' }}>
@@ -128,11 +129,11 @@ export default function Services() {
                   transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 'clamp(3rem, 7vw, 4.5rem)',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
                     fontWeight: 700,
                     color: '#ffffff',
                     lineHeight: 1.1,
-                    marginBottom: '20px',
+                    marginBottom: '10px',
                   }}
                   className="text-raise"
                 >
@@ -146,11 +147,11 @@ export default function Services() {
                   transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
                   style={{
                     fontFamily: "'Nunito', sans-serif",
-                    fontSize: '1.15rem',
+                    fontSize: '0.95rem',
                     color: 'rgba(255,255,255,0.85)',
                     fontWeight: 300,
                     maxWidth: '600px',
-                    lineHeight: 1.6,
+                    lineHeight: 1.5,
                   }}
                 >
                   Comprehensive care services designed to enhance the quality of life for our elderly residents with compassion and excellence.
@@ -163,9 +164,9 @@ export default function Services() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ height: '220px' }}
+              style={{ height: '140px' }}
             >
-              <EcgHeartbeatWidget />
+              <EcgHeartbeatWidget direction="rtl" />
             </motion.div>
           </div>
         </div>
@@ -294,30 +295,28 @@ export default function Services() {
             className="text-center mb-16"
           >
             <div style={{ overflow: 'hidden', paddingBottom: '10px' }}>
-              <motion.h2
+              <motion.div
                 variants={{
                   hidden: { y: "100%", opacity: 0 },
                   visible: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                  fontWeight: 700,
-                  color: '#3D1A0A',
-                }}
-                className="text-raise"
+                style={{ margin: '0 auto', width: 'fit-content' }}
               >
-                Why Choose Our Care?
-              </motion.h2>
+                <h2
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                    fontWeight: 700,
+                    color: '#3D1A0A',
+                    marginBottom: '4px',
+                  }}
+                  className="text-raise"
+                >
+                  Why <span style={{ color: '#6AB04C' }}>Choose</span> Our Care?
+                </h2>
+                <AnimatedUnderline delay={0.5} />
+              </motion.div>
             </div>
-            <motion.div 
-              variants={{
-                hidden: { scaleX: 0, opacity: 0 },
-                visible: { scaleX: 1, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              style={{ originX: 0.5 }}
-              className="w-24 h-1 bg-[#6AB04C] mx-auto mt-4 rounded-full" 
-            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -377,7 +376,7 @@ export default function Services() {
       <section
         style={{
           background: 'linear-gradient(135deg, #2D2873 0%, #3D1A0A 100%)',
-          padding: '100px 0',
+          padding: '56px 0',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -398,11 +397,11 @@ export default function Services() {
             transition={{ duration: 0.6 }}
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+              fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
               fontWeight: 700,
               color: '#ffffff',
-              marginBottom: '24px',
-              lineHeight: 1.1,
+              marginBottom: '14px',
+              lineHeight: 1.15,
             }}
           >
             Ready to Experience <br /> the Abundance of Life?
@@ -412,7 +411,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', marginBottom: '48px', fontWeight: 300 }}
+            style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1rem', color: 'rgba(255,255,255,0.8)', marginBottom: '28px', fontWeight: 300 }}
           >
             Join our community and let us provide the professional care your loved ones deserve.
           </motion.p>
@@ -425,7 +424,7 @@ export default function Services() {
             <MagneticButton>
               <Link
                 href="/about"
-                className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-[#3D1A0A] transition-all duration-300 bg-white rounded-xl hover:bg-[#6AB04C] hover:text-white"
+                className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-[#3D1A0A] transition-all duration-300 bg-white rounded-xl hover:bg-[#6AB04C] hover:text-white"
                 style={{
                   textDecoration: 'none',
                   boxShadow: '0 10px 40px rgba(0,0,0,0.3)',

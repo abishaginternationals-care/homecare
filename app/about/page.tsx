@@ -23,6 +23,7 @@ import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import ServiceRowReveal from '../components/ServiceRowReveal';
 import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
+import AnimatedUnderline from '../components/AnimatedUnderline';
 
 export default function About() {
   useScrollReveal();
@@ -61,7 +62,7 @@ export default function About() {
 
       {/* ── Page Header ── */}
       <section
-        className="py-24 md:py-32"
+        className="py-8 md:py-12"
         style={{
           background: 'linear-gradient(135deg, #2D2873 0%, #3D1A0A 55%, #6B3020 100%)',
           position: 'relative',
@@ -95,7 +96,7 @@ export default function About() {
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             {/* Left: existing text */}
             <div>
               <motion.p 
@@ -103,9 +104,9 @@ export default function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
                 style={{
-                  fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.8rem',
+                  fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '0.75rem',
                   letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C',
-                  marginBottom: '16px',
+                  marginBottom: '8px',
                 }}
               >
                 Abundance of Life
@@ -116,8 +117,8 @@ export default function About() {
                 transition={{ duration: 0.8, delay: 1.0 }}
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700,
-                  color: '#ffffff', lineHeight: 1.1, marginBottom: '24px',
+                  fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700,
+                  color: '#ffffff', lineHeight: 1.1, marginBottom: '10px',
                 }}
                 className="text-raise"
               >
@@ -128,9 +129,9 @@ export default function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
                 style={{
-                  fontFamily: "'Nunito', sans-serif", fontSize: '1.2rem',
+                  fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem',
                   color: 'rgba(255,255,255,0.85)', fontWeight: 300, maxWidth: '600px',
-                  lineHeight: 1.6
+                  lineHeight: 1.5
                 }}
               >
                 Our journey, values, and unwavering commitment to providing the highest quality of home health services.
@@ -142,9 +143,9 @@ export default function About() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ height: '220px' }}
+              style={{ height: '140px' }}
             >
-              <EcgHeartbeatWidget icon={medicalHeartIcon} label="Health · Dignity · Life" />
+              <EcgHeartbeatWidget direction="rtl" icon={medicalHeartIcon} label="Health · Dignity · Life" />
             </motion.div>
           </div>
         </div>
@@ -237,36 +238,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Mission & Vision ── */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', position: 'relative', overflow: 'hidden' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <ServiceRowReveal rowIndex={0} cols={2}>
-            {[
-              { title: "Our Mission", text: "To provide exceptional, compassionate daycare services that enhance the quality of life for elderly individuals through professional care, engaging activities, and a supportive community.", accent: '#6AB04C' },
-              { title: "Our Vision", text: "To be the most trusted and respected elderly daycare center in the community, known for our commitment to excellence, innovation in care delivery, and genuine love for our residents.", accent: '#2D2873' },
-            ].map(({ title, text, accent }) => (
-              <div
-                key={title}
-                style={{
-                  background: '#F4F1ED',
-                  borderRadius: '24px',
-                  padding: '48px',
-                  borderTop: `8px solid ${accent}`,
-                  boxShadow: '0 10px 30px rgba(61,26,10,0.04)',
-                }}
-              >
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '20px' }}>
-                  {title}
-                </h3>
-                <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: '#5C3D2A', lineHeight: 1.8 }}>
-                  {text}
-                </p>
-              </div>
-            ))}
-          </ServiceRowReveal>
-        </div>
-      </section>
-
       {/* ── Core Values ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <motion.div 
@@ -275,15 +246,18 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-20 text-raise"
         >
-          <h2 style={{ 
-            fontFamily: "'Cormorant Garamond', serif", 
-            fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-            fontWeight: 700, 
-            color: '#3D1A0A' 
-          }}>
-            Our Core Values
-          </h2>
-          <div className="w-24 h-1 bg-[#6AB04C] mx-auto mt-4 rounded-full" />
+          <div style={{ margin: '0 auto', width: 'fit-content' }}>
+            <h2 style={{ 
+              fontFamily: "'Cormorant Garamond', serif", 
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+              fontWeight: 700, 
+              color: '#3D1A0A',
+              marginBottom: '4px',
+            }}>
+              Our <span style={{ color: '#6AB04C' }}>Core Values</span>
+            </h2>
+            <AnimatedUnderline delay={0.4} />
+          </div>
         </motion.div>
 
         <ServiceRowReveal rowIndex={0} cols={4}>
@@ -327,14 +301,18 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 style={{ 
-            fontFamily: "'Cormorant Garamond', serif", 
-            fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-            fontWeight: 700, 
-            color: '#3D1A0A' 
-          }}>
-            Why Families Trust Us
-          </h2>
+          <div style={{ margin: '0 auto', width: 'fit-content' }}>
+            <h2 style={{ 
+              fontFamily: "'Cormorant Garamond', serif", 
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+              fontWeight: 700, 
+              color: '#3D1A0A',
+              marginBottom: '4px',
+            }}>
+              Why <span style={{ color: '#6AB04C' }}>Families</span> Trust Us
+            </h2>
+            <AnimatedUnderline delay={0.4} />
+          </div>
         </motion.div>
 
         <ServiceRowReveal rowIndex={1} cols={4}>
@@ -369,7 +347,7 @@ export default function About() {
       </section>
 
       {/* ── Contact CTA ── */}
-      <section className="py-24 md:py-32" style={{ background: 'linear-gradient(135deg, #3D1A0A 0%, #2D2873 100%)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-10 md:py-14" style={{ background: 'linear-gradient(135deg, #3D1A0A 0%, #2D2873 100%)', position: 'relative', overflow: 'hidden' }}>
         <motion.div 
           style={{ y: backgroundY }}
           className="absolute inset-0 pointer-events-none opacity-20"
@@ -385,11 +363,11 @@ export default function About() {
             viewport={{ once: true }}
             style={{ 
               fontFamily: "'Cormorant Garamond', serif", 
-              fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
+              fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', 
               fontWeight: 700, 
               color: '#ffffff', 
-              marginBottom: '24px',
-              lineHeight: 1.1
+              marginBottom: '14px',
+              lineHeight: 1.15
             }}
           >
             Experience the <br /> <span className="text-[#6AB04C]">Abundance of Life</span>
@@ -401,9 +379,9 @@ export default function About() {
             transition={{ delay: 0.2 }}
             style={{ 
               fontFamily: "'Nunito', sans-serif", 
-              fontSize: '1.25rem', 
+              fontSize: '1rem', 
               color: 'rgba(255,255,255,0.85)', 
-              marginBottom: '48px', 
+              marginBottom: '28px', 
               fontWeight: 300 
             }}
           >
@@ -418,7 +396,7 @@ export default function About() {
             <MagneticButton>
               <a
                 href="mailto:contact@abishag.com"
-                className="px-12 py-6 bg-white text-[#3D1A0A] font-extrabold text-xl rounded-2xl shadow-2xl hover:bg-[#6AB04C] hover:text-white transition-all duration-300 hover:scale-105 inline-block"
+                className="px-8 py-4 bg-white text-[#3D1A0A] font-extrabold text-base rounded-xl shadow-2xl hover:bg-[#6AB04C] hover:text-white transition-all duration-300 hover:scale-105 inline-block"
                 style={{ textDecoration: 'none' }}
               >
                 Contact Us Today

@@ -1,339 +1,416 @@
 'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import MagneticButton from "./MagneticButton";
-import EcgDoodleTransition from "./EcgDoodleTransition";
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import MagneticButton from './MagneticButton';
+import {
+  ShieldCheck, Clock, Users, Star, HeartHandshake,
+  Stethoscope, ChevronDown, ArrowRight, CheckCircle2, Ambulance, Home
+} from 'lucide-react';
+
+// ── Data ─────────────────────────────────────────────────────────────────────
 
 const slides = [
+  { image: '/scene1.png', accent: 'rgba(106,176,76,0.15)' },
+  { image: '/scene2.png', accent: 'rgba(61,26,10,0.15)' },
+  { image: '/scene3.png', accent: 'rgba(106,176,76,0.12)' },
+  { image: '/scene5.png', accent: 'rgba(74,138,48,0.18)' },
+  { image: '/scene6.png', accent: 'rgba(61,26,10,0.12)' },
+  { image: '/scene7.png', accent: 'rgba(106,176,76,0.10)' },
+];
+
+const trustBadges = [
+  { icon: <ShieldCheck size={16} />, label: 'Certified Nurses' },
+  { icon: <Clock size={16} />, label: '24/7 Support' },
+  { icon: <HeartHandshake size={16} />, label: 'Trusted by Families' },
+  { icon: <Home size={16} />, label: 'Personalized Home Care' },
+];
+
+
+
+const floatingCards = [
   {
-    title: "Compassionate Care at Home",
-    subtitle: "Trusted healthcare services for families across Tamil Nadu",
-    image: "/scene1.png",
+    icon: <Stethoscope size={20} className="text-[#6AB04C]" />,
+    title: 'Nursing Care',
+    desc: 'Licensed professionals at home',
+    delay: 0,
   },
   {
-    title: "Advanced Home ICU",
-    subtitle: "Hospital-grade care in the comfort of your home",
-    image: "/scene2.png",
+    icon: <Ambulance size={20} className="text-[#6AB04C]" />,
+    title: 'Emergency Support',
+    desc: '24/7 rapid response',
+    delay: 0.4,
   },
   {
-    title: "Physiotherapy & Rehabilitation",
-    subtitle: "Restoring movement, restoring confidence",
-    image: "/scene3.png",
-  },
-  {
-    title: "Teleconsultation Services",
-    subtitle: "Expert doctors just a tap away",
-    image: "/scene5.png",
-  },
-  {
-    title: "Home Lab & Diagnostics",
-    subtitle: "Precise diagnostics at your doorstep",
-    image: "/scene6.png",
-  },
-  {
-    title: "Medicine Delivery",
-    subtitle: "Your prescriptions delivered, right on time",
-    image: "/scene7.png",
+    icon: <HeartHandshake size={20} className="text-[#6AB04C]" />,
+    title: 'Elder Care',
+    desc: 'Dignified, compassionate living',
+    delay: 0.8,
   },
 ];
 
-export default function CinematicHero() {
-  const [index, setIndex] = useState(0);
-  const [showDoodle, setShowDoodle] = useState(true);
-  const [doodleKey, setDoodleKey] = useState(0);
-  const [showText, setShowText] = useState(false);
-  const router = useRouter();
+// ── Animated Counter ──────────────────────────────────────────────────────────
 
-  useEffect(() => {
-    const i = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-      setShowDoodle(true);
-      setShowText(false);
-      setDoodleKey((k) => k + 1);
-    }, 8000);
-    return () => clearInterval(i);
-  }, []);
 
-  const slide = slides[index];
 
+// ── Floating Service Card ─────────────────────────────────────────────────────
+
+function FloatingCard({ icon, title, desc, delay, style }: {
+  icon: React.ReactNode; title: string; desc: string; delay: number; style?: React.CSSProperties;
+}) {
   return (
-    <section className="relative flex items-center justify-center overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.8, delay: 1.2 + delay, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        height: 'calc(100vh - 85px)',
-        minHeight: '600px',
-        width: '100%',
-        marginTop: '0',
-        borderRadius: '0',
-        boxShadow: '0 12px 48px rgba(0,0,0,0.18)',
+        position: 'absolute',
+        background: 'rgba(255,255,255,0.96)',
+        borderRadius: '16px',
+        padding: '14px 18px',
+        boxShadow: '0 8px 32px rgba(61,26,10,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+        border: '1px solid rgba(255,255,255,0.8)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        minWidth: '200px',
+        ...style,
       }}
     >
-      {/* 🌄 Background Images with smooth crossfade */}
-      {slides.map((s, i) => (
-        <div
+      <motion.div
+        animate={{ y: [0, -4, 0] }}
+        transition={{ duration: 3 + delay, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          width: '40px', height: '40px', borderRadius: '12px',
+          background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+        }}
+      >
+        {icon}
+      </motion.div>
+      <div>
+        <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.85rem', color: '#3D1A0A' }}>
+          {title}
+        </div>
+        <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.72rem', color: '#8A7060' }}>
+          {desc}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Main Component ────────────────────────────────────────────────────────────
+
+export default function CinematicHero() {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
+  const router = useRouter();
+
+  // Slide cycling
+  useEffect(() => {
+    const t = setInterval(() => setSlideIndex(i => (i + 1) % slides.length), 7000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Parallax mouse tracking
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = heroRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setMousePos({
+      x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+      y: ((e.clientY - rect.top) / rect.height - 0.5) * 2,
+    });
+  }, []);
+
+  const parallaxX = useMotionValue(0);
+  const parallaxY = useMotionValue(0);
+  const smoothX = useSpring(parallaxX, { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(parallaxY, { stiffness: 50, damping: 20 });
+  // Derived parallax for the right image panel
+  const imgPanelX = useTransform(smoothX, v => -v * 0.4);
+  const imgPanelY = useTransform(smoothY, v => -v * 0.4);
+
+  useEffect(() => {
+    parallaxX.set(mousePos.x * 8);
+    parallaxY.set(mousePos.y * 8);
+  }, [mousePos]);
+
+  return (
+    <section
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+      style={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}
+    >
+      {/* ── Background Slides ── */}
+      {slides.map((slide, i) => (
+        <motion.div
           key={i}
-          className={`absolute inset-0 bg-cover bg-center transition-all duration-[2000ms] ease-in-out ${
-            i === index
-              ? showDoodle
-                ? 'opacity-0 scale-100'          // hidden while doodle plays
-                : 'opacity-100 scale-105'         // revealed after doodle
-              : 'opacity-0 scale-100'
-          }`}
-          style={{ backgroundImage: `url(${s.image})` }}
-        />
-      ))}
-
-      {/* ✨ ECG Doodle Transition overlay */}
-      {showDoodle && (
-        <EcgDoodleTransition
-          key={doodleKey}
-          slideIndex={index}
-          onComplete={() => {
-            setShowDoodle(false);
-            // Wait for image fade-in to start (400ms), then reveal text
-            setTimeout(() => setShowText(true), 400);
-          }}
-        />
-      )}
-
-      {/* 🎨 Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#3D1A0A]/60 via-black/40 to-black/70" />
-
-      {/* 🌿 Decorative Traditional Pattern */}
-      {/* Removed kolam-pattern since we might not have the image, using CSS pattern instead */}
-      <div className="absolute inset-0 opacity-[0.05]" style={{
-        backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`,
-        backgroundSize: `20px 20px`
-      }} />
-
-      {/* 🌞 Soft Warm Glow */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6AB04C]/20 blur-[120px]" />
-
-      {/* ✨ PREMIUM 3D EFFECTS — purely decorative, no functional impact ✨ */}
-
-      {/* Scanline texture — subtle depth */}
-      <div className="hero-scanlines absolute inset-0 z-[3]" style={{ opacity: 0.35 }} />
-
-      {/* Aurora orbs — brand-colored volumetric light blobs */}
-      <div className="hero-aurora-orb absolute z-[4]"
-        style={{
-          width: 560, height: 560, top: '-12%', right: '-6%',
-          background: 'radial-gradient(circle, rgba(106,176,76,0.30) 0%, rgba(74,190,214,0.12) 55%, transparent 78%)',
-          animationDuration: '14s',
-        }} />
-      <div className="hero-aurora-orb absolute z-[4]"
-        style={{
-          width: 400, height: 400, bottom: '4%', right: '14%',
-          background: 'radial-gradient(circle, rgba(61,26,10,0.24) 0%, rgba(106,176,76,0.10) 60%, transparent 80%)',
-          animationDuration: '19s', animationDelay: '-6s',
-        }} />
-      <div className="hero-aurora-orb absolute z-[4]"
-        style={{
-          width: 280, height: 280, top: '32%', left: '58%',
-          background: 'radial-gradient(circle, rgba(74,190,214,0.20) 0%, transparent 72%)',
-          animationDuration: '11s', animationDelay: '-3s',
-        }} />
-
-      {/* Light ray sweeps — cinematic lens flare */}
-      <div className="hero-light-ray z-[5]"
-        style={{ '--ray-delay': '0s' } as React.CSSProperties} />
-      <div className="hero-light-ray z-[5]"
-        style={{
-          '--ray-delay': '3s', width: '18%',
-          background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.04),rgba(255,255,255,0.08),rgba(255,255,255,0.04),transparent)',
-        } as React.CSSProperties} />
-
-      {/* Holographic 3D spinning rings — right-side depth anchor */}
-      <div className="hero-holo-ring z-[5]"
-        style={{
-          width: 440, height: 440,
-          top: '50%', right: '7%', marginTop: -220,
-          borderColor: 'rgba(106,176,76,0.24)',
-          boxShadow: '0 0 32px rgba(106,176,76,0.12), inset 0 0 32px rgba(106,176,76,0.06)',
-          '--spin-dur': '13s',
-        } as React.CSSProperties} />
-      <div className="hero-holo-ring z-[5]"
-        style={{
-          width: 290, height: 290,
-          top: '50%', right: '11%', marginTop: -145,
-          borderColor: 'rgba(74,190,214,0.20)',
-          boxShadow: '0 0 20px rgba(74,190,214,0.10)',
-          '--spin-dur': '9s', animationDirection: 'reverse',
-        } as React.CSSProperties} />
-      <div className="hero-holo-ring z-[5]"
-        style={{
-          width: 160, height: 160,
-          top: '50%', right: '15%', marginTop: -80,
-          borderColor: 'rgba(255,255,255,0.14)',
-          '--spin-dur': '5s',
-        } as React.CSSProperties} />
-
-      {/* Star glints — 10 scattered twinkle particles */}
-      {([
-        { top: '12%', left: '22%', dur: '2.8s', delay: '0s',   sz: 6 },
-        { top: '28%', left: '48%', dur: '3.5s', delay: '1.2s', sz: 4 },
-        { top: '60%', left: '35%', dur: '4.1s', delay: '0.6s', sz: 5 },
-        { top: '18%', left: '70%', dur: '2.4s', delay: '2.1s', sz: 7 },
-        { top: '75%', left: '55%', dur: '3.8s', delay: '0.3s', sz: 4 },
-        { top: '40%', left: '80%', dur: '3.0s', delay: '1.7s', sz: 6 },
-        { top: '85%', left: '20%', dur: '4.5s', delay: '0.9s', sz: 5 },
-        { top: '50%', left: '62%', dur: '2.6s', delay: '3.0s', sz: 8 },
-        { top: '08%', left: '55%', dur: '3.2s', delay: '1.5s', sz: 4 },
-        { top: '65%', left: '75%', dur: '4.8s', delay: '2.4s', sz: 5 },
-      ] as const).map((g, gi) => (
-        <div key={gi} className="hero-glint absolute z-[6]"
+          animate={{ opacity: i === slideIndex ? 1 : 0 }}
+          transition={{ duration: 2.2, ease: 'easeInOut' }}
           style={{
-            top: g.top, left: g.left,
-            width: g.sz, height: g.sz,
-            '--dur': g.dur,
-            '--delay': g.delay,
-          } as React.CSSProperties}
-        >
-          <div style={{
             position: 'absolute', inset: 0,
-            background: '#ffffff',
-            clipPath: 'polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%)',
-            filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.9))',
-          }} />
-        </div>
+            backgroundImage: `url(${slide.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
       ))}
 
-      {/* Floating depth accent lines — 3D architectural feel */}
-      <div className="hero-depth-layer absolute z-[5]"
-        style={{
-          top: '18%', right: '6%', width: 180, height: 1,
-          background: 'linear-gradient(90deg,transparent,rgba(106,176,76,0.65),transparent)',
-          '--float-dur': '6s', '--float-delay': '0s',
-        } as React.CSSProperties} />
-      <div className="hero-depth-layer absolute z-[5]"
-        style={{
-          top: '22%', right: '6%', width: 100, height: 1,
-          background: 'linear-gradient(90deg,transparent,rgba(74,190,214,0.45),transparent)',
-          '--float-dur': '8s', '--float-delay': '-2s',
-        } as React.CSSProperties} />
-      <div className="hero-depth-layer absolute z-[5]"
-        style={{
-          bottom: '28%', right: '8%', width: 140, height: 1,
-          background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.32),transparent)',
-          '--float-dur': '7s', '--float-delay': '-4s',
-        } as React.CSSProperties} />
+      {/* ── Layered Dark Overlays for Readability ── */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(20,8,2,0.88) 0%, rgba(30,12,4,0.75) 40%, rgba(10,5,2,0.45) 70%, rgba(0,0,0,0.2) 100%)', zIndex: 1 }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)', zIndex: 1 }} />
 
-      {/* Glassy pulsing corner badge */}
-      <div className="absolute top-8 right-8 z-[6]" style={{ pointerEvents: 'none' }}>
-        <div style={{
-          width: 64, height: 64, borderRadius: '50%',
-          background: 'radial-gradient(circle,rgba(106,176,76,0.38) 0%,rgba(74,190,214,0.16) 58%,transparent 80%)',
-          backdropFilter: 'blur(6px)',
-          border: '1px solid rgba(106,176,76,0.32)',
-          boxShadow: '0 0 24px rgba(106,176,76,0.28), 0 0 60px rgba(74,190,214,0.14)',
-          animation: 'glowPulseGreen 3s ease-in-out infinite',
-        }} />
-      </div>
+      {/* ── Warm Green Ambient Orbs ── */}
+      <motion.div
+        style={{ x: smoothX, y: smoothY, position: 'absolute', top: '10%', left: '3%', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(106,176,76,0.18) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 1, pointerEvents: 'none' }}
+      />
+      <motion.div
+        animate={{ scale: [1, 1.1, 1], opacity: [0.12, 0.2, 0.12] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ position: 'absolute', bottom: '5%', left: '20%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(244,167,32,0.10) 0%, transparent 70%)', filter: 'blur(50px)', zIndex: 1, pointerEvents: 'none' }}
+      />
 
-      {/* ✨ END PREMIUM EFFECTS ✨ */}
+      {/* ── Content Grid ── */}
+      <div style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', paddingTop: '80px' }}>
 
-      {/* 🧡 Content (Bottom Left) — only visible after doodle + image reveal */}
-      {showText && (
-      <div key={`content-${index}`} className="absolute bottom-14 left-12 z-20 max-w-3xl text-left pl-6" style={{ borderLeft: '4px solid #6AB04C' }}>
-
-        {/* ✨ Trust badge — springs in from left */}
-        <div
-          className="opacity-0 animate-[heroBadgeIn_0.65s_cubic-bezier(0.34,1.56,0.64,1)_forwards] mb-4 inline-flex items-center gap-2"
-          style={{ animationDelay: '0.05s' }}
-        >
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(106,176,76,0.16)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(106,176,76,0.38)',
-            borderRadius: 999,
-            padding: '5px 16px',
-          }}>
-            <span style={{
-              width: 7, height: 7, borderRadius: '50%',
-              background: '#6AB04C',
-              display: 'inline-block',
-              boxShadow: '0 0 10px rgba(106,176,76,0.9)',
-              animation: 'glowPulseGreen 2s ease-in-out infinite',
-            }} />
-            <span style={{
-              fontFamily: "'Nunito', sans-serif",
-              fontSize: 11, letterSpacing: '0.12em',
-              color: 'rgba(255,255,255,0.88)',
-              fontWeight: 700, textTransform: 'uppercase',
-            }}>
-              Trusted Home Healthcare
-            </span>
-          </div>
-        </div>
-
-        {/* Title — per-word 3D flip reveal with blur */}
-        <h1
-          className="text-4xl md:text-5xl md:text-[4rem] mb-3 leading-tight"
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            color: '#ffffff',
-            perspective: '800px',
-            perspectiveOrigin: 'left center',
-            animation: `heroTitleGlow 4s ease-in-out ${slide.title.split(' ').length * 0.14 + 0.8}s infinite`,
-          }}
-        >
-          {slide.title.split(" ").map((word, i) => (
-            <span
-              key={i}
-              className="inline-block opacity-0 animate-[heroCharIn_0.7s_cubic-bezier(0.22,1,0.36,1)_forwards]"
-              style={{
-                animationDelay: `${0.2 + i * 0.14}s`,
-                display: 'inline-block',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              {word}&nbsp;
-            </span>
-          ))}
-        </h1>
-
-        {/* ✨ Animated gradient accent line */}
-        <div className="mb-5" style={{ overflow: 'hidden', height: 3 }}>
-          <div
-            className="opacity-0 animate-[heroAccentLine_0.9s_ease_forwards]"
+        {/* ── LEFT: Copy ── */}
+        <div>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              height: 2,
-              background: 'linear-gradient(90deg, #6AB04C, rgba(74,190,214,0.7), transparent)',
-              borderRadius: 2,
-              animationDelay: `${0.2 + slide.title.split(' ').length * 0.14 + 0.15}s`,
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+              fontWeight: 700,
+              color: '#ffffff',
+              lineHeight: 1.08,
+              marginBottom: '24px',
+              textShadow: '0 4px 24px rgba(0,0,0,0.5)',
+              letterSpacing: '-0.02em',
             }}
-          />
+          >
+            Compassionate Healthcare,{' '}
+            <span style={{ color: '#6AB04C', display: 'block' }}>Delivered to Your Home</span>
+          </motion.h1>
+
+          {/* Sub-headline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: "'Nunito', sans-serif",
+              fontSize: '1.15rem',
+              color: 'rgba(255,255,255,0.80)',
+              lineHeight: 1.75,
+              marginBottom: '40px',
+              fontWeight: 400,
+              maxWidth: '520px',
+              textShadow: '0 2px 10px rgba(0,0,0,0.4)',
+            }}
+          >
+            Professional nurses, elder care, physiotherapy, and medical support designed around comfort, dignity, and trust.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '48px' }}
+          >
+            <MagneticButton>
+              <button
+                onClick={() => router.push('/contact')}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '16px 32px', borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
+                  color: '#fff', fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 800, fontSize: '1rem', border: 'none', cursor: 'pointer',
+                  boxShadow: '0 8px 28px rgba(106,176,76,0.45)',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(106,176,76,0.6)')}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 8px 28px rgba(106,176,76,0.45)')}
+              >
+                Book Appointment <ArrowRight size={18} />
+              </button>
+            </MagneticButton>
+
+            <MagneticButton>
+              <button
+                onClick={() => router.push('/services')}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '16px 32px', borderRadius: '14px',
+                  background: 'rgba(255,255,255,0.10)', border: '1.5px solid rgba(255,255,255,0.30)',
+                  color: '#fff', fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 700, fontSize: '1rem', cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.18)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.30)'; }}
+              >
+                Explore Services
+              </button>
+            </MagneticButton>
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}
+          >
+            {trustBadges.map((badge, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.08, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '7px',
+                  background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.18)',
+                  borderRadius: '100px', padding: '7px 14px',
+                  color: 'rgba(255,255,255,0.88)',
+                  fontFamily: "'Nunito', sans-serif", fontSize: '0.78rem', fontWeight: 600,
+                }}
+              >
+                <span style={{ color: '#6AB04C' }}>{badge.icon}</span>
+                {badge.label}
+              </motion.div>
+            ))}
+          </motion.div>
+
+
         </div>
 
-        {/* Subtitle — per-word perspective slide-in from left */}
-        <p
-          className="text-lg md:text-xl font-light text-white mb-8"
-          style={{
-            fontFamily: "'Nunito', sans-serif",
-            textShadow: '0 2px 12px rgba(0,0,0,0.6)',
-            perspective: '600px',
-          }}
+        {/* ── RIGHT: Floating Visual ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.5 }}
+          style={{ position: 'relative', height: '560px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          {slide.subtitle.split(" ").map((word, i) => (
-            <span
-              key={i}
-              className="inline-block opacity-0 animate-[heroWordIn_0.55s_ease_forwards]"
-              style={{
-                animationDelay: `${0.2 + slide.title.split(' ').length * 0.14 + 0.45 + i * 0.07}s`,
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              {word}&nbsp;
-            </span>
-          ))}
-        </p>
+          {/* Central Image Frame */}
+          <motion.div
+            style={{ x: imgPanelX, y: imgPanelY }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div style={{ position: 'relative', width: '340px', height: '420px' }}>
+              {/* Background glow */}
+              <div style={{ position: 'absolute', inset: '-24px', borderRadius: '40px', background: 'radial-gradient(circle, rgba(106,176,76,0.25) 0%, transparent 70%)', filter: 'blur(30px)' }} />
 
+              {/* Main image card */}
+              <div style={{ width: '100%', height: '100%', borderRadius: '32px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.18)', boxShadow: '0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(106,176,76,0.2)' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={slideIndex}
+                    initial={{ opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 1.6, ease: 'easeInOut' }}
+                    style={{ width: '100%', height: '100%', backgroundImage: `url(${slides[slideIndex].image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                  />
+                </AnimatePresence>
+              </div>
+
+              {/* Slide indicator dots */}
+              <div style={{ position: 'absolute', bottom: '-28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px' }}>
+                {slides.map((_, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={() => setSlideIndex(i)}
+                    animate={{ width: i === slideIndex ? 24 : 8, background: i === slideIndex ? '#6AB04C' : 'rgba(255,255,255,0.3)' }}
+                    transition={{ duration: 0.4 }}
+                    style={{ height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0 }}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Floating Service Cards */}
+          <FloatingCard
+            icon={floatingCards[0].icon}
+            title={floatingCards[0].title}
+            desc={floatingCards[0].desc}
+            delay={floatingCards[0].delay}
+            style={{ top: '6%', left: '-18%' }}
+          />
+          <FloatingCard
+            icon={floatingCards[1].icon}
+            title={floatingCards[1].title}
+            desc={floatingCards[1].desc}
+            delay={floatingCards[1].delay}
+            style={{ bottom: '22%', left: '-20%' }}
+          />
+          <FloatingCard
+            icon={floatingCards[2].icon}
+            title={floatingCards[2].title}
+            desc={floatingCards[2].desc}
+            delay={floatingCards[2].delay}
+            style={{ top: '12%', right: '-8%' }}
+          />
+
+          {/* Testimonial snippet */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              position: 'absolute', top: '42%', right: '-12%',
+              background: 'rgba(255,255,255,0.97)',
+              borderRadius: '14px', padding: '12px 16px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+              maxWidth: '190px',
+              border: '1px solid rgba(106,176,76,0.2)',
+            }}
+          >
+            <div style={{ display: 'flex', gap: '2px', marginBottom: '6px' }}>
+              {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="#F4A720" color="#F4A720" />)}
+            </div>
+            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.72rem', color: '#5C3D2A', lineHeight: 1.5, fontStyle: 'italic' }}>
+              "The care team felt like family. Truly exceptional."
+            </div>
+            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.65rem', color: '#8A7060', marginTop: '6px', fontWeight: 700 }}>
+              — Priya R., Chennai
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
-      )} {/* end showText */}
 
-      {/* Progress Bar — hidden */}
-      <div key={`progress-${index}`} className="absolute bottom-0 left-0 h-[3px] w-full z-20" style={{ opacity: 0, pointerEvents: 'none' }}></div>
+      {/* ── Scroll Indicator ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', zIndex: 10 }}
+      >
+        <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown size={18} color="rgba(255,255,255,0.4)" />
+        </motion.div>
+      </motion.div>
+
+      {/* ── Responsive CSS ── */}
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-right { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
