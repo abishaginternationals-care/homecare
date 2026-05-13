@@ -1,24 +1,27 @@
 'use client';
 
+import { ReactNode } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import EcgHeartbeatWidget from './EcgHeartbeatWidget';
 
 interface Props {
   title: string;
-  /** Emoji or text icon from servicesData */
-  icon: string;
+  /** Lucide icon element from servicesData */
+  icon: ReactNode;
   /** Optional ECG label, defaults to title */
   label?: string;
 }
 
 export default function ServiceDetailHeader({ title, icon, label }: Props) {
-  // Render the service emoji as the ECG centre icon
+  // Wrap the service icon as the ECG centre icon with glow styling
   const ecgIcon = (
     <span
       style={{
-        fontSize: '2.2rem',
-        lineHeight: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#6AB04C',
         filter: 'drop-shadow(0 0 10px rgba(106,176,76,0.75))',
       }}
       aria-hidden="true"
