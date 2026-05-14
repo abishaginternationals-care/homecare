@@ -76,12 +76,13 @@ export default function Navigation() {
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: scrolled ? '1.5rem' : '1.75rem',
-                  fontWeight: 700,
-                  color: '#3D1A0A',
+                  fontSize: scrolled ? '1.65rem' : '1.95rem',
+                  fontWeight: 800,
+                  color: '#2A1005',
                   lineHeight: 0.9,
                   letterSpacing: '-0.01em',
                   transition: 'font-size 0.35s ease',
+                  textShadow: '0 1px 3px rgba(61,26,10,0.15)',
                 }}
                 className="text-raise"
               >
