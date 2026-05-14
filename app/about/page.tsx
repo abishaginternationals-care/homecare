@@ -64,7 +64,7 @@ export default function About() {
       <section
         className="py-8 md:py-12"
         style={{
-          background: 'linear-gradient(135deg, #2D2873 0%, #3D1A0A 55%, #6B3020 100%)',
+          background: 'linear-gradient(135deg, rgba(45, 40, 115, 0.85) 0%, rgba(61, 26, 10, 0.85) 55%, rgba(107, 48, 32, 0.85) 100%)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -347,7 +347,7 @@ export default function About() {
       </section>
 
       {/* ── Contact CTA ── */}
-      <section className="py-10 md:py-14" style={{ background: 'linear-gradient(135deg, #3D1A0A 0%, #2D2873 100%)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-10 md:py-14" style={{ background: 'linear-gradient(135deg, rgba(61, 26, 10, 0.85) 0%, rgba(45, 40, 115, 0.85) 100%)', position: 'relative', overflow: 'hidden' }}>
         <motion.div 
           style={{ y: backgroundY }}
           className="absolute inset-0 pointer-events-none opacity-20"

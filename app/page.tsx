@@ -172,7 +172,7 @@ export default function Home() {
 
       {/* â”€â”€ EXISTING SECTIONS BELOW â”€â”€ */}
       <div ref={containerRef} style={{ position: 'relative' }}>
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)', position: 'relative' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Image with float effect */}
@@ -283,7 +283,7 @@ export default function Home() {
 
 
       {/* â”€â”€ SERVICES PREVIEW â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'transparent', backdropFilter: 'blur(4px)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.2)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -439,7 +439,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ FEATURES â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -504,7 +504,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.3)', backdropFilter: 'blur(6px)', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.4)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Heading row: centered title + top-right button */}
           <div className="relative flex items-start justify-center mb-14">

@@ -130,7 +130,7 @@ export default function Blog() {
         <section
           className="py-8 md:py-12"
           style={{
-            background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 55%, #4A8A30 100%)',
+            background: 'linear-gradient(135deg, rgba(61, 26, 10, 0.85) 0%, rgba(107, 48, 32, 0.85) 55%, rgba(74, 138, 48, 0.85) 100%)',
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -210,7 +210,7 @@ export default function Blog() {
         </section>
 
         {/* Category Filter */}
-        <section className="py-8 md:py-10" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(221,213,204,0.5)' }}>
+        <section className="py-8 md:py-10" style={{ background: 'rgba(255,255,255,0.6)', borderBottom: '1px solid rgba(221,213,204,0.5)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-3 justify-center">
               {categories.map((cat) => (

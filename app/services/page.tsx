@@ -84,7 +84,7 @@ export default function Services() {
       <section
         className="py-8 md:py-12"
         style={{
-          background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 55%, #4A8A30 100%)',
+          background: 'linear-gradient(135deg, rgba(61, 26, 10, 0.85) 0%, rgba(107, 48, 32, 0.85) 55%, rgba(74, 138, 48, 0.85) 100%)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -319,7 +319,7 @@ export default function Services() {
       </div>
 
       {/* ── Service Highlights ── */}
-      <section style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ background: 'rgba(255,255,255,0.55)', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
         {/* Subtle background decoration */}
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#3D1A0A 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         
@@ -415,7 +415,7 @@ export default function Services() {
       {/* ── CTA ── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #2D2873 0%, #3D1A0A 100%)',
+          background: 'linear-gradient(135deg, rgba(45, 40, 115, 0.85) 0%, rgba(61, 26, 10, 0.85) 100%)',
           padding: '56px 0',
           position: 'relative',
           overflow: 'hidden',
