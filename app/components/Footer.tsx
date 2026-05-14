@@ -113,7 +113,7 @@ export default function Footer() {
             </h3>
             <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.95rem', lineHeight: 2.2 }}>
               <p>Email: <a href="mailto:contact@abishag.com" style={{ color: 'inherit', textDecoration: 'none' }} className="hover:text-[#6AB04C] transition-colors">contact@abishag.com</a></p>
-              <p>Phone: <span className="italic opacity-60">Coming Soon</span></p>
+              <p>Phone: +91 99402 16863</p>
             </div>
           </motion.div>
 
