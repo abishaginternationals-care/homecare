@@ -61,18 +61,43 @@ export default function Navigation() {
           style={{ height: navHeight, transition: 'height 0.35s ease' }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group py-1" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              textDecoration: 'none',
+              alignSelf: 'stretch',
+            }}
+            className="group"
+          >
+            {/* Logo image — fills full navbar height */}
             <div
               className="transition-all duration-300 group-hover:scale-105"
-              style={{ flexShrink: 0, transition: 'all 0.35s ease', width: logoSize, height: logoSize }}
+              style={{
+                alignSelf: 'stretch',
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0,
+                padding: '4px 0',
+              }}
             >
               <img
                 src="/logo-transparent.png"
                 alt="Abishag Logo"
-                style={{ width: '100%', height: '100%', objectFit: 'contain', transition: 'all 0.35s ease' }}
+                style={{
+                  height: '100%',
+                  width: 'auto',
+                  maxHeight: scrolled ? '60px' : '76px',
+                  objectFit: 'contain',
+                  transition: 'max-height 0.35s ease',
+                }}
               />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '4px' }}>
+            {/* Brand text */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
