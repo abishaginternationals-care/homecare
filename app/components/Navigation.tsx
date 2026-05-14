@@ -49,7 +49,7 @@ export default function Navigation() {
     transition: 'all 0.35s ease',
   };
 
-  const logoSize = scrolled ? '52px' : '62px';
+  const logoSize = scrolled ? '60px' : '76px';
   const navHeight = scrolled ? '68px' : '84px';
 
   return (
@@ -64,21 +64,12 @@ export default function Navigation() {
           <Link href="/" className="flex items-center gap-3 group py-1" onClick={() => setMenuOpen(false)}>
             <div
               className="transition-all duration-300 group-hover:scale-105"
-              style={{ flexShrink: 0, transition: 'all 0.35s ease', overflow: 'visible', position: 'relative', width: logoSize, height: logoSize }}
+              style={{ flexShrink: 0, transition: 'all 0.35s ease', width: logoSize, height: logoSize }}
             >
               <img
                 src="/logo-transparent.png"
                 alt="Abishag Logo"
-                style={{
-                  width: scrolled ? '90px' : '110px',
-                  height: scrolled ? '90px' : '110px',
-                  objectFit: 'contain',
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  transition: 'all 0.35s ease',
-                }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', transition: 'all 0.35s ease' }}
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '4px' }}>
