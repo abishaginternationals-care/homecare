@@ -64,12 +64,21 @@ export default function Navigation() {
           <Link href="/" className="flex items-center gap-3 group py-1" onClick={() => setMenuOpen(false)}>
             <div
               className="transition-all duration-300 group-hover:scale-105"
-              style={{ height: logoSize, width: logoSize, flexShrink: 0, transition: 'all 0.35s ease', overflow: 'visible', position: 'relative' }}
+              style={{ flexShrink: 0, transition: 'all 0.35s ease', overflow: 'visible', position: 'relative', width: logoSize, height: logoSize }}
             >
               <img
                 src="/logo-transparent.png"
                 alt="Abishag Logo"
-                style={{ width: '140%', height: '140%', objectFit: 'contain', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                style={{
+                  width: scrolled ? '90px' : '110px',
+                  height: scrolled ? '90px' : '110px',
+                  objectFit: 'contain',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  transition: 'all 0.35s ease',
+                }}
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '4px' }}>
