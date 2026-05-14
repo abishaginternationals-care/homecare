@@ -262,7 +262,7 @@ export default function About() {
 
         <ServiceRowReveal rowIndex={0} cols={4}>
           {coreValues.map((value) => (
-            <Card3D key={value.id}>
+            <Card3D key={value.id} style={{ height: '100%' }}>
               <div
                 style={{
                   background: 'rgba(255,255,255,0.75)',
