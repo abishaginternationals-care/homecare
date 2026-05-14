@@ -24,82 +24,7 @@ const trustBadges = [
   { icon: <ShieldCheck size={16} />, label: 'Certified Nurses' },
   { icon: <Clock size={16} />, label: '24/7 Support' },
   { icon: <HeartHandshake size={16} />, label: 'Trusted by Families' },
-  { icon: <Home size={16} />, label: 'Personalized Home Care' },
 ];
-
-
-
-const floatingCards = [
-  {
-    icon: <Stethoscope size={20} className="text-[#6AB04C]" />,
-    title: 'Nursing Care',
-    desc: 'Licensed professionals at home',
-    delay: 0,
-  },
-  {
-    icon: <Ambulance size={20} className="text-[#6AB04C]" />,
-    title: 'Emergency Support',
-    desc: '24/7 rapid response',
-    delay: 0.4,
-  },
-  {
-    icon: <HeartHandshake size={20} className="text-[#6AB04C]" />,
-    title: 'Elder Care',
-    desc: 'Dignified, compassionate living',
-    delay: 0.8,
-  },
-];
-
-// ── Animated Counter ──────────────────────────────────────────────────────────
-
-
-
-// ── Floating Service Card ─────────────────────────────────────────────────────
-
-function FloatingCard({ icon, title, desc, delay, style }: {
-  icon: React.ReactNode; title: string; desc: string; delay: number; style?: React.CSSProperties;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, delay: 1.2 + delay, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: 'absolute',
-        background: 'rgba(255,255,255,0.96)',
-        borderRadius: '16px',
-        padding: '14px 18px',
-        boxShadow: '0 8px 32px rgba(61,26,10,0.12), 0 2px 8px rgba(0,0,0,0.06)',
-        border: '1px solid rgba(255,255,255,0.8)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        minWidth: '200px',
-        ...style,
-      }}
-    >
-      <motion.div
-        animate={{ y: [0, -4, 0] }}
-        transition={{ duration: 3 + delay, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          width: '40px', height: '40px', borderRadius: '12px',
-          background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-        }}
-      >
-        {icon}
-      </motion.div>
-      <div>
-        <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.85rem', color: '#3D1A0A' }}>
-          {title}
-        </div>
-        <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.72rem', color: '#8A7060' }}>
-          {desc}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
@@ -338,53 +263,7 @@ export default function CinematicHero() {
             </div>
           </motion.div>
 
-          {/* Floating Service Cards */}
-          <FloatingCard
-            icon={floatingCards[0].icon}
-            title={floatingCards[0].title}
-            desc={floatingCards[0].desc}
-            delay={floatingCards[0].delay}
-            style={{ top: '6%', left: '-18%' }}
-          />
-          <FloatingCard
-            icon={floatingCards[1].icon}
-            title={floatingCards[1].title}
-            desc={floatingCards[1].desc}
-            delay={floatingCards[1].delay}
-            style={{ bottom: '22%', left: '-20%' }}
-          />
-          <FloatingCard
-            icon={floatingCards[2].icon}
-            title={floatingCards[2].title}
-            desc={floatingCards[2].desc}
-            delay={floatingCards[2].delay}
-            style={{ top: '12%', right: '-8%' }}
-          />
 
-          {/* Testimonial snippet */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              position: 'absolute', top: '42%', right: '-12%',
-              background: 'rgba(255,255,255,0.97)',
-              borderRadius: '14px', padding: '12px 16px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-              maxWidth: '190px',
-              border: '1px solid rgba(106,176,76,0.2)',
-            }}
-          >
-            <div style={{ display: 'flex', gap: '2px', marginBottom: '6px' }}>
-              {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="#F4A720" color="#F4A720" />)}
-            </div>
-            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.72rem', color: '#5C3D2A', lineHeight: 1.5, fontStyle: 'italic' }}>
-              "The care team felt like family. Truly exceptional."
-            </div>
-            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.65rem', color: '#8A7060', marginTop: '6px', fontWeight: 700 }}>
-              — Priya R., Chennai
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
