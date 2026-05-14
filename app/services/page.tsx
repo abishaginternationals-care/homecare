@@ -277,27 +277,23 @@ export default function Services() {
                               gap: '8px',
                               padding: '10px 26px',
                               borderRadius: '50px',
-                              background: 'rgba(106,176,76,0.55)',
-                              backdropFilter: 'blur(18px)',
-                              WebkitBackdropFilter: 'blur(18px)',
-                              border: '1px solid rgba(106,176,76,0.45)',
-                              boxShadow: '0 4px 18px rgba(106,176,76,0.25), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.06)',
+                              background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
+                              border: 'none',
+                              boxShadow: '0 6px 20px rgba(106,176,76,0.35)',
                               color: '#ffffff',
                               fontFamily: "'Nunito', sans-serif",
                               fontWeight: 700,
-                              fontSize: '0.9rem',
+                              fontSize: '0.95rem',
                               transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
                             }}
                             onMouseEnter={e => {
                               const el = e.currentTarget as HTMLElement;
-                              el.style.background = 'rgba(106,176,76,0.80)';
-                              el.style.boxShadow = '0 8px 28px rgba(106,176,76,0.40), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 0 1px rgba(255,255,255,0.25)';
+                              el.style.boxShadow = '0 10px 28px rgba(106,176,76,0.50)';
                               el.style.transform = 'translateY(-2px) scale(1.04)';
                             }}
                             onMouseLeave={e => {
                               const el = e.currentTarget as HTMLElement;
-                              el.style.background = 'rgba(106,176,76,0.55)';
-                              el.style.boxShadow = '0 4px 18px rgba(106,176,76,0.25), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.06)';
+                              el.style.boxShadow = '0 6px 20px rgba(106,176,76,0.35)';
                               el.style.transform = 'translateY(0) scale(1)';
                             }}
                           >
