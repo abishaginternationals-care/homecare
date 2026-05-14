@@ -13,6 +13,7 @@ import Card3D from './components/Card3D';
 import MagneticButton from './components/MagneticButton';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import ServiceRowReveal from './components/ServiceRowReveal';
+import AnimatedUnderline from './components/AnimatedUnderline';
 
 export default function Home() {
   useScrollReveal();
@@ -282,7 +283,7 @@ export default function Home() {
 
 
       {/* â”€â”€ SERVICES PREVIEW â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'transparent', position: 'relative', overflow: 'hidden' }}>
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.2)', position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -290,19 +291,21 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20 reveal"
           >
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
-                fontWeight: 700,
-                color: '#3D1A0A',
-                marginBottom: '16px',
-              }}
-              className="text-raise"
-            >
-              Our Specialized Care
-            </h2>
-            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
+            <div style={{ margin: '0 auto', width: 'fit-content' }}>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  marginBottom: '4px',
+                }}
+                className="text-raise"
+              >
+                Our <span style={{ color: '#6AB04C' }}>Specialized</span> Care
+              </h2>
+              <AnimatedUnderline delay={0.4} />
+            </div>
           </motion.div>
 
           {/* Row 1: first 3 services */}
@@ -373,9 +376,9 @@ export default function Home() {
               <Card3D style={{ borderRadius: '24px', height: '100%' }}>
                   <div
                     style={{
-                      background: 'rgba(255,255,255,0.88)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
+                      background: 'rgba(255,255,255,0.75)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
                       borderRadius: '24px',
                       overflow: 'hidden',
                       borderTop: '6px solid #6AB04C',
@@ -444,19 +447,21 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
-                fontWeight: 700,
-                color: '#3D1A0A',
-                marginBottom: '16px',
-              }}
-              className="text-raise"
-            >
-              Why Choose Abishag?
-            </h2>
-            <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
+            <div style={{ margin: '0 auto', width: 'fit-content' }}>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  marginBottom: '4px',
+                }}
+                className="text-raise"
+              >
+                Why <span style={{ color: '#6AB04C' }}>Choose</span> Abishag?
+              </h2>
+              <AnimatedUnderline delay={0.4} />
+            </div>
           </motion.div>
 
           <ServiceRowReveal rowIndex={0} cols={4}>
@@ -509,10 +514,12 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px' }} className="text-raise">
-                What Our Families Say
-              </h2>
-              <div style={{ width: '64px', height: '3px', background: 'linear-gradient(90deg,#6AB04C,#4ABED6)', borderRadius: '4px', margin: '0 auto' }} />
+              <div style={{ margin: '0 auto', width: 'fit-content' }}>
+                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '4px' }} className="text-raise">
+                  What Our <span style={{ color: '#6AB04C' }}>Families</span> Say
+                </h2>
+                <AnimatedUnderline delay={0.4} />
+              </div>
               {dbStatus === 'disconnected' && (
                 <div className="inline-block mt-3 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
                   Demo Mode: Connection pending
@@ -546,9 +553,9 @@ export default function Home() {
                 className="mb-20 overflow-hidden"
               >
                 <div style={{
-                  background: 'rgba(255,255,255,0.92)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
+                  background: 'rgba(255,255,255,0.82)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
                   border: '1px solid rgba(255,255,255,0.65)',
                   boxShadow: '0 25px 60px rgba(61,26,10,0.12)',
                 }} className="p-10 rounded-3xl max-w-2xl mx-auto relative">
@@ -624,9 +631,9 @@ export default function Home() {
                 <Card3D key={i}>
                   <div
                     style={{
-                      background: 'rgba(255,255,255,0.88)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
+                      background: 'rgba(255,255,255,0.78)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
                       border: '1px solid rgba(255,255,255,0.60)',
                       boxShadow: '0 20px 50px rgba(97,26,10,0.08)',
                     }}
@@ -658,7 +665,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ CTA â”€â”€ */}
-      <section className="py-32 md:py-48 relative overflow-hidden">
+      <section className="py-10 md:py-14 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#3D1A0A] via-[#6B3020] to-[#4A8A30]" />
         
         {/* Animated Background Orbs */}
@@ -669,7 +676,7 @@ export default function Home() {
             opacity: [0.1, 0.2, 0.1]
           }}
           transition={{ duration: 15, repeat: Infinity }}
-          className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full filter blur-[80px] pointer-events-none" 
+          className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full filter blur-[150px] pointer-events-none" 
         />
         <motion.div 
           animate={{ 
@@ -678,7 +685,7 @@ export default function Home() {
             opacity: [0.05, 0.15, 0.05]
           }}
           transition={{ duration: 20, repeat: Infinity }}
-          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[60px] pointer-events-none" 
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#6AB04C] rounded-full filter blur-[120px] pointer-events-none" 
         />
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -689,11 +696,11 @@ export default function Home() {
             className="text-raise"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+              fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
               fontWeight: 700,
               color: '#ffffff',
-              marginBottom: '32px',
-              lineHeight: 1.1,
+              marginBottom: '16px',
+              lineHeight: 1.15,
             }}
           >
             Ready to Join Our <br /> Caring Community?
@@ -705,9 +712,9 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             style={{
               fontFamily: "'Nunito', sans-serif",
-              fontSize: '1.25rem',
+              fontSize: '1rem',
               color: 'rgba(255,255,255,0.85)',
-              marginBottom: '56px',
+              marginBottom: '28px',
               fontWeight: 300,
             }}
           >
@@ -722,7 +729,7 @@ export default function Home() {
             <MagneticButton>
               <Link
                 href="/about"
-                className="px-12 py-6 bg-white text-[#3D1A0A] font-extrabold text-xl rounded-2xl shadow-2xl hover:bg-[#6AB04C] hover:text-white transition-all duration-300 hover:scale-105 inline-block"
+                className="px-8 py-4 bg-white text-[#3D1A0A] font-extrabold text-base rounded-xl shadow-2xl hover:bg-[#6AB04C] hover:text-white transition-all duration-300 hover:scale-105 inline-block"
                 style={{ textDecoration: 'none' }}
               >
                 Get Started Today

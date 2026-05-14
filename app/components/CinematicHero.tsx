@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from
 import { useRouter } from 'next/navigation';
 import MagneticButton from './MagneticButton';
 import {
-  ShieldCheck, Clock, Users, Star, Phone, HeartHandshake,
+  ShieldCheck, Clock, Users, Star, HeartHandshake,
   Stethoscope, ChevronDown, ArrowRight, CheckCircle2, Ambulance, Home
 } from 'lucide-react';
 
@@ -178,19 +178,6 @@ export default function CinematicHero() {
 
         {/* ── LEFT: Copy ── */}
         <div>
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(106,176,76,0.15)', border: '1px solid rgba(106,176,76,0.35)', borderRadius: '100px', padding: '6px 16px', marginBottom: '28px' }}
-          >
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#6AB04C', boxShadow: '0 0 8px #6AB04C' }} />
-            <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.75rem', fontWeight: 700, color: '#6AB04C', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Trusted Home Healthcare Platform
-            </span>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
@@ -373,29 +360,6 @@ export default function CinematicHero() {
             delay={floatingCards[2].delay}
             style={{ top: '12%', right: '-8%' }}
           />
-
-          {/* Emergency mini-card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 2.2, ease: [0.34, 1.56, 0.64, 1] }}
-            style={{
-              position: 'absolute', bottom: '8%', right: '-10%',
-              background: 'linear-gradient(135deg, #3D1A0A, #6B3020)',
-              borderRadius: '16px', padding: '14px 20px',
-              display: 'flex', alignItems: 'center', gap: '12px',
-              boxShadow: '0 8px 32px rgba(61,26,10,0.5)',
-              border: '1px solid rgba(255,255,255,0.12)',
-            }}
-          >
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Phone size={16} color="#6AB04C" />
-            </div>
-            <div>
-              <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.7rem', color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>Emergency Support</div>
-              <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.88rem', color: '#ffffff', fontWeight: 800 }}>24/7 Available</div>
-            </div>
-          </motion.div>
 
           {/* Testimonial snippet */}
           <motion.div

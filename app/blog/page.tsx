@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import ServiceRowReveal from '../components/ServiceRowReveal';
+import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 const blogPosts = [
   {
@@ -127,9 +128,9 @@ export default function Blog() {
       <div className="relative z-10">
         {/* Page Header */}
         <section
-          className="py-16 md:py-24"
+          className="py-8 md:py-12"
           style={{
-            background: 'linear-gradient(135deg, #3D1A0A 0%, #6B3020 55%, #4A8A30 100%)',
+            background: 'linear-gradient(135deg, rgba(61, 26, 10, 0.85) 0%, rgba(107, 48, 32, 0.85) 55%, rgba(74, 138, 48, 0.85) 100%)',
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -144,14 +145,14 @@ export default function Blog() {
           </motion.div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
               {/* Left Side: Header Text */}
               <div>
                 <motion.p 
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
-                  style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '12px' }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#6AB04C', marginBottom: '8px' }}
                 >
                   Knowledge & Insights
                 </motion.p>
@@ -159,7 +160,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.0 }}
-                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 7vw, 4.5rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1.1, marginBottom: '10px' }}
                 >
                   Our Blog
                 </motion.h1>
@@ -167,31 +168,49 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.2 }}
-                  style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.6 }}
+                  style={{ fontFamily: "'Nunito', sans-serif", fontSize: '0.95rem', color: 'rgba(255,255,255,0.8)', fontWeight: 300, maxWidth: '600px', lineHeight: 1.5 }}
                 >
                   Expert insights, care guidance, and stories to help families navigate elderly home health with confidence.
                 </motion.p>
               </div>
 
-              {/* Right Side: Replaced ECG Widget with a subtle branding element */}
+              {/* Right Side: ECG Widget with Medical Box */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center justify-center"
-                style={{ height: '220px' }}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.2, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+                style={{ height: '140px' }}
               >
-                <div className="w-48 h-48 border-[1.5px] border-white/20 rounded-full flex items-center justify-center relative">
-                   <div className="absolute inset-0 border-[1.5px] border-white/10 rounded-full animate-ping" style={{ animationDuration: '4s' }} />
-                   <img src="/images/Abishag_img/Abishag_transparent_logo.png" className="w-32 opacity-20 filter invert grayscale" alt="" />
-                </div>
+                <EcgHeartbeatWidget
+                  direction="rtl"
+                  icon={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="42"
+                      height="42"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#6AB04C"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ filter: 'drop-shadow(0 0 8px rgba(106,176,76,0.7))' }}
+                    >
+                      <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
+                      <path d="M16 8V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                      <line x1="12" y1="11" x2="12" y2="17" />
+                      <line x1="9" y1="14" x2="15" y2="14" />
+                    </svg>
+                  }
+                  label="Guidance · Care · Health"
+                />
               </motion.div>
             </div>
           </div>
         </section>
 
         {/* Category Filter */}
-        <section className="py-8 md:py-10" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(221,213,204,0.5)' }}>
+        <section className="py-8 md:py-10" style={{ background: 'rgba(255,255,255,0.6)', borderBottom: '1px solid rgba(221,213,204,0.5)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-3 justify-center">
               {categories.map((cat) => (
