@@ -8,7 +8,7 @@ export default function AnimatedBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d')!;
     if (!ctx) return;
 
     let animId: number;
@@ -37,6 +37,7 @@ export default function AnimatedBackground() {
     }
 
     function drawCube(x: number, y: number, lift: number, intensity: number) {
+      if (!ctx) return;
       const cy = y - lift;
 
       // Enhance intensity curve and reduce max intensity to 40% for a softer, more transparent green
@@ -91,6 +92,7 @@ export default function AnimatedBackground() {
     }
 
     function resize() {
+      if (!canvas || !ctx) return;
       W = window.innerWidth;
       H = window.innerHeight;
       const dpr = window.devicePixelRatio || 1;
@@ -100,6 +102,7 @@ export default function AnimatedBackground() {
     }
 
     function drawRibbons(t: number) {
+      if (!ctx) return;
       ctx.save();
       // Translate to center and rotate to match the isometric grid angle (down-right)
       const angle = Math.atan2(CUBE_H, CUBE_W / 2);
@@ -136,6 +139,7 @@ export default function AnimatedBackground() {
     }
 
     function render(t: number) {
+      if (!ctx) return;
       ctx.clearRect(0, 0, W, H);
 
       const cols = Math.ceil(W / CUBE_W) + 4;
