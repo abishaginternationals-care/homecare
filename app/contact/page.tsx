@@ -31,7 +31,7 @@ export default function Contact() {
       return;
     }
 
-    const whatsappNumber = "9345989699"; 
+    const whatsappNumber = "9940216863"; 
     const text = `✨ *New Inquiry from Abishag Website* ✨
     
 👤 *Name:* ${formData.name}
@@ -80,7 +80,7 @@ _Please reply to this message to start the conversation._`;
                 <PremiumEmoji name="phone" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
                 <div>
                   <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Call Us</h4>
-                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>+91 9345989699</p>
+                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>+91 99402 16863</p>
                 </div>
               </div>
 

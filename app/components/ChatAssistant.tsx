@@ -294,7 +294,7 @@ export default function ChatAssistant() {
           Chat on WhatsApp
         </div>
         <a
-          href="https://wa.me/9345989699?text=Hello!%20I%20have%20an%20inquiry%20about%20your%20services."
+          href="https://wa.me/9940216863?text=Hello!%20I%20have%20an%20inquiry%20about%20your%20services."
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
