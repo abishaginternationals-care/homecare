@@ -24,29 +24,46 @@ import { motion } from 'framer-motion';
 function buildPoints(w: number, h: number, cols: number) {
   const mid = h / 2;
 
+  // Dynamically determine how many spikes to draw based on container width
+  let activeCols = cols;
+  if (w < 640) activeCols = 1;
+  else if (w < 1024) activeCols = Math.min(2, cols);
+
   const spike = (cx: number) => [
-    { x: cx - 90, y: mid },
-    { x: cx - 55, y: mid - h * 0.07 },
-    { x: cx - 30, y: mid + h * 0.15 },
+    { x: cx - 70, y: mid },
+    { x: cx - 45, y: mid - h * 0.07 },
+    { x: cx - 25, y: mid + h * 0.15 },
     { x: cx,      y: mid - h * 0.44 },   // main peak
-    { x: cx + 24, y: mid + h * 0.24 },
-    { x: cx + 50, y: mid },
+    { x: cx + 20, y: mid + h * 0.24 },
+    { x: cx + 45, y: mid },
   ];
 
   // Evenly space spike centres across the width
-  const centres = Array.from({ length: cols }, (_, i) =>
-    (w * (i + 0.5)) / cols,
+  const centres = Array.from({ length: activeCols }, (_, i) =>
+    (w * (i + 0.5)) / activeCols,
   );
 
   const pts: { x: number; y: number }[] = [{ x: 0, y: mid }];
   centres.forEach((cx, ci) => {
     pts.push(...spike(cx));
     if (ci < centres.length - 1) {
-      pts.push({ x: cx + 100, y: mid });
-      pts.push({ x: centres[ci + 1] - 90, y: mid });
+      // Connect to next spike directly to avoid overlapping loops
+      const nextStart = centres[ci + 1] - 70;
+      const currentEnd = cx + 45;
+      if (currentEnd < nextStart) {
+         pts.push({ x: currentEnd + (nextStart - currentEnd) / 2, y: mid });
+      }
     }
   });
   pts.push({ x: w, y: mid });
+
+  // Safety: Strictly prevent any lines from drawing backwards on extremely narrow screens
+  for (let i = 1; i < pts.length; i++) {
+    if (pts[i].x < pts[i - 1].x) {
+      pts[i].x = pts[i - 1].x + 0.1;
+    }
+  }
+
   return pts;
 }
 
