@@ -34,8 +34,8 @@ const XIcon = ({ size = 20 }: { size?: number }) => (
 export default function Footer() {
   return (
     <footer style={{ background: '#200D05', color: '#EDE8E2', overflow: 'hidden' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand Column */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }} className="text-raise">
               Explore
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -108,12 +108,13 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }} className="text-raise">
               Connect
             </h3>
-            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.95rem', lineHeight: 2.2 }}>
+            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.95rem', lineHeight: 2.0 }}>
               <p>Email: <a href="mailto:contact@abishag.com" style={{ color: 'inherit', textDecoration: 'none' }} className="hover:text-[#6AB04C] transition-colors">contact@abishag.com</a></p>
               <p>Phone: +91 99402 16863</p>
+              <p>Address: 123 Healing Ave, Chennai</p>
             </div>
           </motion.div>
 
@@ -124,7 +125,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }} className="text-raise">
+            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }} className="text-raise">
               Follow
             </h3>
             <div style={{ display: 'flex', gap: '16px' }}>
@@ -164,7 +165,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5 }}
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '60px', paddingTop: '32px', textAlign: 'center' }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '40px', paddingTop: '20px', textAlign: 'center' }}
         >
           <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.3)', fontSize: '0.85rem' }}>
             © 2026 Abishag — Home Health Services. Carefully crafted for comfort.
