@@ -67,47 +67,52 @@ export default function Navigation() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
+              gap: '14px',
               textDecoration: 'none',
-              alignSelf: 'stretch',
+              padding: scrolled ? '6px 14px' : '8px 18px',
+              borderRadius: '16px',
+              background: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(12px)',
+              border: '1.5px solid rgba(106, 176, 76, 0.15)',
+              boxShadow: '0 4px 20px rgba(61, 26, 10, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5)',
+              transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
             className="group"
           >
-            {/* Logo image — fills full navbar height */}
+            {/* Logo image container */}
             <div
               className="transition-all duration-300 group-hover:scale-105"
               style={{
-                alignSelf: 'stretch',
                 display: 'flex',
                 alignItems: 'center',
                 flexShrink: 0,
-                padding: '4px 0',
               }}
             >
               <img
                 src="/logo-transparent.png"
                 alt="Abishag Logo"
                 style={{
-                  height: '100%',
+                  height: 'auto',
                   width: 'auto',
-                  maxHeight: scrolled ? '60px' : '76px',
+                  maxHeight: scrolled ? '54px' : '68px',
                   objectFit: 'contain',
                   transition: 'max-height 0.35s ease',
+                  filter: 'drop-shadow(0 2px 4px rgba(61, 26, 10, 0.1))',
                 }}
               />
             </div>
             {/* Brand text */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: scrolled ? '1.65rem' : '1.95rem',
+                  fontSize: scrolled ? '1.55rem' : '1.85rem',
                   fontWeight: 800,
                   color: '#2A1005',
                   lineHeight: 0.9,
                   letterSpacing: '-0.01em',
                   transition: 'font-size 0.35s ease',
-                  textShadow: '0 1px 3px rgba(61,26,10,0.15)',
+                  textShadow: '0 1px 2px rgba(61,26,10,0.1)',
                 }}
                 className="text-raise"
               >
@@ -116,14 +121,14 @@ export default function Navigation() {
               <span
                 style={{
                   fontFamily: "'Nunito', sans-serif",
-                  fontSize: '0.65rem',
+                  fontSize: '0.6rem',
                   fontWeight: 800,
-                  color: '#6AB04C',
+                  color: '#4A8A30', // Slightly darker green for better contrast
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  marginTop: '4px',
-                  opacity: scrolled ? 0 : 1,
-                  transition: 'opacity 0.35s ease',
+                  marginTop: '2px',
+                  opacity: scrolled ? 0.8 : 1,
+                  transition: 'all 0.35s ease',
                 }}
               >
                 Home Health Services
