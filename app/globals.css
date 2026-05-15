@@ -288,6 +288,47 @@ h1, h2, h3, h4, h5, h6 {
   animation: gradientShift 8s ease infinite;
 }
 
+/* ─────────────────────────────────
+   PLAIN SECTION WAVE
+   Even (non-cube) sections — solid background blocks the canvas,
+   ::before overlay creates a sliding gradient wave using
+   transform (GPU-composited) to avoid paint/stutter.
+───────────────────────────────── */
+@keyframes waveSlide {
+  0%   { transform: translateX(-50%); }
+  50%  { transform: translateX(10%);  }
+  100% { transform: translateX(-50%); }
+}
+
+.plain-section-wave {
+  background: rgba(255, 255, 255, 0.97);
+  position: relative;
+  overflow: hidden;
+}
+
+.plain-section-wave::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent               0%,
+    rgba(234, 245, 224, 0.45) 18%,
+    rgba(213, 237, 202, 0.55) 36%,
+    rgba(244, 241, 237, 0.40) 54%,
+    rgba(234, 245, 224, 0.45) 72%,
+    rgba(213, 237, 202, 0.35) 88%,
+    transparent               100%
+  );
+  animation: waveSlide 10s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 0;
+}
+
 /* Gradient mesh background */
 .mesh-bg {
   background:

@@ -172,6 +172,7 @@ export default function Home() {
 
       {/* â”€â”€ EXISTING SECTIONS BELOW â”€â”€ */}
       <div ref={containerRef} style={{ position: 'relative' }}>
+      {/* ── SECTION 1: Welcome to Abishag — CUBE BG ON (canvas shows through) ── */}
       <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
@@ -282,8 +283,8 @@ export default function Home() {
 
 
 
-      {/* â”€â”€ SERVICES PREVIEW â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.2)', position: 'relative', overflow: 'hidden' }}>
+      {/* ── SECTION 2: Our Specialized Care — CUBE BG OFF (plain wave) ── */}
+      <section className="py-24 md:py-32 plain-section-wave" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -438,8 +439,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ FEATURES â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)' }}>
+      {/* ── SECTION 3: Why Choose Abishag? — CUBE BG ON (canvas shows through) ── */}
+      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -503,8 +504,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ REVIEWS SECTION â”€â”€ */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(244,241,237,0.4)', position: 'relative', overflow: 'hidden' }}>
+      {/* ── SECTION 4: What Our Families Say — CUBE BG OFF (plain wave) ── */}
+      <section className="py-24 md:py-32 plain-section-wave" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Heading row: centered title + top-right button */}
           <div className="relative flex items-start justify-center mb-14">

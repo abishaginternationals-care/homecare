@@ -315,7 +315,8 @@ export default function Services() {
       </div>
 
       {/* ── Service Highlights ── */}
-      <section style={{ background: 'rgba(255,255,255,0.55)', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+      {/* ── Service Highlights — CUBE BG OFF (plain wave) ── */}
+      <section className="plain-section-wave" style={{ padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
         {/* Subtle background decoration */}
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#3D1A0A 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         

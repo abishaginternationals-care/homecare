@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import ServiceRowReveal from '../components/ServiceRowReveal';
+import ThermometerRowReveal from '../components/ThermometerRowReveal';
 import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 const blogPosts = [
@@ -261,7 +261,8 @@ export default function Blog() {
           </div>
         </section>
 
-        {/* Blog Grid — chunked into rows of 3 with ECG reveal */}
+        {/* Blog Grid — chunked into rows of 3 with ECG reveal — CUBE BG OFF (plain wave) */}
+        <div className="plain-section-wave" style={{ position: 'relative' }}>
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           {(() => {
             const rows: (typeof filtered)[] = [];
@@ -269,7 +270,7 @@ export default function Blog() {
               rows.push(filtered.slice(i, i + 3));
             }
             return rows.map((row, rowIdx) => (
-              <ServiceRowReveal key={rowIdx} rowIndex={rowIdx} cols={3}>
+              <ThermometerRowReveal key={rowIdx} rowIndex={rowIdx} cols={3}>
                 {row.map((post, idx) => (
                   <Card3D
                     key={post.id}
@@ -328,10 +329,11 @@ export default function Blog() {
                     </article>
                   </Card3D>
                 ))}
-              </ServiceRowReveal>
+              </ThermometerRowReveal>
             ));
           })()}
         </section>
+        </div>
 
         {/* Blog Modal */}
         {selectedPost && (

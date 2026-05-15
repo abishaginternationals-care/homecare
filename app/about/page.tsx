@@ -21,7 +21,7 @@ const whyUs = [
 import Card3D from '../components/Card3D';
 import MagneticButton from '../components/MagneticButton';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import ServiceRowReveal from '../components/ServiceRowReveal';
+import ThermometerRowReveal from '../components/ThermometerRowReveal';
 import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 import AnimatedUnderline from '../components/AnimatedUnderline';
 
@@ -238,7 +238,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Core Values ── */}
+      {/* ── Core Values — CUBE BG OFF (plain wave) ── */}
+      <div className="plain-section-wave" style={{ position: 'relative' }}>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -260,7 +261,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        <ServiceRowReveal rowIndex={0} cols={4}>
+        <ThermometerRowReveal rowIndex={0} cols={4}>
           {coreValues.map((value) => (
             <Card3D key={value.id} style={{ height: '100%' }}>
               <div
@@ -290,8 +291,9 @@ export default function About() {
               </div>
             </Card3D>
           ))}
-        </ServiceRowReveal>
+        </ThermometerRowReveal>
       </section>
+      </div>
 
       {/* ── Why Choose Us ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -315,7 +317,7 @@ export default function About() {
           </div>
         </motion.div>
 
-        <ServiceRowReveal rowIndex={1} cols={4}>
+        <ThermometerRowReveal rowIndex={1} cols={4}>
           {whyUs.map((feature, index) => (
             <div
               key={index}
@@ -343,7 +345,7 @@ export default function About() {
               </div>
             </div>
           ))}
-        </ServiceRowReveal>
+        </ThermometerRowReveal>
       </section>
 
       {/* ── Contact CTA ── */}
