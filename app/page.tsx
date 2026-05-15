@@ -39,22 +39,13 @@ export default function Home() {
     getReviews().then((data) => {
       if (data && 'error' in data && data.error === 'no_connection_string') {
         setDbStatus('disconnected');
-        // Fallback data
-        setReviews([
-          { name: 'Priya Ramachandran', rating: 5, text: 'Abishag transformed my mother\'s daily life. The caregiver assigned was patient, professional, and treated her like family. We are truly grateful.', date: 'April 2026' },
-          { name: 'Karthik Sundaram', rating: 5, text: 'The nursing team is exceptional. Their attention to detail with medication management gave our entire family peace of mind. Highly recommended.', date: 'March 2026' },
-        ]);
+        setReviews([]); // No fallback data — show empty state
       } else if (Array.isArray(data) && data.length > 0) {
         setDbStatus('connected');
         setReviews(data);
       } else {
         setDbStatus('connected');
-        if (Array.isArray(data) && data.length === 0) {
-           setReviews([
-            { name: 'Priya Ramachandran', rating: 5, text: 'Abishag transformed my mother\'s daily life. The caregiver assigned was patient, professional, and treated her like family. We are truly grateful.', date: 'April 2026' },
-            { name: 'Karthik Sundaram', rating: 5, text: 'The nursing team is exceptional. Their attention to detail with medication management gave our entire family peace of mind. Highly recommended.', date: 'March 2026' },
-          ]);
-        }
+        setReviews([]); // Empty database — show empty state, not fake reviews
       }
     });
   }, []);
