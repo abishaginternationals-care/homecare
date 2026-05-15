@@ -82,8 +82,8 @@ export default function ThermometerRowReveal({ children, rowIndex, cols = 3 }: P
             {/* Bulb */}
             <div style={{ 
               width: '42px', height: '42px', borderRadius: '50%', 
-              background: 'radial-gradient(circle at 30% 30%, #FF8A8A, #FF416C)', 
-              boxShadow: '0 4px 10px rgba(255, 65, 108, 0.4), inset 0 2px 4px rgba(255,255,255,0.6)',
+              background: 'radial-gradient(circle at 30% 30%, #EAF5E0, #6AB04C)', 
+              boxShadow: '0 4px 10px rgba(106, 176, 76, 0.4), inset 0 2px 4px rgba(255,255,255,0.6)',
               zIndex: 10,
               border: '2px solid rgba(255,255,255,0.8)',
               flexShrink: 0
@@ -109,8 +109,8 @@ export default function ThermometerRowReveal({ children, rowIndex, cols = 3 }: P
                 style={{ 
                   position: 'absolute', top: 0, height: '100%',
                   left: rtl ? 'auto' : 0, right: rtl ? 0 : 'auto',
-                  background: rtl ? 'linear-gradient(to left, #FF416C, #FF4B2B)' : 'linear-gradient(to right, #FF416C, #FF4B2B)',
-                  boxShadow: '0 0 15px rgba(255, 65, 108, 0.6)'
+                  background: rtl ? 'linear-gradient(to left, #6AB04C, #4A8A30)' : 'linear-gradient(to right, #6AB04C, #4A8A30)',
+                  boxShadow: '0 0 15px rgba(106, 176, 76, 0.6)'
                 }}
               />
             </div>
