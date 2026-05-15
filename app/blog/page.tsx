@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Card3D from '../components/Card3D';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import ThermometerRowReveal from '../components/ThermometerRowReveal';
 import EcgHeartbeatWidget from '../components/EcgHeartbeatWidget';
 
 const blogPosts = [
@@ -91,7 +90,6 @@ const blogPosts = [
 export default function Blog() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
-  useScrollReveal([activeCategory]);
 
   const [selectedPost, setSelectedPost] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -264,15 +262,9 @@ export default function Blog() {
         {/* Blog Grid — chunked into rows of 3 with ECG reveal — CUBE BG OFF (plain wave) */}
         <div className="plain-section-wave" style={{ position: 'relative' }}>
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          {(() => {
-            const rows: (typeof filtered)[] = [];
-            for (let i = 0; i < filtered.length; i += 3) {
-              rows.push(filtered.slice(i, i + 3));
-            }
-            return rows.map((row, rowIdx) => (
-              <ThermometerRowReveal key={rowIdx} rowIndex={rowIdx} cols={3}>
-                {row.map((post, idx) => (
-                  <Card3D
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            {filtered.map((post) => (
+              <Card3D
                     key={post.id}
                     style={{ borderRadius: '24px', height: '100%' }}
                     glowColor={`${post.color}44`}
@@ -328,10 +320,8 @@ export default function Blog() {
                       </div>
                     </article>
                   </Card3D>
-                ))}
-              </ThermometerRowReveal>
-            ));
-          })()}
+            ))}
+          </div>
         </section>
         </div>
 
