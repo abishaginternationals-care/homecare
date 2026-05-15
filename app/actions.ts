@@ -96,3 +96,13 @@ export async function addReview(review: Review) {
     }
   }
 }
+
+export async function deleteAllReviews() {
+  ensureEnv();
+  try {
+    await sql`TRUNCATE TABLE patient_reviews RESTART IDENTITY`;
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
