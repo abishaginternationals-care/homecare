@@ -21,6 +21,7 @@ const PARTICLES = [
 function IconParticle({ Icon, x, y, size, dur, delay, opacity }: typeof PARTICLES[0]) {
   return (
     <motion.div
+      className="svc-particle"
       initial={{ opacity: 0, y: 0 }}
       animate={{
         opacity: [0, opacity, opacity * 0.8, opacity * 0.5, 0],

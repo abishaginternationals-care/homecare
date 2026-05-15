@@ -99,7 +99,7 @@ export default function CinematicHero() {
       />
 
       {/* ── Content Grid ── */}
-      <div style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', paddingTop: '80px' }}>
+      <div className="hero-grid" style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', paddingTop: '80px' }}>
 
         {/* ── LEFT: Copy ── */}
         <div>
@@ -219,6 +219,7 @@ export default function CinematicHero() {
 
         {/* ── RIGHT: Floating Visual ── */}
         <motion.div
+          className="hero-right"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
