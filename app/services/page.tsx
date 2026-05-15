@@ -175,142 +175,133 @@ export default function Services() {
       {/* ── Services Grid ── */}
       <div className="relative w-full" style={{ overflow: 'hidden' }}>
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
-          {/* Chunk services into rows of 3, each row gets its own ECG animation */}
-          {(() => {
-            const rows: (typeof servicesData)[] = [];
-            for (let i = 0; i < servicesData.length; i += 3) {
-              rows.push(servicesData.slice(i, i + 3));
-            }
-            return rows.map((row, rowIdx) => (
-              <ServiceRowReveal key={rowIdx} rowIndex={rowIdx}>
-                {row.map((service) => (
-                  <Link
-                    key={service.id}
-                    href={`/services/${service.slug}`}
-                    className="group block h-full"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <div
-                      onMouseMove={(e) => {
-                        const rect = e.currentTarget.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width - 0.5;
-                        const y = (e.clientY - rect.top) / rect.height - 0.5;
-                        e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
-                        e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
-                      }}
+          <ServiceRowReveal rowIndex={0} cols={3}>
+            {servicesData.map((service) => (
+              <Link
+                key={service.id}
+                href={`/services/${service.slug}`}
+                className="group block h-full"
+                style={{ textDecoration: 'none' }}
+              >
+                <div
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    e.currentTarget.style.transform = `perspective(800px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg) translateZ(12px) scale(1.02)`;
+                    e.currentTarget.style.boxShadow = 'inset 0 0 0 1.5px rgba(106,176,76,0.4), 0 24px 52px rgba(61,26,10,0.18)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 10px 40px rgba(61,26,10,0.05)';
+                  }}
+                  style={{
+                    background: 'rgba(255,255,255,0.72)',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    borderRadius: '24px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: '1px solid rgba(255,255,255,0.60)',
+                    boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    transition: 'transform 0.1s ease, box-shadow 0.3s ease',
+                    willChange: 'transform',
+                  }}
+                >
+                  {/* Accent Line */}
+                  <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
+
+                  {/* Service Image */}
+                  <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+                    <motion.img
+                      variants={imageRevealVariants}
+                      src={service.image}
+                      alt={service.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      className="transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-8 flex-grow flex flex-col" style={{ alignItems: 'center' }}>
+
+                    {/* Centred title + animated underline */}
+                    <div style={{ margin: '0 auto', width: 'fit-content', textAlign: 'center', marginBottom: '16px' }}>
+                      <h3
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: '1.5rem',
+                          fontWeight: 700,
+                          color: '#3D1A0A',
+                          marginBottom: '4px',
+                          transition: 'color 0.3s ease',
+                          textAlign: 'center',
+                        }}
+                        className="group-hover:text-[#6AB04C]"
+                      >
+                        {service.title}
+                      </h3>
+                      <AnimatedUnderline delay={0.25} height={2} />
+                    </div>
+
+                    <p
                       style={{
-                        background: 'rgba(255,255,255,0.72)',
-                        backdropFilter: 'blur(14px)',
-                        WebkitBackdropFilter: 'blur(14px)',
-                        borderRadius: '24px',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        border: '1px solid rgba(255,255,255,0.60)',
-                        boxShadow: '0 10px 40px rgba(61,26,10,0.08)',
-                        overflow: 'hidden',
-                        position: 'relative',
-                        transition: 'transform 0.1s ease, box-shadow 0.3s ease',
-                        willChange: 'transform',
+                        fontFamily: "'Nunito', sans-serif",
+                        color: '#5C3D2A',
+                        fontSize: '1rem',
+                        lineHeight: 1.7,
+                        marginBottom: '24px',
+                        textAlign: 'center',
                       }}
                     >
-                      {/* Accent Line */}
-                      <div style={{ height: '6px', width: '100%', background: 'linear-gradient(90deg, #6AB04C, #4ABED6)' }} />
+                      {service.description}
+                    </p>
 
-                      {/* Service Image */}
-                      <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
-                        <motion.img
-                          variants={imageRevealVariants}
-                          src={service.image}
-                          alt={service.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          className="transition-transform duration-700 ease-out group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-8 flex-grow flex flex-col" style={{ alignItems: 'center' }}>
-
-                        {/* Centred title + animated underline */}
-                        <div style={{ margin: '0 auto', width: 'fit-content', textAlign: 'center', marginBottom: '16px' }}>
-                          <h3
-                            style={{
-                              fontFamily: "'Cormorant Garamond', serif",
-                              fontSize: '1.5rem',
-                              fontWeight: 700,
-                              color: '#3D1A0A',
-                              marginBottom: '4px',
-                              transition: 'color 0.3s ease',
-                              textAlign: 'center',
-                            }}
-                            className="group-hover:text-[#6AB04C]"
-                          >
-                            {service.title}
-                          </h3>
-                          <AnimatedUnderline delay={0.25} height={2} />
-                        </div>
-
-                        <p
-                          style={{
-                            fontFamily: "'Nunito', sans-serif",
-                            color: '#5C3D2A',
-                            fontSize: '1rem',
-                            lineHeight: 1.7,
-                            marginBottom: '24px',
-                            textAlign: 'center',
-                          }}
-                        >
-                          {service.description}
-                        </p>
-
-                        {/* Glassmorphic "View Details" button */}
-                        <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'center' }}>
-                          <span
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '8px',
-                              padding: '10px 26px',
-                              borderRadius: '50px',
-                              background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
-                              border: 'none',
-                              boxShadow: '0 6px 20px rgba(106,176,76,0.35)',
-                              color: '#ffffff',
-                              fontFamily: "'Nunito', sans-serif",
-                              fontWeight: 700,
-                              fontSize: '0.95rem',
-                              transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
-                            }}
-                            onMouseEnter={e => {
-                              const el = e.currentTarget as HTMLElement;
-                              el.style.boxShadow = '0 10px 28px rgba(106,176,76,0.50)';
-                              el.style.transform = 'translateY(-2px) scale(1.04)';
-                            }}
-                            onMouseLeave={e => {
-                              const el = e.currentTarget as HTMLElement;
-                              el.style.boxShadow = '0 6px 20px rgba(106,176,76,0.35)';
-                              el.style.transform = 'translateY(0) scale(1)';
-                            }}
-                          >
-                            View Details
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <line x1="5" y1="12" x2="19" y2="12" />
-                              <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
+                    {/* Glassmorphic "View Details" button */}
+                    <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'center' }}>
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '10px 26px',
+                          borderRadius: '50px',
+                          background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
+                          border: 'none',
+                          boxShadow: '0 6px 20px rgba(106,176,76,0.35)',
+                          color: '#ffffff',
+                          fontFamily: "'Nunito', sans-serif",
+                          fontWeight: 700,
+                          fontSize: '0.95rem',
+                          transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                        }}
+                        onMouseEnter={e => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.boxShadow = '0 10px 28px rgba(106,176,76,0.50)';
+                          el.style.transform = 'translateY(-2px) scale(1.04)';
+                        }}
+                        onMouseLeave={e => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.boxShadow = '0 6px 20px rgba(106,176,76,0.35)';
+                          el.style.transform = 'translateY(0) scale(1)';
+                        }}
+                      >
+                        View Details
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </span>
                     </div>
-                  </Link>
-                ))}
-              </ServiceRowReveal>
-            ));
-          })()}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </ServiceRowReveal>
         </section>
       </div>
 

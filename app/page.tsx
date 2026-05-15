@@ -300,65 +300,9 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Row 1: first 3 services */}
+          {/* All services in one responsive grid */}
           <ServiceRowReveal rowIndex={0} cols={3}>
-            {previewServices.slice(0, 3).map((svc) => (
-              <Link
-                key={svc.id}
-                href="/services"
-                className="group block h-full"
-                style={{ textDecoration: 'none' }}
-              >
-              <Card3D style={{ borderRadius: '24px', height: '100%' }}>
-                  <div
-                    style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
-                      borderRadius: '24px',
-                      overflow: 'hidden',
-                      borderTop: '6px solid #6AB04C',
-                      border: '1px solid rgba(255,255,255,0.60)',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column'
-                    }}
-                  >
-                    <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                      <img
-                        src={svc.image}
-                        alt={svc.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
-                        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
-                        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-                      />
-                    </div>
-                    <div className="p-8 flex-grow">
-                      <h3
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontSize: '1.6rem',
-                          fontWeight: 700,
-                          color: '#3D1A0A',
-                          marginBottom: '12px',
-                          transition: 'color 0.3s',
-                        }}
-                      >
-                        {svc.title}
-                      </h3>
-                      <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '1rem', lineHeight: 1.7 }}>
-                        {svc.desc}
-                      </p>
-                    </div>
-                  </div>
-                </Card3D>
-              </Link>
-            ))}
-          </ServiceRowReveal>
-
-          {/* Row 2: next 3 services */}
-          <ServiceRowReveal rowIndex={1} cols={3}>
-            {previewServices.slice(3, 6).map((svc) => (
+            {previewServices.map((svc) => (
               <Link
                 key={svc.id}
                 href="/services"

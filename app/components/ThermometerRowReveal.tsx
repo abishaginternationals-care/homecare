@@ -26,9 +26,9 @@ interface Props {
 }
 
 const GRID: Record<number, string> = {
-  2: 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10',
-  3: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10',
-  4: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8',
+  2: 'grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-10',
+  3: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10',
+  4: 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8',
 };
 
 export default function ThermometerRowReveal({ children, rowIndex, cols = 3 }: Props) {
@@ -122,7 +122,7 @@ export default function ThermometerRowReveal({ children, rowIndex, cols = 3 }: P
       {phase === 'idle' && (
         <div className={GRID[cols]}>
           {items.map((_, i) => (
-            <div key={i} style={{ minHeight: 480, opacity: 0, pointerEvents: 'none' }} aria-hidden="true" />
+            <div key={i} style={{ minHeight: 'clamp(280px, 40vw, 480px)', opacity: 0, pointerEvents: 'none' }} aria-hidden="true" />
           ))}
         </div>
       )}
