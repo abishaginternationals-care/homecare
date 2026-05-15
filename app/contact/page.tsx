@@ -57,7 +57,15 @@ _Please reply to this message to start the conversation._`;
         <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto' }} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
           {/* Left Column: Contact Information */}
-          <div className="reveal">
+          <div className="reveal" style={{
+            background: 'rgba(255, 255, 255, 0.70)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            padding: '48px',
+            borderRadius: '32px',
+            boxShadow: '0 20px 50px rgba(61,26,10,0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.6)'
+          }}>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '24px', lineHeight: 1.1 }}>
               Get in Touch <br /><span className="text-[#6AB04C]">With Us</span>
             </h2>
