@@ -54,10 +54,11 @@ _Please reply to this message to start the conversation._`;
     <div style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden', background: 'transparent' }}>
 
       <div className="relative z-10 py-20 px-4 md:px-8">
-        <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto' }} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto' }} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
 
           {/* Left Column: Contact Information */}
-          <div className="reveal" style={{
+          <div className="reveal flex flex-col justify-center" style={{
+            height: '100%',
             background: 'rgba(255, 255, 255, 0.70)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
@@ -104,9 +105,10 @@ _Please reply to this message to start the conversation._`;
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="reveal reveal-delay-2">
-            <Card3D style={{ borderRadius: '32px' }}>
+          <div className="reveal reveal-delay-2 h-full">
+            <Card3D style={{ borderRadius: '32px', height: '100%' }}>
               <div style={{
+                height: '100%',
                 background: 'rgba(255,255,255,0.78)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
