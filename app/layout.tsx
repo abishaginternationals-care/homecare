@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ChatAssistant from "./components/ChatAssistant";
 import AnimatedBackground from "./components/AnimatedBackground";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Abhishag - Home Health Services",
@@ -35,6 +36,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WhatsAppButton />
         <ChatAssistant />
       </body>
     </html>

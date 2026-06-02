@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useScroll } from 'framer-motion';
 import CinematicHero from './components/CinematicHero';
 import IntroAnimation from './components/IntroAnimation';
-import AnimatedBackground from './components/AnimatedBackground';
-import { getReviews, addReview, type Review } from './actions';
-import { UserCheck, ClipboardCheck, ShieldCheck, HeartHandshake, ArrowRight, Star } from 'lucide-react';
+import { UserCheck, ShieldCheck, HeartHandshake, ArrowRight,
+  Stethoscope, HeartPulse } from 'lucide-react';
 import Link from 'next/link';
 
 import Card3D from './components/Card3D';
@@ -18,70 +17,10 @@ import AnimatedUnderline from './components/AnimatedUnderline';
 export default function Home() {
   useScrollReveal();
   // ... (rest of the component state remains same)
-  // â”€â”€ Intro animation state â”€â”€
+  // ── Intro animation state ──
   const [introDone, setIntroDone] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
-  // â”€â”€ Review state â”€â”€
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [formName, setFormName] = useState('');
-  const [formRating, setFormRating] = useState(0);
-  const [formText, setFormText] = useState('');
-  const [hoveredStar, setHoveredStar] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [dbStatus, setDbStatus] = useState<'connected' | 'disconnected' | 'checking'>('checking');
-
-  useEffect(() => {
-    // Fetch reviews on mount
-    getReviews().then((data) => {
-      if (data && 'error' in data && data.error === 'no_connection_string') {
-        setDbStatus('disconnected');
-        setReviews([]); // No fallback data — show empty state
-      } else if (Array.isArray(data) && data.length > 0) {
-        setDbStatus('connected');
-        setReviews(data);
-      } else {
-        setDbStatus('connected');
-        setReviews([]); // Empty database — show empty state, not fake reviews
-      }
-    });
-  }, []);
-
-  const handleReviewSubmit = async () => {
-    if (!formName.trim() || formRating === 0 || !formText.trim() || isSubmitting) return;
-    
-    setIsSubmitting(true);
-    try {
-      const today = new Date();
-      const dateStr = today.toLocaleString('en-IN', { month: 'long', year: 'numeric' });
-      
-      const newReview = { name: formName.trim(), rating: formRating, text: formText.trim(), date: dateStr };
-      
-      setReviews((prev) => [newReview, ...prev]);
-      
-      const result = await addReview(newReview);
-      if (!result.success) {
-        console.error('Failed to save review:', result.error);
-      }
-      
-      setFormName('');
-      setFormRating(0);
-      setFormText('');
-      setHoveredStar(0);
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setShowReviewForm(false);
-      }, 3000);
-    } catch (error) {
-      console.error('Submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -99,48 +38,55 @@ export default function Home() {
   };
 
   const whyUs = [
-    { title: "Professional & Trained Staff", desc: "All team members are trained, certified, and dedicated to providing exceptional care.", icon: <UserCheck size={28} /> },
-    { title: "Personalized Care Plans", desc: "We develop individualized care plans tailored to each resident's specific needs and preferences.", icon: <ClipboardCheck size={28} /> },
-    { title: "Safe & Comfortable Facility", desc: "Our center is equipped with modern amenities and safety features designed for elderly care.", icon: <ShieldCheck size={28} /> },
-    { title: "Family-Centric Approach", desc: "We maintain open communication with families and involve them in care decisions.", icon: <HeartHandshake size={28} /> },
+    { title: 'Verified & Trained Staff', desc: 'All caregivers are background-verified, certified, and trained to deliver exceptional home healthcare.', icon: <UserCheck size={28} /> },
+    { title: 'Experienced Nurses', desc: 'Our nursing team brings years of clinical expertise to your doorstep, ensuring safe, skilled care.', icon: <Stethoscope size={28} /> },
+    { title: 'Emergency Support', desc: '24/7 emergency assistance and rapid response to ensure your family is never alone in a crisis.', icon: <HeartPulse size={28} /> },
+    { title: 'Services Across Tamil Nadu', desc: 'Serving families across Chennai and Tamil Nadu with reliable, consistent home health services.', icon: <ShieldCheck size={28} /> },
+    { title: 'Home Visit Support', desc: 'Doctor and nurse home visits designed for comfort and convenience — care comes to you, every time.', icon: <HeartHandshake size={28} /> },
   ];
 
   const previewServices = [
     {
       id: 1,
-      title: 'Caregiver Services',
-      desc: 'Professional caregiver support for daily living activities, companionship, and personal care.',
+      title: 'Patient Care Assistant',
+      desc: 'Trained assistants for daily care, hygiene, mobility support, and compassionate companionship at home.',
       image: '/images/Abishag_img/1. Caregiver Services.png',
     },
     {
       id: 2,
-      title: 'Nursing Services',
-      desc: 'Skilled nursing care at home including wound care, medication management, and post-operative support.',
-      image: '/images/Abishag_img/11. Care Coordination.png',
+      title: 'Nursing Care',
+      desc: 'Skilled nurses for wound care, medication management, IV therapy, and post-operative home recovery.',
+      image: '/images/Abishag_img/2. Nursing Services.png',
     },
     {
       id: 3,
-      title: 'Hospice Care',
-      desc: 'Compassionate end-of-life care focused on comfort, dignity, and emotional support.',
-      image: '/images/Abishag_img/9. Medical Equipment Setup.png',
+      title: 'Doctor Visit at Home',
+      desc: 'Qualified doctors visiting your home for consultations, health assessments, and treatment plans.',
+      image: '/images/Abishag_img/6. Nurse Visit (On-demand).png',
     },
     {
       id: 4,
-      title: 'Dementia Care',
-      desc: 'Specialized memory and cognitive care for patients with dementia or Alzheimer\'s.',
-      image: '/images/Abishag_img/13. Pharmacy Delivery.png',
+      title: 'Physiotherapy at Home',
+      desc: 'Expert physiotherapists for rehabilitation, pain management, stroke recovery, and mobility training.',
+      image: '/images/Abishag_img/5. Allied Health Visit.png',
     },
     {
       id: 5,
-      title: 'Allied Health Visit',
-      desc: 'Home visits by allied health professionals including physiotherapists and occupational therapists.',
-      image: '/images/Abishag_img/12. Lab Sample Collection.png',
+      title: 'Speech Therapy',
+      desc: 'Professional speech therapists helping patients recover communication and swallowing abilities at home.',
+      image: '/images/Abishag_img/16. Mental Health Counseling.png',
     },
     {
       id: 6,
-      title: 'Nurse Visit (On-demand)',
-      desc: 'On-call and scheduled nurse visits for health monitoring, medication administration, and emergency assessments.',
-      image: '/images/Abishag_img/3. Hospice Care.png',
+      title: 'ICU Setup at Home',
+      desc: 'Full ICU-grade equipment setup and trained ICU nurses for critical care patients in the comfort of home.',
+      image: '/images/Abishag_img/10. ICU Setup at Home.png',
+    },
+    {
+      id: 7,
+      title: 'Equipment Rental & Sales',
+      desc: 'Hospital beds, wheelchairs, oxygen concentrators, suction machines and more — rented or purchased.',
+      image: '/images/Abishag_img/9. Medical Equipment Setup.png',
     },
   ];
 
@@ -149,6 +95,19 @@ export default function Home() {
     target: containerRef,
     offset: ["start start", "end end"]
   });
+
+  useEffect(() => {
+    if (introDone && typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash;
+      const id = decodeURIComponent(hash.replace('#', ''));
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    }
+  }, [introDone]);
 
   return (
     <>
@@ -300,7 +259,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* All services in one responsive grid */}
           <ServiceRowReveal rowIndex={0} cols={3}>
             {previewServices.map((svc) => (
               <Link
@@ -374,8 +332,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 3: Why Choose Abishag? — CUBE BG ON (canvas shows through) ── */}
-      <section className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
+      {/* ── SECTION 3: Why Choose Abishag? ── */}
+      <section id="why-choose-us" className="py-24 md:py-32" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -400,8 +358,9 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <ServiceRowReveal rowIndex={0} cols={4}>
-            {whyUs.map((feature, index) => (
+          {/* Row 1: 3 cards */}
+          <ServiceRowReveal rowIndex={0} cols={3}>
+            {whyUs.slice(0, 3).map((feature, index) => (
               <Card3D key={index} className="h-full" style={{ borderRadius: '24px', height: '100%' }}>
                 <div
                   style={{
@@ -436,169 +395,49 @@ export default function Home() {
               </Card3D>
             ))}
           </ServiceRowReveal>
-        </div>
-      </section>
 
-      {/* ── SECTION 4: What Our Families Say — CUBE BG OFF (plain wave) ── */}
-      <section className="py-24 md:py-32 plain-section-wave" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Heading row: centered title + top-right button */}
-          <div className="relative flex items-start justify-center mb-14">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div style={{ margin: '0 auto', width: 'fit-content' }}>
-                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '4px' }} className="text-raise">
-                  What Our <span style={{ color: '#6AB04C' }}>Families</span> Say
-                </h2>
-                <AnimatedUnderline delay={0.4} />
-              </div>
-              {dbStatus === 'disconnected' && (
-                <div className="inline-block mt-3 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
-                  Demo Mode: Connection pending
-                </div>
-              )}
-            </motion.div>
-
-            {/* Share button — absolute top right */}
-            {!showReviewForm && (
-              <motion.button
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                onClick={() => setShowReviewForm(true)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{ position: 'absolute', right: 0, top: 0 }}
-                className="px-6 py-3 bg-[#6AB04C] text-white font-bold rounded-xl shadow-lg shadow-[#6AB04C]/30 transition-all text-sm"
-              >
-                + Share Your Story
-              </motion.button>
-            )}
-          </div>
-
-          <AnimatePresence>
-            {showReviewForm && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mb-20 overflow-hidden"
-              >
-                <div style={{
-                  background: 'rgba(255,255,255,0.82)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255,255,255,0.65)',
-                  boxShadow: '0 25px 60px rgba(61,26,10,0.12)',
-                }} className="p-10 rounded-3xl max-w-2xl mx-auto relative">
-                  <button 
-                    onClick={() => setShowReviewForm(false)}
-                    className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  >
-                    <ArrowRight className="rotate-[-45deg] text-gray-400" />
-                  </button>
-                  <h3 className="text-2xl font-bold mb-8 font-serif text-[#3D1A0A]">Tell us your experience</h3>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-sm font-bold text-[#5C3D2A] mb-2">Your Full Name</label>
-                      <input
-                        type="text"
-                        value={formName}
-                        onChange={(e) => setFormName(e.target.value)}
-                        className="w-full px-5 py-4 rounded-xl border border-[#DDD5CC] focus:border-[#6AB04C] focus:ring-0 outline-none transition-colors"
-                        placeholder="e.g. Sarah Jenkins"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-bold text-[#5C3D2A] mb-3">Rating</label>
-                      <div className="flex gap-2">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <button
-                            key={star}
-                            onClick={() => setFormRating(star)}
-                            onMouseEnter={() => setHoveredStar(star)}
-                            onMouseLeave={() => setHoveredStar(0)}
-                            className="p-1 transition-transform hover:scale-110"
-                          >
-                            <Star 
-                              size={32} 
-                              fill={star <= (hoveredStar || formRating) ? '#F4A720' : 'none'} 
-                              color={star <= (hoveredStar || formRating) ? '#F4A720' : '#DDD5CC'} 
-                            />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-bold text-[#5C3D2A] mb-2">Message</label>
-                      <textarea
-                        value={formText}
-                        onChange={(e) => setFormText(e.target.value)}
-                        rows={4}
-                        className="w-full px-5 py-4 rounded-xl border border-[#DDD5CC] focus:border-[#6AB04C] focus:ring-0 outline-none transition-colors resize-none"
-                        placeholder="How did Abishag help your family?"
-                      />
-                    </div>
-
-                    <button
-                      onClick={handleReviewSubmit}
-                      disabled={!formName.trim() || formRating === 0 || !formText.trim() || isSubmitting}
-                      className="w-full py-5 rounded-xl font-bold text-white bg-[#6AB04C] disabled:bg-gray-300 disabled:cursor-not-allowed shadow-xl shadow-[#6AB04C]/20 transition-all hover:brightness-110"
-                    >
-                      {isSubmitting ? 'Sending...' : submitted ? 'Success!' : 'Submit Feedback'}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Marquee Reviews */}
-          <div className="relative py-10">
-            <div className="flex gap-8 animate-marquee hover:[animation-play-state:paused]" style={{ width: 'max-content' }}>
-              {[...reviews, ...reviews].map((rev, i) => (
-                <Card3D key={i}>
+          {/* Row 2: 2 cards centered on desktop */}
+          <div className="lg:max-w-[66%] mx-auto w-full">
+            <ServiceRowReveal rowIndex={1} cols={2}>
+              {whyUs.slice(3).map((feature, index) => (
+                <Card3D key={index} className="h-full" style={{ borderRadius: '24px', height: '100%' }}>
                   <div
                     style={{
-                      background: 'rgba(255,255,255,0.78)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
-                      border: '1px solid rgba(255,255,255,0.60)',
-                      boxShadow: '0 20px 50px rgba(97,26,10,0.08)',
+                      background: '#F9F7F4',
+                      borderRadius: '24px',
+                      padding: '40px 32px',
+                      borderTop: '6px solid #6AB04C',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '24px',
+                      height: '100%',
                     }}
-                    className="w-[400px] p-10 rounded-3xl flex flex-col h-full"
                   >
-                    <div className="flex gap-1 mb-6">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} size={18} fill={s <= rev.rating ? '#F4A720' : 'none'} color={s <= rev.rating ? '#F4A720' : '#DDD5CC'} />
-                      ))}
+                    <div style={{ 
+                      background: 'linear-gradient(135deg, #EAF5E0, #D5EDCA)', 
+                      width: '68px', 
+                      height: '68px', 
+                      borderRadius: '20px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      color: '#4A8A30',
+                      boxShadow: '0 8px 20px rgba(106,176,76,0.2)',
+                    }}>
+                      {feature.icon}
                     </div>
-                    <p className="text-[#5C3D2A] text-lg leading-relaxed mb-8 italic flex-grow">
-                      "{rev.text}"
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6AB04C] to-[#3D1A0A] flex items-center justify-center text-white font-bold">
-                        {rev.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-bold text-[#3D1A0A]">{rev.name}</div>
-                        <div className="text-sm text-gray-500">{rev.date}</div>
-                      </div>
+                    <div>
+                      <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 700, color: '#3D1A0A', marginBottom: '12px', lineHeight: 1.2 }}>{feature.title}</h3>
+                      <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1rem', color: '#5C3D2A', lineHeight: 1.7 }}>{feature.desc}</p>
                     </div>
                   </div>
                 </Card3D>
               ))}
-            </div>
+            </ServiceRowReveal>
           </div>
         </div>
       </section>
+
 
       {/* â”€â”€ CTA â”€â”€ */}
       <section className="py-10 md:py-14 relative overflow-hidden">

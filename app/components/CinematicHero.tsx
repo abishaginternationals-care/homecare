@@ -36,7 +36,7 @@ export default function CinematicHero() {
 
   // Slide cycling
   useEffect(() => {
-    const t = setInterval(() => setSlideIndex(i => (i + 1) % slides.length), 7000);
+    const t = setInterval(() => setSlideIndex(i => (i + 1) % slides.length), 4500);
     return () => clearInterval(t);
   }, []);
 
@@ -74,7 +74,7 @@ export default function CinematicHero() {
         <motion.div
           key={i}
           animate={{ opacity: i === slideIndex ? 1 : 0 }}
-          transition={{ duration: 2.2, ease: 'easeInOut' }}
+          transition={{ duration: 1.0, ease: 'easeInOut' }}
           style={{
             position: 'absolute', inset: 0,
             backgroundImage: `url(${slide.image})`,
@@ -107,7 +107,7 @@ export default function CinematicHero() {
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
@@ -119,70 +119,94 @@ export default function CinematicHero() {
               letterSpacing: '-0.02em',
             }}
           >
-            Compassionate Healthcare,{' '}
-            <span style={{ color: '#6AB04C', display: 'block' }}>Delivered to Your Home</span>
+            Care That Feels{' '}
+            <span style={{ color: '#6AB04C', display: 'block' }}>Like Family</span>
           </motion.h1>
 
           {/* Sub-headline */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "'Nunito', sans-serif",
-              fontSize: '1.15rem',
-              color: 'rgba(255,255,255,0.80)',
+              fontSize: '1.1rem',
+              color: 'rgba(255,255,255,0.82)',
               lineHeight: 1.75,
-              marginBottom: '40px',
+              marginBottom: '36px',
               fontWeight: 400,
               maxWidth: '520px',
               textShadow: '0 2px 10px rgba(0,0,0,0.4)',
             }}
           >
-            Professional nurses, elder care, physiotherapy, and medical support designed around comfort, dignity, and trust.
+            Expert <strong style={{ color: '#A8E07A' }}>Nursing Care</strong>, <strong style={{ color: '#A8E07A' }}>Patient Care</strong>, <strong style={{ color: '#A8E07A' }}>ICU Setup</strong>, <strong style={{ color: '#A8E07A' }}>Doctor Visits</strong> &amp; <strong style={{ color: '#A8E07A' }}>Physiotherapy</strong> — delivered with compassion, right at your doorstep.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '48px' }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '36px' }}
           >
+            {/* Call Now */}
             <MagneticButton>
-              <button
-                onClick={() => router.push('/contact')}
+              <a
+                href="tel:+919940179079"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '16px 32px', borderRadius: '14px',
+                  padding: '15px 28px', borderRadius: '14px',
                   background: 'linear-gradient(135deg, #6AB04C, #4A8A30)',
                   color: '#fff', fontFamily: "'Nunito', sans-serif",
-                  fontWeight: 800, fontSize: '1rem', border: 'none', cursor: 'pointer',
+                  fontWeight: 800, fontSize: '1rem', textDecoration: 'none',
                   boxShadow: '0 8px 28px rgba(106,176,76,0.45)',
-                  transition: 'all 0.3s ease',
+                  transition: 'all 0.25s ease',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(106,176,76,0.6)')}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 8px 28px rgba(106,176,76,0.45)')}
               >
-                Book Appointment <ArrowRight size={18} />
-              </button>
+                📞 Call Now
+              </a>
             </MagneticButton>
 
+            {/* WhatsApp */}
+            <MagneticButton>
+              <a
+                href="https://wa.me/917397390266"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '15px 28px', borderRadius: '14px',
+                  background: '#25D366',
+                  color: '#fff', fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 800, fontSize: '1rem', textDecoration: 'none',
+                  boxShadow: '0 8px 28px rgba(37,211,102,0.40)',
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(37,211,102,0.55)')}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 8px 28px rgba(37,211,102,0.40)')}
+              >
+                💬 WhatsApp Us
+              </a>
+            </MagneticButton>
+
+            {/* Explore Services */}
             <MagneticButton>
               <button
                 onClick={() => router.push('/services')}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '16px 32px', borderRadius: '14px',
+                  padding: '15px 28px', borderRadius: '14px',
                   background: 'rgba(255,255,255,0.10)', border: '1.5px solid rgba(255,255,255,0.30)',
                   color: '#fff', fontFamily: "'Nunito', sans-serif",
                   fontWeight: 700, fontSize: '1rem', cursor: 'pointer',
-                  transition: 'all 0.3s ease',
+                  transition: 'all 0.25s ease',
                 }}
                 onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.18)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.30)'; }}
               >
-                Explore Services
+                Explore Services <ArrowRight size={16} />
               </button>
             </MagneticButton>
           </motion.div>

@@ -31,7 +31,7 @@ export default function Contact() {
       return;
     }
 
-    const whatsappNumber = "9940216863"; 
+    const whatsappNumber = "917397390266"; 
     const text = `✨ *New Inquiry from Abishag Website* ✨
     
 👤 *Name:* ${formData.name}
@@ -67,40 +67,61 @@ _Please reply to this message to start the conversation._`;
             boxShadow: '0 20px 50px rgba(61,26,10,0.06)',
             border: '1px solid rgba(255, 255, 255, 0.6)'
           }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '24px', lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.6rem, 5vw, 4rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '20px', lineHeight: 1.1 }}>
               Get in Touch <br /><span className="text-[#6AB04C]">With Us</span>
             </h2>
-            <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.2rem', color: '#5C3D2A', marginBottom: '56px', lineHeight: 1.7, maxWidth: '500px' }}>
+            <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: '#5C3D2A', marginBottom: '40px', lineHeight: 1.7, maxWidth: '500px' }}>
               We're here to help and answer any questions you might have. Whether you need immediate care or want to plan for the future, we look forward to hearing from you.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
               {/* Address */}
-              <div className="flex gap-6 items-center">
-                <PremiumEmoji name="location" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
+              <div className="flex gap-5 items-start">
+                <PremiumEmoji name="location" size="lg" className="flex-shrink-0 w-14 h-14 rounded-2xl shadow-lg" />
                 <div>
-                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Our Location</h4>
-                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>123 Healing Avenue, Wellness Block, Chennai</p>
+                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.1rem', color: '#3D1A0A', marginBottom: '4px' }}>Office Address</h4>
+                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', lineHeight: 1.7 }}>
+                    Abishag Office<br />
+                    9/860, Nallathambi Nagar,<br />
+                    Natesan Nagar 2nd Street,<br />
+                    Medavakam, Chennai – 600100
+                  </p>
                 </div>
               </div>
 
-              {/* Phone */}
-              <div className="flex gap-6 items-center">
-                <PremiumEmoji name="phone" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
+              {/* Office Phone */}
+              <div className="flex gap-5 items-center">
+                <PremiumEmoji name="phone" size="lg" className="flex-shrink-0 w-14 h-14 rounded-2xl shadow-lg" />
                 <div>
-                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Call Us</h4>
-                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>+91 99402 16863</p>
+                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.1rem', color: '#3D1A0A', marginBottom: '4px' }}>Office Contact</h4>
+                  <a href="tel:+919940179079" style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', textDecoration: 'none', display: 'block' }}>+91 99401 79079</a>
                 </div>
               </div>
 
-              {/* Email */}
-              <div className="flex gap-6 items-center">
-                <PremiumEmoji name="mail" size="lg" className="flex-shrink-0 w-16 h-16 rounded-2xl shadow-lg" />
+              {/* WhatsApp */}
+              <div className="flex gap-5 items-center">
+                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 14px rgba(37,211,102,0.35)' }}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
                 <div>
-                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.2rem', color: '#3D1A0A', marginBottom: '4px' }}>Email Us</h4>
-                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A' }}>info@abishag.com</p>
+                  <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.1rem', color: '#3D1A0A', marginBottom: '4px' }}>WhatsApp & Enquiry</h4>
+                  <a href="https://wa.me/917397390266" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Nunito', sans-serif", color: '#25D366', fontWeight: 700, textDecoration: 'none' }}>+91 73973 90266 (88)</a>
                 </div>
               </div>
+            </div>
+
+            {/* Google Maps */}
+            <div style={{ marginTop: '36px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 8px 28px rgba(61,26,10,0.12)', border: '1px solid rgba(255,255,255,0.6)' }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5!2d80.197!3d12.916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d0e3e3e3e3e%3A0x0!2sMedavakam%2C%20Chennai%2C%20Tamil%20Nadu%20600100!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="220"
+                style={{ border: 0, display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Abishag Office Location - Medavakam, Chennai"
+              />
             </div>
           </div>
 

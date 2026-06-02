@@ -6,9 +6,10 @@ import { useState, useEffect } from 'react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
   { href: '/about', label: 'About Us' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/services', label: 'Services' },
+  { href: '/#why-choose-us', label: 'Why Choose Us' },
+  { href: '/careers', label: 'Careers' },
 ];
 
 export default function Navigation() {
@@ -141,6 +142,16 @@ export default function Navigation() {
                 <Link
                   key={href}
                   href={href}
+                  onClick={(e) => {
+                    if (href.startsWith('/#') && pathname === '/') {
+                      e.preventDefault();
+                      const id = href.replace('/#', '');
+                      const element = document.getElementById(id);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                  }}
                   style={{
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: 600,
@@ -262,7 +273,17 @@ export default function Navigation() {
               <Link
                 key={href}
                 href={href}
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => {
+                  if (href.startsWith('/#') && pathname === '/') {
+                    e.preventDefault();
+                    const id = href.replace('/#', '');
+                    const element = document.getElementById(id);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }
+                  setMenuOpen(false);
+                }}
                 style={{
                   fontFamily: "'Nunito', sans-serif",
                   fontWeight: 600,

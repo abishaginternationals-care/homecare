@@ -77,9 +77,10 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
                 { href: '/', label: 'Home' },
-                { href: '/services', label: 'Services' },
-                { href: '/blog', label: 'Blog' },
                 { href: '/about', label: 'About Us' },
+                { href: '/services', label: 'Services' },
+                { href: '/careers', label: 'Careers' },
+                { href: '/contact', label: 'Contact Us' },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <motion.a
@@ -111,10 +112,23 @@ export default function Footer() {
             <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.3rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }} className="text-raise">
               Connect
             </h3>
-            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.95rem', lineHeight: 2.0 }}>
-              <p>Email: <a href="mailto:contact@abishag.com" style={{ color: 'inherit', textDecoration: 'none' }} className="hover:text-[#6AB04C] transition-colors">contact@abishag.com</a></p>
-              <p>Phone: +91 99402 16863</p>
-              <p>Address: 123 Healing Ave, Chennai</p>
+            <div style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.7)', fontSize: '0.93rem', lineHeight: 2.1 }}>
+              <p>
+                <span style={{ color: 'rgba(237,232,226,0.45)', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Office</span><br />
+                9/860, Nallathambi Nagar,<br />
+                Natesan Nagar 2nd Street,<br />
+                Medavakam, Chennai – 600100
+              </p>
+              <p style={{ marginTop: '12px' }}>
+                <a href="tel:+919940179079" style={{ color: 'inherit', textDecoration: 'none' }} className="hover:text-[#6AB04C] transition-colors">
+                  📞 +91 99401 79079
+                </a>
+              </p>
+              <p>
+                <a href="https://wa.me/917397390266" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', textDecoration: 'none', fontWeight: 700 }}>
+                  💬 +91 73973 90266 (88)
+                </a>
+              </p>
             </div>
           </motion.div>
 
