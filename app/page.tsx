@@ -35,6 +35,9 @@ export default function Home() {
   const handleIntroComplete = () => {
     setIntroDone(true);
     sessionStorage.setItem('hasSeenIntro', 'true');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('introComplete'));
+    }
   };
 
   const whyUs = [

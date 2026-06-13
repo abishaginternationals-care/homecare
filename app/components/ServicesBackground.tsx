@@ -95,11 +95,10 @@ export default function ServicesBackground() {
           width: '700px', height: '700px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(106,176,76,0.28) 0%, rgba(106,176,76,0.10) 40%, transparent 70%)',
-          filter: 'blur(40px)',
           willChange: 'transform',
         }} />
       </motion.div>
-
+ 
       {/* Orb 2 — bottom-right green */}
       <motion.div
         style={{ y: y2, position: 'absolute', bottom: '-60px', right: '-60px', width: '650px', height: '650px' }}
@@ -110,10 +109,9 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(74,138,48,0.24) 0%, rgba(106,176,76,0.08) 45%, transparent 70%)',
-          filter: 'blur(36px)',
         }} />
       </motion.div>
-
+ 
       {/* Orb 3 — mid-left brown-warm */}
       <motion.div
         style={{ y: y3, position: 'absolute', top: '22%', left: '-40px', width: '520px', height: '520px' }}
@@ -124,10 +122,9 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(61,26,10,0.10) 0%, rgba(107,48,32,0.05) 45%, transparent 68%)',
-          filter: 'blur(32px)',
         }} />
       </motion.div>
-
+ 
       {/* Orb 4 — mid-right amber glow */}
       <motion.div
         style={{ y: y4, position: 'absolute', top: '38%', right: '-30px', width: '480px', height: '480px' }}
@@ -138,10 +135,9 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(244,167,32,0.12) 0%, rgba(200,140,60,0.05) 45%, transparent 68%)',
-          filter: 'blur(30px)',
         }} />
       </motion.div>
-
+ 
       {/* Orb 5 — center-low green */}
       <motion.div
         style={{ position: 'absolute', top: '58%', left: '30%', width: '560px', height: '560px' }}
@@ -152,10 +148,9 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(106,176,76,0.15) 0%, transparent 65%)',
-          filter: 'blur(28px)',
         }} />
       </motion.div>
-
+ 
       {/* Orb 6 — top-right amber accent */}
       <motion.div
         style={{ position: 'absolute', top: '5%', right: '8%', width: '400px', height: '400px' }}
@@ -166,10 +161,9 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(106,176,76,0.18) 0%, transparent 60%)',
-          filter: 'blur(24px)',
         }} />
       </motion.div>
-
+ 
       {/* Orb 7 — lower-left beige */}
       <motion.div
         style={{ position: 'absolute', top: '70%', left: '2%', width: '380px', height: '380px' }}
@@ -180,7 +174,6 @@ export default function ServicesBackground() {
           width: '100%', height: '100%',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(200,170,130,0.14) 0%, transparent 60%)',
-          filter: 'blur(22px)',
         }} />
       </motion.div>
 

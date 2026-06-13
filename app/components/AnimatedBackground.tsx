@@ -91,14 +91,34 @@ export default function AnimatedBackground() {
       ctx.stroke();
     }
 
+    let isScrolling = false;
+    let isMobile = false;
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      isScrolling = true;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     function resize() {
       if (!canvas || !ctx) return;
       W = window.innerWidth;
       H = window.innerHeight;
+      isMobile = W < 768;
+      
       const dpr = window.devicePixelRatio || 1;
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      if (isMobile) {
+        ctx.clearRect(0, 0, W, H);
+      }
     }
 
     function drawRibbons(t: number) {
@@ -110,15 +130,12 @@ export default function AnimatedBackground() {
       ctx.rotate(angle);
       
       ctx.globalCompositeOperation = 'screen';
-      ctx.shadowColor = '#6AB04C';
       
-      // Draw 3 interwoven glowing ribbons
+      // Draw 3 interwoven glowing ribbons (without expensive shadow blurs)
       for(let i = 0; i < 3; i++) {
         ctx.beginPath();
-        ctx.shadowBlur = i === 0 ? 25 : 10;
         ctx.lineWidth = i === 0 ? 10 : 4;
-        // Reduced opacity for a more transparent, softer look
-        ctx.strokeStyle = `rgba(106, 176, 76, ${0.12 + i * 0.12})`;
+        ctx.strokeStyle = `rgba(106, 176, 76, ${0.16 + i * 0.16})`;
         
         // Draw across the rotated canvas, exceeding the bounds so it doesn't clip
         const span = Math.max(W, H) * 1.5;
@@ -138,8 +155,21 @@ export default function AnimatedBackground() {
       ctx.restore();
     }
 
+    let lastTime = 0;
+    const fpsInterval = 1000 / 30; // Throttle to 30 FPS for reduced CPU usage
+
     function render(t: number) {
       if (!ctx) return;
+      
+      animId = requestAnimationFrame(render);
+
+      // Skip drawing frames on active scroll or on mobile devices (handled by CSS fallback)
+      if (isScrolling || isMobile) return;
+
+      const elapsed = t - lastTime;
+      if (elapsed < fpsInterval) return;
+      lastTime = t - (elapsed % fpsInterval);
+
       ctx.clearRect(0, 0, W, H);
 
       const cols = Math.ceil(W / CUBE_W) + 4;
@@ -163,30 +193,49 @@ export default function AnimatedBackground() {
       
       // Render the glowing green wave ribbons over the cubes
       drawRibbons(t);
-      
-      animId = requestAnimationFrame(render);
     }
 
     resize();
     window.addEventListener('resize', resize);
     animId = requestAnimationFrame(render);
+    
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
       style={{
         position: 'fixed',
         inset: 0,
         width: '100%',
         height: '100%',
-        zIndex: -1, // Keep behind all content
+        zIndex: -1,
         pointerEvents: 'none',
       }}
-    />
+    >
+      {/* Fallback CSS gradient for mobile / performance */}
+      <div 
+        className="md:hidden"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(160deg, #F5F3F0 0%, #EBF4E2 50%, #F4F1ED 100%)',
+        }}
+      />
+      {/* Canvas for desktop */}
+      <canvas
+        ref={canvasRef}
+        className="hidden md:block"
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </div>
   );
 }

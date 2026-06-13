@@ -4,11 +4,13 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ChatAssistant from "./components/ChatAssistant";
 import AnimatedBackground from "./components/AnimatedBackground";
-import WhatsAppButton from "./components/WhatsAppButton";
 
 export const metadata: Metadata = {
-  title: "Abhishag - Home Health Services",
-  description: "Abhishag provides compassionate home health services and daycare for elderly individuals.",
+  title: "Abishag - Home Health Services",
+  description: "Abishag provides compassionate home health services and daycare for elderly individuals.",
+  icons: {
+    icon: "/logo-transparent.png",
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +38,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <WhatsAppButton />
         <ChatAssistant />
       </body>
     </html>

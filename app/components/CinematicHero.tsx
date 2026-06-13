@@ -90,12 +90,12 @@ export default function CinematicHero() {
 
       {/* ── Warm Green Ambient Orbs ── */}
       <motion.div
-        style={{ x: smoothX, y: smoothY, position: 'absolute', top: '10%', left: '3%', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(106,176,76,0.18) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 1, pointerEvents: 'none' }}
+        style={{ x: smoothX, y: smoothY, position: 'absolute', top: '10%', left: '3%', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(106,176,76,0.18) 0%, transparent 70%)', zIndex: 1, pointerEvents: 'none' }}
       />
       <motion.div
         animate={{ scale: [1, 1.1, 1], opacity: [0.12, 0.2, 0.12] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ position: 'absolute', bottom: '5%', left: '20%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(244,167,32,0.10) 0%, transparent 70%)', filter: 'blur(50px)', zIndex: 1, pointerEvents: 'none' }}
+        style={{ position: 'absolute', bottom: '5%', left: '20%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(244,167,32,0.10) 0%, transparent 70%)', zIndex: 1, pointerEvents: 'none' }}
       />
 
       {/* ── Content Grid ── */}

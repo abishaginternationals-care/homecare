@@ -181,8 +181,21 @@ export default function Footer() {
           transition={{ duration: 1, delay: 0.5 }}
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '40px', paddingTop: '20px', textAlign: 'center' }}
         >
-          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.3)', fontSize: '0.85rem' }}>
-            © 2026 Abishag — Home Health Services. Carefully crafted for comfort.
+          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.3)', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', justifyContent: 'center' }}>
+            <span>© 2026 Abishag — Home Health Services. Carefully crafted for comfort.</span>
+            <span style={{ fontSize: '0.8rem' }}>
+              Developed by{' '}
+              <a 
+                href="https://www.creinx.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: '#6AB04C', textDecoration: 'none', fontWeight: 700, transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#6AB04C'}
+              >
+                Creinx
+              </a>
+            </span>
           </p>
         </motion.div>
       </div>
