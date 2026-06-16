@@ -148,8 +148,8 @@ export default function Footer() {
                   href="https://wa.me/917397390266" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#25D366', textDecoration: 'none', fontWeight: 700 }} 
-                  className="group"
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'inherit', textDecoration: 'none', fontWeight: 700 }} 
+                  className="hover:text-[#6AB04C] transition-colors group"
                 >
                   <span style={{
                     width: '36px',
@@ -173,8 +173,8 @@ export default function Footer() {
                   href="https://wa.me/917397390288" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#25D366', textDecoration: 'none', fontWeight: 700 }} 
-                  className="group"
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'inherit', textDecoration: 'none', fontWeight: 700 }} 
+                  className="hover:text-[#6AB04C] transition-colors group"
                 >
                   <span style={{
                     width: '36px',

@@ -106,8 +106,8 @@ _Please reply to this message to start the conversation._`;
                 <div>
                   <h4 style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: '1.1rem', color: '#3D1A0A', marginBottom: '4px' }}>WhatsApp & Enquiry</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <a href="https://wa.me/917397390266" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Nunito', sans-serif", color: '#25D366', fontWeight: 700, textDecoration: 'none', display: 'block' }}>+91 73973 90266</a>
-                    <a href="https://wa.me/917397390288" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Nunito', sans-serif", color: '#25D366', fontWeight: 700, textDecoration: 'none', display: 'block' }}>+91 73973 90288</a>
+                    <a href="https://wa.me/917397390266" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontWeight: 700, textDecoration: 'none', display: 'block' }}>+91 73973 90266</a>
+                    <a href="https://wa.me/917397390288" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontWeight: 700, textDecoration: 'none', display: 'block' }}>+91 73973 90288</a>
                   </div>
                 </div>
               </div>
