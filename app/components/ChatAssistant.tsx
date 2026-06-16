@@ -356,9 +356,9 @@ export default function ChatAssistant() {
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            background: '#25D366',
+            background: 'linear-gradient(135deg, #6AB04C, #3D7A28)',
             color: '#ffffff',
-            boxShadow: '0 6px 28px rgba(61,26,10,0.25)',
+            boxShadow: '0 6px 28px rgba(61,26,10,0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -369,12 +369,12 @@ export default function ChatAssistant() {
           onMouseEnter={(e) => {
             setWaHovered(true);
             e.currentTarget.style.transform = 'translateY(-4px) scale(1.12)';
-            e.currentTarget.style.boxShadow = '0 12px 36px rgba(37,211,102,0.65)';
+            e.currentTarget.style.boxShadow = '0 12px 36px rgba(61,26,10,0.4)';
           }}
           onMouseLeave={(e) => {
             setWaHovered(false);
             e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 6px 28px rgba(61,26,10,0.25)';
+            e.currentTarget.style.boxShadow = '0 6px 28px rgba(61,26,10,0.35)';
           }}
         >
           {/* Pulse ring */}
@@ -383,7 +383,7 @@ export default function ChatAssistant() {
               position: 'absolute',
               inset: 0,
               borderRadius: '50%',
-              border: '2px solid rgba(37,211,102,0.5)',
+              border: '2px solid rgba(106,176,76,0.5)',
               animation: 'wpPulse 2s cubic-bezier(0,0,0.2,1) infinite',
               pointerEvents: 'none',
             }}
