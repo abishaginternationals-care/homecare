@@ -24,9 +24,17 @@ export default function Home() {
 
   useEffect(() => {
     setIsMounted(true);
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-    if (hasSeenIntro) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const hasSeenIntro = typeof window !== 'undefined' && localStorage.getItem('hasSeenIntro');
+    
+    if (hasSeenIntro || isMobile) {
       setIntroDone(true);
+      if (isMobile) {
+        localStorage.setItem('hasSeenIntro', 'true');
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('introComplete'));
+      }
     }
     const t = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(t);
@@ -34,7 +42,7 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setIntroDone(true);
-    sessionStorage.setItem('hasSeenIntro', 'true');
+    localStorage.setItem('hasSeenIntro', 'true');
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new Event('introComplete'));
     }

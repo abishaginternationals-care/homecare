@@ -27,7 +27,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
 
   useEffect(() => {
     // Logo appears after the ECG line finishes drawing
-    const t = setTimeout(() => setShowLogo(true), 1900);
+    const t = setTimeout(() => setShowLogo(true), 1100);
     return () => clearTimeout(t);
   }, []);
 
@@ -85,7 +85,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{
-              pathLength: { duration: 2.0, ease: 'easeInOut' },
+              pathLength: { duration: 1.2, ease: 'easeInOut' },
               opacity:     { duration: 0.2 },
             }}
           />
@@ -101,7 +101,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{
-              pathLength: { duration: 2.0, ease: 'easeInOut' },
+              pathLength: { duration: 1.2, ease: 'easeInOut' },
               opacity:     { duration: 0.2 },
             }}
           />
@@ -199,7 +199,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.8, duration: 0.6 }}
+        transition={{ delay: 1.6, duration: 0.6 }}
         style={{
           position: 'absolute',
           bottom: '28px',
@@ -227,9 +227,9 @@ export default function IntroAnimation({ onComplete }: Props) {
     setTimeout(onComplete, 700);
   };
 
-  // Auto-dismiss after 4.2 s
+  // Auto-dismiss after 2.4 s
   useEffect(() => {
-    const t = setTimeout(dismiss, 4200);
+    const t = setTimeout(dismiss, 2400);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

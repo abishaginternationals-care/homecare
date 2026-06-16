@@ -31,12 +31,17 @@ const trustBadges = [
 export default function CinematicHero() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hasTransitioned, setHasTransitioned] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   // Slide cycling
   useEffect(() => {
-    const t = setInterval(() => setSlideIndex(i => (i + 1) % slides.length), 4500);
+    const t = setInterval(() => {
+      setHasTransitioned(true);
+      setSlideIndex(i => (i + 1) % slides.length);
+    }, 4500);
     return () => clearInterval(t);
   }, []);
 
@@ -59,6 +64,15 @@ export default function CinematicHero() {
   const imgPanelY = useTransform(smoothY, v => -v * 0.4);
 
   useEffect(() => {
+    setIsMobileDevice(window.innerWidth < 900);
+    const handleResize = () => {
+      setIsMobileDevice(window.innerWidth < 900);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     parallaxX.set(mousePos.x * 8);
     parallaxY.set(mousePos.y * 8);
   }, [mousePos]);
@@ -70,19 +84,25 @@ export default function CinematicHero() {
       style={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}
     >
       {/* ── Background Slides ── */}
-      {slides.map((slide, i) => (
-        <motion.div
-          key={i}
-          animate={{ opacity: i === slideIndex ? 1 : 0 }}
-          transition={{ duration: 1.0, ease: 'easeInOut' }}
-          style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: `url(${slide.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-      ))}
+      {slides.map((slide, i) => {
+        const isActive = i === slideIndex;
+        const isPrev = hasTransitioned && i === (slideIndex - 1 + slides.length) % slides.length;
+        if (!isActive && !isPrev) return null;
+
+        return (
+          <motion.div
+            key={i}
+            animate={{ opacity: isActive ? 1 : 0 }}
+            transition={{ duration: 1.0, ease: 'easeInOut' }}
+            style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: `url(${slide.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+        );
+      })}
 
       {/* ── Layered Dark Overlays for Readability ── */}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(20,8,2,0.88) 0%, rgba(30,12,4,0.75) 40%, rgba(10,5,2,0.45) 70%, rgba(0,0,0,0.2) 100%)', zIndex: 1 }} />
@@ -242,54 +262,54 @@ export default function CinematicHero() {
         </div>
 
         {/* ── RIGHT: Floating Visual ── */}
-        <motion.div
-          className="hero-right"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          style={{ position: 'relative', height: '560px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-        >
-          {/* Central Image Frame */}
+        {!isMobileDevice && (
           <motion.div
-            style={{ x: imgPanelX, y: imgPanelY }}
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            className="hero-right"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.5 }}
+            style={{ position: 'relative', height: '560px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <div style={{ position: 'relative', width: '340px', height: '420px' }}>
-              {/* Background glow */}
-              <div style={{ position: 'absolute', inset: '-24px', borderRadius: '40px', background: 'radial-gradient(circle, rgba(106,176,76,0.25) 0%, transparent 70%)', filter: 'blur(30px)' }} />
+            {/* Central Image Frame */}
+            <motion.div
+              style={{ x: imgPanelX, y: imgPanelY }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <div style={{ position: 'relative', width: '340px', height: '420px' }}>
+                {/* Background glow */}
+                <div style={{ position: 'absolute', inset: '-24px', borderRadius: '40px', background: 'radial-gradient(circle, rgba(106,176,76,0.25) 0%, transparent 70%)', filter: 'blur(30px)' }} />
 
-              {/* Main image card */}
-              <div style={{ width: '100%', height: '100%', borderRadius: '32px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.18)', boxShadow: '0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(106,176,76,0.2)' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={slideIndex}
-                    initial={{ opacity: 0, scale: 1.06 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 1.6, ease: 'easeInOut' }}
-                    style={{ width: '100%', height: '100%', backgroundImage: `url(${slides[slideIndex].image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                  />
-                </AnimatePresence>
-              </div>
+                {/* Main image card */}
+                <div style={{ width: '100%', height: '100%', borderRadius: '32px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.18)', boxShadow: '0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(106,176,76,0.2)' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={slideIndex}
+                      initial={{ opacity: 0, scale: 1.06 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 1.6, ease: 'easeInOut' }}
+                      style={{ width: '100%', height: '100%', backgroundImage: `url(${slides[slideIndex].image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                    />
+                  </AnimatePresence>
+                </div>
 
-              {/* Slide indicator dots */}
-              <div style={{ position: 'absolute', bottom: '-28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px' }}>
-                {slides.map((_, i) => (
-                  <motion.button
-                    key={i}
-                    onClick={() => setSlideIndex(i)}
-                    animate={{ width: i === slideIndex ? 24 : 8, background: i === slideIndex ? '#6AB04C' : 'rgba(255,255,255,0.3)' }}
-                    transition={{ duration: 0.4 }}
-                    style={{ height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0 }}
-                  />
-                ))}
+                {/* Slide indicator dots */}
+                <div style={{ position: 'absolute', bottom: '-28px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px' }}>
+                  {slides.map((_, i) => (
+                    <motion.button
+                      key={i}
+                      onClick={() => setSlideIndex(i)}
+                      animate={{ width: i === slideIndex ? 24 : 8, background: i === slideIndex ? '#6AB04C' : 'rgba(255,255,255,0.3)' }}
+                      transition={{ duration: 0.4 }}
+                      style={{ height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0 }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-
-
-        </motion.div>
+        )}
       </div>
 
 

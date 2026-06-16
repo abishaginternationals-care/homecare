@@ -176,7 +176,7 @@ export default function ChatAssistant() {
     const isHomepage = window.location.pathname === '/';
     
     const checkConditions = () => {
-      const hasSeenIntro = sessionStorage.getItem('hasSeenIntro') === 'true';
+      const hasSeenIntro = localStorage.getItem('hasSeenIntro') === 'true';
       if (isHomepage && !hasSeenIntro) return false;
       if (typeof document !== 'undefined' && document.readyState !== 'complete') return false;
       return true;
