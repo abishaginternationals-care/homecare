@@ -93,12 +93,6 @@ export default function Home() {
       desc: 'Full ICU-grade equipment setup and trained ICU nurses for critical care patients in the comfort of home.',
       image: '/images/Abishag_img/10. ICU Setup at Home.webp',
     },
-    {
-      id: 7,
-      title: 'Equipment Rental & Sales',
-      desc: 'Hospital beds, wheelchairs, oxygen concentrators, suction machines and more — rented or purchased.',
-      image: '/images/Abishag_img/9. Medical Equipment Setup.webp',
-    },
   ];
 
   const containerRef = useRef(null);
