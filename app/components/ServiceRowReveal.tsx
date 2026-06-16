@@ -158,13 +158,13 @@ function drawFrame(
 // ── Card animation variants ─────────────────────────────────────────────────
 const cardVariants = {
   hidden: { opacity: 0, y: 56, scale: 0.95 },
-  visible: (i: number) => ({
+  visible: ({ index, isMobile }: { index: number; isMobile: boolean }) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.9,
-      delay: i * 0.13,
+      duration: isMobile ? 0.4 : 0.6,
+      delay: isMobile ? 0 : index * 0.08,
       ease: [0.16, 1, 0.3, 1] as any,
     },
   }),
@@ -189,23 +189,42 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
   const rafRef    = useRef<number>(0);
   const startRef  = useRef<number>(0);
   const [phase, setPhase] = useState<'idle' | 'ecg' | 'cards'>('idle');
+  const [isMobile, setIsMobile] = useState(false);
 
   // Odd rows flow right-to-left
   const rtl = rowIndex % 2 === 1;
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Observe when the row wrapper enters the viewport
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
 
+    const mobileCheck = window.innerWidth < 768;
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           obs.disconnect();
-          setPhase('ecg');
+          if (mobileCheck) {
+            setPhase('cards');
+          } else {
+            setPhase('ecg');
+          }
         }
       },
-      { threshold: 0.15 },
+      { 
+        threshold: 0.01,
+        rootMargin: '0px 0px -10px 0px'
+      },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -226,7 +245,7 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
     canvas.height = H;
 
     const pts = buildPoints(W, H, cols);
-    const DURATION = 1300;
+    const DURATION = 400;
     startRef.current = 0;
 
     const tick = (now: number) => {
@@ -281,7 +300,7 @@ export default function ServiceRowReveal({ children, rowIndex, cols = 3 }: Props
             return (
               <motion.div
                 key={i}
-                custom={staggerIndex}
+                custom={{ index: staggerIndex, isMobile }}
                 variants={cardVariants}
                 initial="hidden"
                 animate={phase === 'cards' ? 'visible' : 'hidden'}
