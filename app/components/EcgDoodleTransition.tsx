@@ -23,12 +23,12 @@
 import { useEffect, useRef } from 'react';
 
 const SLIDE_IMAGES = [
-  '/scene1.png',
-  '/scene2.png',
-  '/scene3.png',
-  '/scene5.png',
-  '/scene6.png',
-  '/scene7.png',
+  '/scene1.webp',
+  '/scene2.webp',
+  '/scene3.webp',
+  '/scene5.webp',
+  '/scene6.webp',
+  '/scene7.webp',
 ];
 
 // ── Sobel edge detection ─────────────────────────────────────────────────────

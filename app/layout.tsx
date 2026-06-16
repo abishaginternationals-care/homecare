@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Abishag - Home Health Services",
   description: "Abishag provides compassionate home health services and daycare for elderly individuals.",
   icons: {
-    icon: "/logo-transparent.png",
+    icon: "/logo-transparent.webp",
   },
 };
 

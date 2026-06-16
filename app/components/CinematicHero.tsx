@@ -12,12 +12,12 @@ import {
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const slides = [
-  { image: '/scene1.png', accent: 'rgba(106,176,76,0.15)' },
-  { image: '/scene2.png', accent: 'rgba(61,26,10,0.15)' },
-  { image: '/scene3.png', accent: 'rgba(106,176,76,0.12)' },
-  { image: '/scene5.png', accent: 'rgba(74,138,48,0.18)' },
-  { image: '/scene6.png', accent: 'rgba(61,26,10,0.12)' },
-  { image: '/scene7.png', accent: 'rgba(106,176,76,0.10)' },
+  { image: '/scene1.webp', accent: 'rgba(106,176,76,0.15)' },
+  { image: '/scene2.webp', accent: 'rgba(61,26,10,0.15)' },
+  { image: '/scene3.webp', accent: 'rgba(106,176,76,0.12)' },
+  { image: '/scene5.webp', accent: 'rgba(74,138,48,0.18)' },
+  { image: '/scene6.webp', accent: 'rgba(61,26,10,0.12)' },
+  { image: '/scene7.webp', accent: 'rgba(106,176,76,0.10)' },
 ];
 
 const trustBadges = [

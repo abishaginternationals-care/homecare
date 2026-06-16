@@ -138,7 +138,7 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
               justifyContent: 'center',
             }}>
               <img
-                src="/logo-transparent.png"
+                src="/logo-transparent.webp"
                 alt="Abishag"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />

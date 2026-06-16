@@ -53,43 +53,43 @@ export default function Home() {
       id: 1,
       title: 'Patient Care Assistant',
       desc: 'Trained assistants for daily care, hygiene, mobility support, and compassionate companionship at home.',
-      image: '/images/Abishag_img/1. Caregiver Services.png',
+      image: '/images/Abishag_img/1. Caregiver Services.webp',
     },
     {
       id: 2,
       title: 'Nursing Care',
       desc: 'Skilled nurses for wound care, medication management, IV therapy, and post-operative home recovery.',
-      image: '/images/Abishag_img/2. Nursing Services.png',
+      image: '/images/Abishag_img/2. Nursing Services.webp',
     },
     {
       id: 3,
       title: 'Doctor Visit at Home',
       desc: 'Qualified doctors visiting your home for consultations, health assessments, and treatment plans.',
-      image: '/images/Abishag_img/6. Nurse Visit (On-demand).png',
+      image: '/images/Abishag_img/6. Nurse Visit (On-demand).webp',
     },
     {
       id: 4,
       title: 'Physiotherapy at Home',
       desc: 'Expert physiotherapists for rehabilitation, pain management, stroke recovery, and mobility training.',
-      image: '/images/Abishag_img/5. Allied Health Visit.png',
+      image: '/images/Abishag_img/5. Allied Health Visit.webp',
     },
     {
       id: 5,
       title: 'Speech Therapy',
       desc: 'Professional speech therapists helping patients recover communication and swallowing abilities at home.',
-      image: '/images/Abishag_img/16. Mental Health Counseling.png',
+      image: '/images/Abishag_img/16. Mental Health Counseling.webp',
     },
     {
       id: 6,
       title: 'ICU Setup at Home',
       desc: 'Full ICU-grade equipment setup and trained ICU nurses for critical care patients in the comfort of home.',
-      image: '/images/Abishag_img/10. ICU Setup at Home.png',
+      image: '/images/Abishag_img/10. ICU Setup at Home.webp',
     },
     {
       id: 7,
       title: 'Equipment Rental & Sales',
       desc: 'Hospital beds, wheelchairs, oxygen concentrators, suction machines and more — rented or purchased.',
-      image: '/images/Abishag_img/9. Medical Equipment Setup.png',
+      image: '/images/Abishag_img/9. Medical Equipment Setup.webp',
     },
   ];
 
@@ -141,7 +141,7 @@ export default function Home() {
               <motion.img 
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.6 }}
-                src="/images/welcome_caregiver_new.png" 
+                src="/images/welcome_caregiver_new.webp" 
                 alt="Compassionate elderly care" 
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />

@@ -87,7 +87,7 @@ export default function Navigation() {
               }}
             >
               <img
-                src="/logo-transparent.png"
+                src="/logo-transparent.webp"
                 alt="Abishag Logo"
                 style={{
                   height: '100%',

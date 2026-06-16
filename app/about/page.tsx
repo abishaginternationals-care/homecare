@@ -172,7 +172,7 @@ export default function About() {
                 <motion.img
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
-                  src="/images/elderly-care-about.png"
+                  src="/images/elderly-care-about.webp"
                   alt="Compassionate elderly care"
                   style={{
                     width: '100%',
