@@ -149,8 +149,9 @@ export default function Home() {
                 <Image 
                   src="/images/welcome_caregiver_new.webp" 
                   alt="Compassionate elderly care" 
-                  width={800}
-                  height={600}
+                  width={1024}
+                  height={1024}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </motion.div>

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 const navLinks = [
@@ -86,9 +87,12 @@ export default function Navigation() {
                 padding: '4px 0',
               }}
             >
-              <img
+              <Image
                 src="/logo-transparent.webp"
                 alt="Abishag Logo"
+                width={112}
+                height={112}
+                priority
                 style={{
                   height: '100%',
                   width: 'auto',
