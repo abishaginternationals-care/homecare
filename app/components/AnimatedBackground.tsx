@@ -235,7 +235,10 @@ export default function AnimatedBackground() {
           width: '100%',
           height: '100%',
         }}
-      />
+        aria-hidden="true"
+      >
+        Abstract animated 3D grid and green wave ribbons background
+      </canvas>
     </div>
   );
 }

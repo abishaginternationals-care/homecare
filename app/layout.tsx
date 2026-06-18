@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: 'Abishag Home Health Services',
     images: [
       {
-        url: '/logo-transparent.webp',
+        url: '/og_image.png',
         width: 1200,
         height: 630,
         alt: 'Abishag Home Health Services — Compassionate Elder Care in Chennai',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Abishag Home Health Services | Elder Care Chennai",
     description: "Professional home nursing, physiotherapy, and compassionate caregiver support across Chennai.",
-    images: ['/logo-transparent.webp'],
+    images: ['/og_image.png'],
   },
   icons: {
     icon: "/logo-transparent.webp",

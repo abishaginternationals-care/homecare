@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface Props {
   onComplete: () => void;
@@ -137,9 +138,12 @@ function IntroSequence({ onDismiss }: { onDismiss: () => void }) {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <img
+              <Image
                 src="/logo-transparent.webp"
                 alt="Abishag"
+                width={140}
+                height={140}
+                priority
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </div>

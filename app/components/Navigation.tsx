@@ -161,10 +161,10 @@ export default function Navigation() {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: 600,
                     fontSize: '0.93rem',
-                    color: isActive ? '#ffffff' : '#5C3D2A',
+                    color: isActive ? '#ffffff' : '#3D1A0A',
                     letterSpacing: '0.02em',
                     textDecoration: 'none',
-                    padding: '7px 18px',
+                    padding: '0 18px',
                     borderRadius: '100px',
                     background: isActive
                       ? 'linear-gradient(135deg, #6AB04C, #4A8A30)'
@@ -172,7 +172,10 @@ export default function Navigation() {
                     boxShadow: isActive ? '0 4px 14px rgba(106,176,76,0.35)' : 'none',
                     transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
                     whiteSpace: 'nowrap',
-                    display: 'inline-block',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '44px',
                   }}
                   onMouseEnter={e => {
                     if (!isActive) {
@@ -191,7 +194,7 @@ export default function Navigation() {
                       el.style.background = 'transparent';
                       el.style.backdropFilter = 'none';
                       el.style.setProperty('-webkit-backdrop-filter', 'none');
-                      el.style.color = '#5C3D2A';
+                      el.style.color = '#3D1A0A';
                       el.style.transform = 'translateY(0) scale(1)';
                       el.style.boxShadow = 'none';
                     }

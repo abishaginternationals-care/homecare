@@ -50,48 +50,48 @@ export default function Home() {
   };
 
   const whyUs = [
-    { title: 'Verified & Trained Staff', desc: 'All caregivers are background-verified, certified, and trained to deliver exceptional home healthcare.', icon: <UserCheck size={28} /> },
+    { title: 'Verified & Trained Staff', desc: 'All caregivers are background-verified, certified, and trained to deliver exceptional healthcare.', icon: <UserCheck size={28} /> },
     { title: 'Experienced Nurses', desc: 'Our nursing team brings years of clinical expertise to your doorstep, ensuring safe, skilled care.', icon: <Stethoscope size={28} /> },
     { title: 'Emergency Support', desc: '24/7 emergency assistance and rapid response to ensure your family is never alone in a crisis.', icon: <HeartPulse size={28} /> },
-    { title: 'Services Across Tamil Nadu', desc: 'Serving families across Chennai and Tamil Nadu with reliable, consistent home health services.', icon: <ShieldCheck size={28} /> },
-    { title: 'Home Visit Support', desc: 'Doctor and nurse home visits designed for comfort and convenience — care comes to you, every time.', icon: <HeartHandshake size={28} /> },
+    { title: 'Services Across Tamil Nadu', desc: 'Serving families across Chennai and Tamil Nadu with reliable, consistent wellness services.', icon: <ShieldCheck size={28} /> },
+    { title: 'Home Visit Support', desc: 'Doctor and nurse visits designed for comfort and convenience — care comes to you, every time.', icon: <HeartHandshake size={28} /> },
   ];
 
   const previewServices = [
     {
       id: 1,
       title: 'Patient Care Assistant',
-      desc: 'Trained assistants for daily care, hygiene, mobility support, and compassionate companionship at home.',
+      desc: 'Trained assistants for daily care, hygiene, mobility support, and compassionate companionship.',
       image: '/images/Abishag_img/1. Caregiver Services.webp',
     },
     {
       id: 2,
       title: 'Nursing Care',
-      desc: 'Skilled nurses for wound care, medication management, IV therapy, and post-operative home recovery.',
+      desc: 'Skilled nurses for wound care, medication management, IV therapy, and post-operative recovery.',
       image: '/images/Abishag_img/2. Nursing Services.webp',
     },
     {
       id: 3,
-      title: 'Doctor Visit at Home',
-      desc: 'Qualified doctors visiting your home for consultations, health assessments, and treatment plans.',
+      title: 'Doctor Home Visit',
+      desc: 'Qualified doctors visiting your residence for consultations, health assessments, and treatment plans.',
       image: '/images/Abishag_img/6. Nurse Visit (On-demand).webp',
     },
     {
       id: 4,
       title: 'Physiotherapy at Home',
-      desc: 'Expert physiotherapists for rehabilitation, pain management, stroke recovery, and mobility training.',
+      desc: 'Expert physiotherapists for rehabilitation, pain management, stroke recovery, and mobility training at your doorstep.',
       image: '/images/Abishag_img/5. Allied Health Visit.webp',
     },
     {
       id: 5,
       title: 'Speech Therapy',
-      desc: 'Professional speech therapists helping patients recover communication and swallowing abilities at home.',
+      desc: 'Professional speech therapists helping patients recover communication and swallowing abilities in-house.',
       image: '/images/Abishag_img/16. Mental Health Counseling.webp',
     },
     {
       id: 6,
       title: 'ICU Setup at Home',
-      desc: 'Full ICU-grade equipment setup and trained ICU nurses for critical care patients in the comfort of home.',
+      desc: 'Full ICU-grade equipment setup and trained ICU nurses for critical care patients in the comfort of their residence.',
       image: '/images/Abishag_img/10. ICU Setup at Home.webp',
     },
   ];
@@ -622,12 +622,12 @@ export default function Home() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
-              { q: "What home wellness support does Abishag provide in Chennai?", a: "We deliver 15+ professional solutions across Chennai and Tamil Nadu, including skilled nursing, caregiver assistance, physiotherapy, ICU setup at home, doctor home visits, hospice and palliative support, lab sample collection, pharmacy delivery, and mental wellness counseling." },
+              { q: "What wellness support does Abishag provide in Chennai?", a: "We deliver 15+ professional solutions across Chennai and Tamil Nadu, including skilled nursing, caregiver assistance, physiotherapy, ICU setup, doctor visits, lab sample collection, pharmacy delivery, and mental wellness counseling." },
               { q: "Are your nurses and caregivers certified and background-verified?", a: "Yes. Every professional at Abishag is certified, background-verified, and trained regularly. Our nursing team holds valid RN/GNM qualifications and caregivers complete our proprietary program before assignment." },
               { q: "Do you provide 24/7 emergency support?", a: "Absolutely. Our on-call nursing team and coordinators are available around the clock — 24 hours a day, 7 days a week — to respond to urgent situations and ensure your loved ones are never alone in a crisis." },
               { q: "Which areas in Chennai and Tamil Nadu do you cover?", a: "We cover all major areas including Medavakam, Velachery, Tambaram, OMR, ECR, Adyar, T. Nagar, Anna Nagar, Chromepet, Porur, Sholinganallur, and surrounding neighborhoods. We extend to other Tamil Nadu cities upon request." },
-              { q: "How do I book a home wellness session with Abishag?", a: "Call us at +91 99401 79079, message on WhatsApp at +91 73973 90266, or fill out the contact form on our website. Our coordinator will assess your needs and match you with the right professional within 24 hours." },
-              { q: "What is the cost of home nursing?", a: "Pricing depends on the type, duration, and level of support required. We offer flexible hourly, daily, and monthly packages. Contact us for a free, no-obligation consultation and customized quote." },
+              { q: "How do I book a wellness session with Abishag?", a: "Call us at +91 99401 79079, message on WhatsApp at +91 73973 90266, or fill out the contact form on our website. Our coordinator will assess your needs and match you with the right professional within 24 hours." },
+              { q: "What is the cost of nursing care?", a: "Pricing depends on the type, duration, and level of support required. We offer flexible hourly, daily, and monthly packages. Contact us for a free, no-obligation consultation and customized quote." },
             ].map((faq, idx) => (
               <motion.details
                 key={idx}

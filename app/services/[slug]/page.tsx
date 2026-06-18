@@ -2,6 +2,7 @@ import { servicesData } from '@/app/data/services';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ServiceDetailHeader from '@/app/components/ServiceDetailHeader';
+import Image from 'next/image';
 
 export function generateStaticParams() {
   return servicesData.map((service) => ({
@@ -41,11 +42,14 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             
             {/* Image */}
-            <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}>
-              <img 
+            <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.1)', position: 'relative', width: '100%', aspectRatio: '4/3' }}>
+              <Image 
                 src={service.image} 
                 alt={service.title} 
-                style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', aspectRatio: '4/3' }} 
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                style={{ objectFit: 'cover' }} 
               />
             </div>
 
