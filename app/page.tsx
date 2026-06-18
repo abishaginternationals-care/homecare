@@ -7,6 +7,7 @@ import IntroAnimation from './components/IntroAnimation';
 import { UserCheck, ShieldCheck, HeartHandshake, ArrowRight,
   Stethoscope, HeartPulse } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Card3D from './components/Card3D';
 import MagneticButton from './components/MagneticButton';
@@ -140,13 +141,19 @@ export default function Home() {
             className="relative"
           >
             <div style={{ borderRadius: '32px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(61,26,10,0.15)', position: 'relative' }}>
-              <motion.img 
+              <motion.div 
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.6 }}
-                src="/images/welcome_caregiver_new.webp" 
-                alt="Compassionate elderly care" 
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              >
+                <Image 
+                  src="/images/welcome_caregiver_new.webp" 
+                  alt="Compassionate elderly care" 
+                  width={800}
+                  height={600}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </motion.div>
             </div>
           </motion.div>
 
@@ -288,10 +295,12 @@ export default function Home() {
                     }}
                   >
                     <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                      <img
+                      <Image
                         src={svc.image}
                         alt={svc.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        style={{ objectFit: 'cover', transition: 'transform 0.6s ease', display: 'block' }}
                         onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
                         onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                       />

@@ -2,8 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-import ChatAssistant from "./components/ChatAssistant";
-import AnimatedBackground from "./components/AnimatedBackground";
+import dynamic from "next/dynamic";
+import { Cormorant_Garamond, Nunito } from "next/font/google";
+
+const ChatAssistant = dynamic(() => import("./components/ChatAssistant"));
+const AnimatedBackground = dynamic(() => import("./components/AnimatedBackground"));
+
+const cormorant = Cormorant_Garamond({ 
+  subsets: ["latin"], 
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap"
+});
+
+const nunito = Nunito({ 
+  subsets: ["latin"], 
+  weight: ["300", "400", "500", "600", "700", "800"], 
+  style: ["normal", "italic"],
+  variable: "--font-nunito",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   title: "Abishag - Home Health Services",
@@ -19,16 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <head>
-        {/* Google Fonts — loaded via <link> to avoid PostCSS @import conflict */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`h-full antialiased ${cormorant.variable} ${nunito.variable}`}>
       <body className="min-h-full flex flex-col">
         {/* Global Animated Background */}
         <AnimatedBackground />

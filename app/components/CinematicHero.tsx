@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import MagneticButton from './MagneticButton';
 import {
   ShieldCheck, Clock, Users, Star, HeartHandshake,
@@ -33,6 +34,7 @@ export default function CinematicHero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hasTransitioned, setHasTransitioned] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
@@ -64,6 +66,7 @@ export default function CinematicHero() {
   const imgPanelY = useTransform(smoothY, v => -v * 0.4);
 
   useEffect(() => {
+    setIsMounted(true);
     setIsMobileDevice(window.innerWidth < 900);
     const handleResize = () => {
       setIsMobileDevice(window.innerWidth < 900);
@@ -96,11 +99,17 @@ export default function CinematicHero() {
             transition={{ duration: 1.0, ease: 'easeInOut' }}
             style={{
               position: 'absolute', inset: 0,
-              backgroundImage: `url(${slide.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              zIndex: 0
             }}
-          />
+          >
+            <Image
+              src={slide.image}
+              alt="Caregiver Background"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              priority={i === 0}
+            />
+          </motion.div>
         );
       })}
 
@@ -268,7 +277,7 @@ export default function CinematicHero() {
         </div>
 
         {/* ── RIGHT: Floating Visual ── */}
-        {!isMobileDevice && (
+        {isMounted && !isMobileDevice && (
           <motion.div
             className="hero-right"
             initial={{ opacity: 0 }}
@@ -287,7 +296,7 @@ export default function CinematicHero() {
                 <div style={{ position: 'absolute', inset: '-24px', borderRadius: '40px', background: 'radial-gradient(circle, rgba(106,176,76,0.25) 0%, transparent 70%)', filter: 'blur(30px)' }} />
 
                 {/* Main image card */}
-                <div style={{ width: '100%', height: '100%', borderRadius: '32px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.18)', boxShadow: '0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(106,176,76,0.2)' }}>
+                <div style={{ width: '100%', height: '100%', borderRadius: '32px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.18)', boxShadow: '0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(106,176,76,0.2)', position: 'relative' }}>
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={slideIndex}
@@ -295,8 +304,16 @@ export default function CinematicHero() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.96 }}
                       transition={{ duration: 1.6, ease: 'easeInOut' }}
-                      style={{ width: '100%', height: '100%', backgroundImage: `url(${slides[slideIndex].image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                    />
+                      style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}
+                    >
+                      <Image
+                        src={slides[slideIndex].image}
+                        alt="Hero Visual"
+                        fill
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        priority
+                      />
+                    </motion.div>
                   </AnimatePresence>
                 </div>
 
