@@ -137,6 +137,7 @@ export default function Services() {
                   }}
                   className="text-raise"
                 >
+                  <span className="sr-only">Elderly Care and Nursing - </span>
                   Our Services
                 </motion.h1>
               </div>
@@ -219,7 +220,7 @@ export default function Services() {
                     <motion.img
                       variants={imageRevealVariants}
                       src={service.image}
-                      alt={service.title}
+                      alt={`Abishag Home Health - ${service.title} in Chennai`}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       className="transition-transform duration-700 ease-out group-hover:scale-110"
                     />

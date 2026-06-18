@@ -104,7 +104,7 @@ export default function CinematicHero() {
           >
             <Image
               src={slide.image}
-              alt="Caregiver Background"
+              alt={`Abishag Home Health Services and Elderly Care in Chennai - Slide ${i + 1}`}
               fill
               style={{ objectFit: 'cover', objectPosition: 'center' }}
               priority={i === 0}
@@ -148,6 +148,7 @@ export default function CinematicHero() {
               letterSpacing: '-0.02em',
             }}
           >
+            <span className="sr-only">Abishag Home Health Services and Elderly Care - </span>
             Care That Feels{' '}
             <span style={{ color: '#6AB04C', display: 'block' }}>Like Family</span>
           </motion.h1>
@@ -308,7 +309,7 @@ export default function CinematicHero() {
                     >
                       <Image
                         src={slides[slideIndex].image}
-                        alt="Hero Visual"
+                        alt="Compassionate Home Nursing and Elderly Care Professional"
                         fill
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
                         priority

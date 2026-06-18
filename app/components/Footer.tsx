@@ -49,7 +49,7 @@ export default function Footer() {
                 whileHover={{ rotate: 10, scale: 1.1 }}
                 style={{ width: '60px', height: '60px', borderRadius: '16px', overflow: 'hidden', background: '#ffffff', flexShrink: 0, boxShadow: '0 8px 20px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <Image src="/logo-transparent.webp" alt="Abishag" width={60} height={60} style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
+                <Image src="/logo-transparent.webp" alt="Abishag Home Health Services and Elderly Care in Chennai Logo" width={60} height={60} style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
               </motion.div>
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 700, color: '#ffffff' }}>

@@ -89,7 +89,7 @@ export default function Navigation() {
             >
               <Image
                 src="/logo-transparent.webp"
-                alt="Abishag Logo"
+                alt="Abishag Home Health Services and Elderly Care in Chennai Logo"
                 width={112}
                 height={112}
                 priority

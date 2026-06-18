@@ -67,9 +67,10 @@ _Please reply to this message to start the conversation._`;
             boxShadow: '0 20px 50px rgba(61,26,10,0.06)',
             border: '1px solid rgba(255, 255, 255, 0.6)'
           }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.6rem, 5vw, 4rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '20px', lineHeight: 1.1 }}>
+            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.6rem, 5vw, 4rem)', fontWeight: 700, color: '#3D1A0A', marginBottom: '20px', lineHeight: 1.1 }}>
+              <span className="sr-only">Contact Abishag Home Health Care - </span>
               Get in Touch <br /><span className="text-[#6AB04C]">With Us</span>
-            </h2>
+            </h1>
             <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.1rem', color: '#5C3D2A', marginBottom: '40px', lineHeight: 1.7, maxWidth: '500px' }}>
               We're here to help and answer any questions you might have. Whether you need immediate care or want to plan for the future, we look forward to hearing from you.
             </p>

@@ -122,6 +122,7 @@ export default function About() {
                 }}
                 className="text-raise"
               >
+                <span className="sr-only">Home Health Services - </span>
                 About Abishag
               </motion.h1>
               <motion.p 
@@ -173,7 +174,7 @@ export default function About() {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
                   src="/images/elderly-care-about.webp"
-                  alt="Compassionate elderly care"
+                  alt="Compassionate elderly home health care professionals in Chennai"
                   style={{
                     width: '100%',
                     height: 'auto',

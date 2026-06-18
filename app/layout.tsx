@@ -25,8 +25,35 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Abishag - Home Health Services",
-  description: "Abishag provides compassionate home health services and daycare for elderly individuals.",
+  metadataBase: new URL('https://abishaginternationals.com'),
+  title: {
+    default: "Abishag Home Health Services | Compassionate Elder Care in Chennai",
+    template: "%s | Abishag Home Health Services",
+  },
+  description: "Abishag provides professional, compassionate home health services, skilled nursing, and elderly daycare in Chennai. Care that feels like family.",
+  keywords: ["home health services", "elder care chennai", "home nursing services", "hospice care", "abishag internationals"],
+  openGraph: {
+    title: "Abishag Home Health Services | Compassionate Elder Care",
+    description: "Professional, compassionate home health services and skilled nursing in Chennai.",
+    url: 'https://abishaginternationals.com',
+    siteName: 'Abishag Home Health',
+    images: [
+      {
+        url: '/logo-transparent.webp',
+        width: 800,
+        height: 800,
+        alt: 'Abishag Home Health Services',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Abishag Home Health Services",
+    description: "Professional, compassionate home health services and skilled nursing in Chennai.",
+    images: ['/logo-transparent.webp'],
+  },
   icons: {
     icon: "/logo-transparent.webp",
   },
