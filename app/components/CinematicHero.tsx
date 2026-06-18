@@ -84,6 +84,8 @@ export default function CinematicHero() {
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
+      role="region"
+      aria-label="Hero banner — Abishag Home Health Services"
       style={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}
     >
       {/* ── Background Slides ── */}
@@ -324,6 +326,7 @@ export default function CinematicHero() {
                     <motion.button
                       key={i}
                       onClick={() => setSlideIndex(i)}
+                      aria-label={`Go to slide ${i + 1}`}
                       animate={{ width: i === slideIndex ? 24 : 8, background: i === slideIndex ? '#6AB04C' : 'rgba(255,255,255,0.3)' }}
                       transition={{ duration: 0.4 }}
                       style={{ height: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0 }}

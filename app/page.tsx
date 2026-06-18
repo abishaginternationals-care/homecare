@@ -453,8 +453,229 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── SECTION 4: Testimonials ── */}
+      <section className="py-24 md:py-32 plain-section-wave" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <div style={{ margin: '0 auto', width: 'fit-content' }}>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  marginBottom: '4px',
+                }}
+                className="text-raise"
+              >
+                What <span style={{ color: '#6AB04C' }}>Families</span> Say
+              </h2>
+              <AnimatedUnderline delay={0.4} />
+            </div>
+          </motion.div>
 
-      {/* â”€â”€ CTA â”€â”€ */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: 'Priya Venkatesh', relation: "Daughter of Patient", text: "Abishag's nursing team provided exceptional post-operative support for my father after his hip replacement. The nurses were punctual, skilled, and genuinely compassionate. We felt safe having them at home.", rating: 5 },
+              { name: 'Rajesh Kumar', relation: "Son of Patient", text: "The caregiver assigned to my mother was incredibly patient and kind. She helped with daily routines, medication reminders, and companionship. My mother's quality of life improved dramatically.", rating: 5 },
+              { name: 'Dr. Meenakshi S.', relation: "Referring Physician", text: "I've referred several elderly patients to Abishag for home physiotherapy and follow-up nursing. Their team communicates updates promptly and follows clinical protocols meticulously. Highly professional.", rating: 5 },
+            ].map((testimonial, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                style={{
+                  background: 'rgba(255,255,255,0.75)',
+                  backdropFilter: 'blur(14px)',
+                  borderRadius: '24px',
+                  padding: '36px 32px',
+                  border: '1px solid rgba(255,255,255,0.60)',
+                  boxShadow: '0 10px 30px rgba(61,26,10,0.07)',
+                }}
+              >
+                {/* Stars */}
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '16px' }}>
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#F4A720" stroke="none">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  ))}
+                </div>
+                <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '20px', fontStyle: 'italic' }}>
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <div>
+                  <p style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, color: '#3D1A0A', fontSize: '1rem', marginBottom: '2px' }}>
+                    {testimonial.name}
+                  </p>
+                  <p style={{ fontFamily: "'Nunito', sans-serif", color: '#8A7060', fontSize: '0.85rem' }}>
+                    {testimonial.relation}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 5: Service Locations ── */}
+      <section className="py-20 md:py-28" style={{ background: 'rgba(255,255,255,0.4)', position: 'relative' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div style={{ margin: '0 auto', width: 'fit-content' }}>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  marginBottom: '4px',
+                }}
+                className="text-raise"
+              >
+                Areas We <span style={{ color: '#6AB04C' }}>Serve</span>
+              </h2>
+              <AnimatedUnderline delay={0.4} />
+            </div>
+            <p style={{ fontFamily: "'Nunito', sans-serif", color: '#5C3D2A', fontSize: '1.05rem', marginTop: '16px', maxWidth: '600px', margin: '16px auto 0' }}>
+              Delivering trusted home wellness support across Chennai and Tamil Nadu neighborhoods.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '12px',
+            }}
+          >
+            {[
+              'Medavakam', 'Velachery', 'Tambaram', 'Sholinganallur', 'OMR',
+              'ECR', 'Adyar', 'T. Nagar', 'Anna Nagar', 'Porur',
+              'Chromepet', 'Pallikaranai', 'Perumbakkam', 'Siruseri', 'Kelambakkam',
+            ].map((location, idx) => (
+              <motion.span
+                key={location}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.04 }}
+                style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  color: '#3D1A0A',
+                  background: '#EAF5E0',
+                  padding: '10px 22px',
+                  borderRadius: '100px',
+                  border: '1px solid rgba(106,176,76,0.2)',
+                }}
+              >
+                {location}
+              </motion.span>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── SECTION 6: FAQ ── */}
+      <section id="faq" className="py-24 md:py-32 plain-section-wave" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <div style={{ margin: '0 auto', width: 'fit-content' }}>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontWeight: 700,
+                  color: '#3D1A0A',
+                  marginBottom: '4px',
+                }}
+                className="text-raise"
+              >
+                Frequently Asked <span style={{ color: '#6AB04C' }}>Questions</span>
+              </h2>
+              <AnimatedUnderline delay={0.4} />
+            </div>
+          </motion.div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { q: "What home wellness support does Abishag provide in Chennai?", a: "We deliver 15+ professional solutions across Chennai and Tamil Nadu, including skilled nursing, caregiver assistance, physiotherapy, ICU setup at home, doctor home visits, hospice and palliative support, lab sample collection, pharmacy delivery, and mental wellness counseling." },
+              { q: "Are your nurses and caregivers certified and background-verified?", a: "Yes. Every professional at Abishag is certified, background-verified, and trained regularly. Our nursing team holds valid RN/GNM qualifications and caregivers complete our proprietary program before assignment." },
+              { q: "Do you provide 24/7 emergency support?", a: "Absolutely. Our on-call nursing team and coordinators are available around the clock — 24 hours a day, 7 days a week — to respond to urgent situations and ensure your loved ones are never alone in a crisis." },
+              { q: "Which areas in Chennai and Tamil Nadu do you cover?", a: "We cover all major areas including Medavakam, Velachery, Tambaram, OMR, ECR, Adyar, T. Nagar, Anna Nagar, Chromepet, Porur, Sholinganallur, and surrounding neighborhoods. We extend to other Tamil Nadu cities upon request." },
+              { q: "How do I book a home wellness session with Abishag?", a: "Call us at +91 99401 79079, message on WhatsApp at +91 73973 90266, or fill out the contact form on our website. Our coordinator will assess your needs and match you with the right professional within 24 hours." },
+              { q: "What is the cost of home nursing?", a: "Pricing depends on the type, duration, and level of support required. We offer flexible hourly, daily, and monthly packages. Contact us for a free, no-obligation consultation and customized quote." },
+            ].map((faq, idx) => (
+              <motion.details
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.08 }}
+                style={{
+                  background: 'rgba(255,255,255,0.80)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  padding: '24px 28px',
+                  border: '1px solid rgba(255,255,255,0.60)',
+                  boxShadow: '0 4px 16px rgba(61,26,10,0.05)',
+                  cursor: 'pointer',
+                }}
+              >
+                <summary style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontWeight: 700,
+                  fontSize: '1.05rem',
+                  color: '#3D1A0A',
+                  listStyle: 'none',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                  {faq.q}
+                  <span style={{ color: '#6AB04C', fontSize: '1.4rem', flexShrink: 0, marginLeft: '12px' }}>+</span>
+                </summary>
+                <p style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  color: '#5C3D2A',
+                  fontSize: '0.95rem',
+                  lineHeight: 1.8,
+                  marginTop: '16px',
+                  paddingTop: '16px',
+                  borderTop: '1px solid #EAE5DF',
+                }}>
+                  {faq.a}
+                </p>
+              </motion.details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION: CTA ── */}
       <section className="py-10 md:py-14 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#3D1A0A] via-[#6B3020] to-[#4A8A30]" />
         
@@ -508,7 +729,7 @@ export default function Home() {
               fontWeight: 300,
             }}
           >
-            Contact us today to learn more about our services and schedule a personalized visit for your family.
+            Reach out today to explore our solutions and schedule a personalized consultation for your family.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -532,4 +753,3 @@ export default function Home() {
     </>
   );
 }
-

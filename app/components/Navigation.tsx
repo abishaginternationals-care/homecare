@@ -56,7 +56,7 @@ export default function Navigation() {
   const navHeight = scrolled ? '68px' : '84px';
 
   return (
-    <nav style={navStyle}>
+    <nav style={navStyle} aria-label="Main navigation">
       <div className="px-2 sm:px-4 lg:px-6">
         {/* Top bar */}
         <div
@@ -236,7 +236,8 @@ export default function Navigation() {
           <button
             className="md:hidden flex items-center justify-center"
             onClick={() => setMenuOpen(prev => !prev)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
             style={{
               background: 'none',
               border: 'none',

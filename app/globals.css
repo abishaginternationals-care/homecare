@@ -603,3 +603,53 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Accessibility classes remain same */
 
+/* ─────────────────────────────────
+   ACCESSIBILITY UTILITIES
+───────────────────────────────── */
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: #3D1A0A;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #6AB04C;
+  outline-offset: 2px;
+}
+
+/* Minimum touch target (44x44px) */
+button, a, [role="button"], summary {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid #6AB04C;
+  outline-offset: 2px;
+}

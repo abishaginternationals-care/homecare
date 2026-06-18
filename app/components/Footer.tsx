@@ -210,14 +210,15 @@ export default function Footer() {
             </h3>
             <div style={{ display: 'flex', gap: '16px' }}>
               {[
-                { icon: <InstagramIcon size={22} />, href: 'https://instagram.com' },
-                { icon: <XIcon size={20} />, href: 'https://x.com' }
+                { icon: <InstagramIcon size={22} />, href: 'https://instagram.com', label: 'Follow Abishag on Instagram' },
+                { icon: <XIcon size={20} />, href: 'https://x.com', label: 'Follow Abishag on X (Twitter)' }
               ].map((social, idx) => (
                 <motion.a
                   key={idx}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.label}
                   whileHover={{ y: -5, background: 'rgba(106, 176, 76, 0.2)', color: '#6AB04C' }}
                   whileTap={{ scale: 0.95 }}
                   style={{
@@ -245,9 +246,18 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5 }}
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '40px', paddingTop: '20px', textAlign: 'center' }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '40px', paddingTop: '20px', textAlign: 'center' }}
         >
-          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.3)', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Legal Links */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', marginBottom: '16px' }}>
+            <a href="/privacy" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.85rem', textDecoration: 'none', transition: 'color 0.2s' }} className="hover:text-[#6AB04C]">
+              Privacy Policy
+            </a>
+            <a href="/terms" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.6)', fontSize: '0.85rem', textDecoration: 'none', transition: 'color 0.2s' }} className="hover:text-[#6AB04C]">
+              Terms &amp; Conditions
+            </a>
+          </div>
+          <p style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(237,232,226,0.5)', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', justifyContent: 'center' }}>
             <span>© 2026 Abishag — Home Health Services. Carefully crafted for comfort.</span>
             <span style={{ fontSize: '0.8rem' }}>
               Developed by{' '}
@@ -255,6 +265,7 @@ export default function Footer() {
                 href="https://www.creinx.com/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
+                aria-label="Creinx — Website developer"
                 style={{ color: '#6AB04C', textDecoration: 'none', fontWeight: 700, transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#6AB04C'}
